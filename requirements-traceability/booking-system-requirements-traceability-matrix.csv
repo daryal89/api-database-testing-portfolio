@@ -1,0 +1,36 @@
+﻿Requirement ID,Requirement Category,Requirement Summary,Linked Test Case IDs,Coverage Status,Execution Status,Related Defect IDs,Comments
+AUTH-001,Authentication,Authenticate an authorized user with valid credentials,TC-AUTH-001,Covered,Not Run,,Valid authentication test created
+AUTH-002,Authentication,Reject invalid username or password,TC-AUTH-002,Covered,Not Run,,Invalid-password test created
+AUTH-003,Authentication,Require a username,TC-AUTH-003; TC-AUTH-005,Covered,Not Run,,Missing and blank username tests created
+AUTH-004,Authentication,Require a password,TC-AUTH-004; TC-AUTH-005,Covered,Not Run,,Missing and blank password tests created
+AUTH-005,Authentication,Return an authentication token after successful authentication,TC-AUTH-001,Covered,Not Run,,Token will be validated during API execution
+BOOK-001,Booking Creation,Require non-empty first name and last name,TC-BOOK-001; TC-BOOK-002; TC-BOOK-006,Covered,Not Run,,"Valid, missing first-name and missing last-name tests created"
+BOOK-002,Booking Creation,Require valid check-in and checkout dates,TC-BOOK-001; TC-BOOK-003,Covered,Not Run,,Valid and missing-date tests created
+BOOK-003,Booking Creation,Require checkout date after check-in date,TC-BOOK-001; TC-BOOK-004; TC-UPD-005,Covered,Not Run,,Create and update date-sequence tests created
+BOOK-004,Booking Creation,Require total price greater than zero,TC-BOOK-001; TC-BOOK-005; TC-VAL-001; TC-VAL-002,Covered,Not Run,,"Valid, zero, minimum-positive and negative price tests created"
+BOOK-005,Booking Creation,Require deposit-paid value of true or false,TC-BOOK-001,Covered,Not Run,,Valid Boolean value included
+BOOK-006,Booking Creation,Allow optional additional needs,TC-BOOK-001; TC-UPD-004,Covered,Not Run,,Creation and partial-update coverage created
+BOOK-007,Booking Creation,Return a unique booking identifier,TC-BOOK-001,Covered,Not Run,,Booking ID will be validated during execution
+BOOK-008,Booking Creation,Return submitted booking information accurately,TC-BOOK-001,Covered,Not Run,,Response fields will be compared during execution
+RET-001,Booking Retrieval,Return complete booking information for an existing booking identifier,TC-RET-001,Covered,Not Run,,Valid retrieval test created
+RET-002,Booking Retrieval,Return an appropriate not-found response for a nonexistent booking,TC-RET-002; TC-DEL-002,Covered,Not Run,,Nonexistent and deleted booking tests created
+RET-003,Booking Retrieval,Allow booking identification using supported search criteria,TC-RET-003,Covered,Not Run,,Customer-name search test created
+UPD-001,Booking Update,Permit an authenticated user to update an existing booking,TC-UPD-001; TC-UPD-004,Covered,Not Run,,Full and partial authorized updates covered
+UPD-002,Booking Update,Return and store updated booking information accurately,TC-UPD-001; TC-UPD-004; TC-UPD-005,Covered,Not Run,,Valid and invalid update behavior covered
+UPD-003,Booking Update,Reject an update request without valid authentication,TC-UPD-002,Covered,Not Run,,Unauthorized update test created
+UPD-004,Booking Update,Reject an update request for a nonexistent booking identifier,TC-UPD-003,Covered,Not Run,,Nonexistent booking update test created
+DEL-001,Booking Deletion,Permit an authenticated user to delete an existing booking,TC-DEL-001,Covered,Not Run,,Authorized deletion test created
+DEL-002,Booking Deletion,Prevent retrieval of a successfully deleted booking,TC-DEL-002,Covered,Not Run,,Post-deletion retrieval test created
+DEL-003,Booking Deletion,Reject a deletion request without valid authentication,TC-DEL-003,Covered,Not Run,,Unauthorized deletion test created
+DEL-004,Booking Deletion,Return an appropriate response when deleting a nonexistent booking,TC-DEL-004,Covered,Not Run,,Nonexistent deletion test created
+DATA-001,Database and Data Quality,Store every successfully created booking in the database,Planned for SQL testing,Planned,Not Run,,Database validation begins on Day 4
+DATA-002,Database and Data Quality,Ensure API booking data matches the corresponding database record,Planned for API and SQL testing,Planned,Not Run,,Requires API and database comparison
+DATA-003,Database and Data Quality,Store a unique identifier for every booking,TC-BOOK-001; Planned SQL validation,Partially Covered,Not Run,,API ID test created; database uniqueness test pending
+DATA-004,Database and Data Quality,Connect every booking to a valid customer record,Planned for SQL testing,Planned,Not Run,,Foreign-key validation pending
+DATA-005,Database and Data Quality,Prevent null values in required database fields,Planned for SQL testing,Planned,Not Run,,Null-validation queries pending
+DATA-006,Database and Data Quality,Store checkout dates later than check-in dates,TC-BOOK-004; TC-UPD-005; Planned SQL validation,Partially Covered,Not Run,,API cases created; database validation pending
+DATA-007,Database and Data Quality,Store a total booking price greater than zero,TC-BOOK-005; TC-VAL-001; TC-VAL-002; Planned SQL validation,Partially Covered,Not Run,,API cases created; database validation pending
+DATA-008,Database and Data Quality,Remove or deactivate a booking after successful deletion,TC-DEL-001; TC-DEL-002; Planned SQL validation,Partially Covered,Not Run,,API cases created; database validation pending
+NFR-001,Nonfunctional,Return normal API responses within two seconds in the portfolio environment,Planned Postman response-time assertions,Planned,Not Run,,Response-time checks begin on Day 5
+NFR-002,Nonfunctional,Return clear status and error information for invalid requests,Negative API test cases,Partially Covered,Not Run,,Error response assertions begin on Day 5
+NFR-003,Security and Privacy,"Prevent exposure of passwords, tokens and sensitive information in public files",Repository review and credential placeholders,Partially Covered,Not Run,,Ongoing process control; secret scanning to be added later
