@@ -13,7 +13,7 @@ The Excel workbook contains:
 - Requirements worksheet
 - Test_Data worksheet
 - Status and priority dropdowns
-- The initial set of 10 manual test cases
+- 25 detailed manual test cases
 
 ### booking-system-test-cases.csv
 
@@ -22,36 +22,58 @@ worksheet.
 
 ## Current Test Coverage
 
-The initial test cases cover:
+The 25 test cases cover:
+
+### Authentication
 
 - Valid authentication
 - Invalid password
 - Missing username
 - Missing password
-- Blank authentication information
+- Blank credentials
+
+### Booking Creation and Validation
+
 - Valid booking creation
 - Missing first name
+- Missing last name
 - Missing booking dates
-- Invalid booking-date sequence
-- Zero total price
+- Checkout date before check-in date
+- Total price of zero
+- Minimum positive total price
+- Negative total price
+
+### Booking Retrieval
+
+- Retrieve an existing booking
+- Retrieve a nonexistent booking
+- Search using supported customer-name criteria
+
+### Booking Update
+
+- Authorized full update
+- Unauthorized update
+- Update a nonexistent booking
+- Authorized partial update
+- Invalid date sequence during update
+
+### Booking Deletion
+
+- Authorized deletion
+- Retrieve a deleted booking
+- Unauthorized deletion
+- Delete a nonexistent booking
 
 ## Test Execution Status
 
-All current test cases are marked:
-
-**Not Run**
+| Metric | Current Value |
+|---|---:|
+| Test cases created | 25 |
+| Test cases executed | 0 |
+| Passed | 0 |
+| Failed | 0 |
+| Blocked | 0 |
+| Not Run | 25 |
 
 Actual results and Pass or Fail status will be entered only after the
-tests are executed against the selected demonstration API.
-
-## Planned Additional Coverage
-
-Future test cases will cover:
-
-- Booking retrieval
-- Booking update
-- Booking deletion
-- Unauthorized operations
-- Nonexistent booking identifiers
-- Additional boundary conditions
-- API and database data consistency
+test cases are executed against the demonstration API.
