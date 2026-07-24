@@ -1,18 +1,42 @@
 # Defect Reports
 
-This folder contains professionally documented sample defects identified
-during project testing.
+This folder contains the defect-reporting template and clearly labeled
+portfolio defect-report drafts.
 
-Each defect report will include:
+## Current Files
 
-- Defect ID
-- Defect title
-- Environment
-- Preconditions
-- Steps to reproduce
-- Expected result
-- Actual result
-- Severity
-- Priority
-- Status
-- Supporting evidence
+### booking-system-defect-report-drafts.xlsx
+
+Contains three defect-report drafts demonstrating professional defect
+documentation.
+
+### booking-system-defect-report-drafts.csv
+
+Provides a GitHub-previewable version of the draft reports.
+
+## Important Validation Notice
+
+The current entries are hypothetical portfolio examples.
+
+They are marked:
+
+**Draft—Pending Validation**
+
+They must not be presented as defects observed in the demonstration API
+until the related tests are executed and the behavior is reproduced.
+
+## Draft Scenarios
+
+1. Checkout date earlier than check-in date may be accepted
+2. Booking update may be accepted without authentication
+3. Deleted booking may remain retrievable
+
+## Required Action After Test Execution
+
+Each draft will be:
+
+- Confirmed and converted into an actual defect report
+- Updated with actual results and evidence
+- Or discarded when the system behaves correctly
+
+No actual application defect is currently claimed.
