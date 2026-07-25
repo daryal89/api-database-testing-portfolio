@@ -213,11 +213,19 @@ api-database-testing-portfolio/
 ├── postman/
 │   └── README.md
 ├── sql/
-│   └── README.md
+│   ├── README.md
+│   ├── 01_create_schema.sql
+│   ├── 02_seed_test_data.sql
+│   ├── 03_validation_queries.sql
+│   ├── 04_validation_summary.sql
+│   └── 05_constraint_negative_tests.sql
 ├── reports/
-│   └── README.md
+│   ├── README.md
+│   ├── day4-database-validation-summary.csv
+│   └── day4-database-validation-execution.md
 └── screenshots/
-    └── README.md
+    ├── README.md
+    └── Day 4 execution screenshots
 ```
 
 ## Planned Deliverables
@@ -261,21 +269,37 @@ The completed project will include:
 - [x] Three clearly labeled defect-report drafts
 - [x] GitHub-previewable defect-report CSV
 - [x] Folder-level README documentation
+- [x] Local PostgreSQL database
+- [x] `booking_test_db` database
+- [x] `booking_portfolio` schema
+- [x] Customers, bookings and payments tables
+- [x] Customer and booking staging tables
+- [x] Primary-key and foreign-key controls
+- [x] Required-field and business-rule constraints
+- [x] Synthetic production-style test records
+- [x] Controlled staging data-quality anomalies
+- [x] 18 SQL validation and analysis queries
+- [x] 12 automated database-validation summary checks
+- [x] Six database-constraint negative tests
+- [x] Database-validation execution report
+- [x] SQL execution screenshots
+- [x] Updated database-requirement traceability
 - [x] Data-security and credential-handling rules
 
 ### In Progress
 
-- [ ] Actual manual test execution
+- [ ] Actual manual and API test execution
 - [ ] Validation of defect-report drafts
 - [ ] Postman API collection
+- [ ] Postman environment template
 - [ ] API response assertions
 - [ ] API response-time validation
-- [ ] PostgreSQL schema
-- [ ] Synthetic database records
-- [ ] SQL validation queries
-- [ ] API-to-database comparison
-- [ ] Test-execution report
-- [ ] Supporting execution screenshots
+- [ ] Authentication-token workflow
+- [ ] Booking CRUD API execution
+- [ ] Direct API-to-database comparison
+- [ ] Database verification after API deletion
+- [ ] Final test-execution report
+- [ ] API execution screenshots
 
 ## Day 1 Deliverables
 
@@ -385,6 +409,68 @@ All test cases remain in **Not Run** status.
 
 The defect reports remain **Draft—Pending Validation** and do not claim
 that actual defects have been observed.
+
+## Day 4 Deliverables
+
+Day 4 established the local PostgreSQL database-testing and data-quality
+foundation for the project.
+
+Files added:
+
+```text
+sql/01_create_schema.sql
+sql/02_seed_test_data.sql
+sql/03_validation_queries.sql
+sql/04_validation_summary.sql
+sql/05_constraint_negative_tests.sql
+reports/day4-database-validation-summary.csv
+reports/day4-database-validation-execution.md
+```
+
+Day 4 accomplishments include:
+
+- Installed or verified PostgreSQL and pgAdmin
+- Created the `booking_test_db` database
+- Created the `booking_portfolio` schema
+- Created the `customers` table
+- Created the `bookings` table
+- Created the `payments` table
+- Created customer and booking staging tables
+- Added primary-key controls
+- Added foreign-key controls
+- Added required-field controls
+- Added case-insensitive unique-email controls
+- Added booking-date validation
+- Added positive-price validation
+- Added booking-status and payment-status validation
+- Inserted 10 valid synthetic customers
+- Inserted 15 valid synthetic bookings
+- Inserted 10 valid synthetic payments
+- Added controlled staging anomalies
+- Created 18 SQL validation and analysis queries
+- Created 12 automated validation-summary checks
+- Executed six database-constraint negative tests
+- Updated database requirements in the Requirements Traceability Matrix
+- Added database execution evidence
+
+### Day 4 Validation Results
+
+| Metric | Result |
+|---|---:|
+| SQL validation and analysis queries created | 18 |
+| Automated summary checks executed | 12 |
+| Automated summary checks passed | 12 |
+| Automated summary checks failed | 0 |
+| Constraint negative tests executed | 6 |
+| Constraint negative tests passed | 6 |
+| Constraint negative tests failed | 0 |
+| Production integrity failures identified | 0 |
+
+The local database is a portfolio testing environment and is not the
+database used by the public demonstration booking API.
+
+Direct API-to-database comparison and database verification after an API
+deletion therefore remain pending.
 
 ## Current Test Coverage
 
@@ -536,16 +622,27 @@ Additional coverage will be added through:
 
 ### Current Coverage Summary
 
-| Test Area | Test Cases | Coverage Status | Execution Status |
+| Test Area | Test Assets | Coverage Status | Execution Status |
 |---|---:|---|---|
-| Authentication | 5 | Covered | Not Run |
-| Booking Creation and Validation | 8 | Covered | Not Run |
-| Booking Retrieval | 3 | Covered | Not Run |
-| Booking Update | 5 | Covered | Not Run |
-| Booking Deletion | 4 | Covered | Not Run |
-| Database Validation | 0 | Planned | Not Run |
-| Nonfunctional API Validation | 0 | Planned | Not Run |
-| **Total Manual Test Cases** | **25** | **Functional coverage established** | **Not Run** |
+| Authentication | 5 manual/API test cases | Covered | Not Run |
+| Booking Creation and Validation | 8 manual/API test cases | Covered | Not Run |
+| Booking Retrieval | 3 manual/API test cases | Covered | Not Run |
+| Booking Update | 5 manual/API test cases | Covered | Not Run |
+| Booking Deletion | 4 manual/API test cases | Covered | Not Run |
+| Local Database Validation | 18 SQL queries | Initial local validation complete | Executed |
+| Automated Database Summary | 12 checks | Covered | Passed |
+| Database Constraint Testing | 6 negative tests | Covered | Passed |
+| Nonfunctional API Validation | Planned Postman assertions | Planned | Not Run |
+| **Total Manual/API Test Cases** | **25** | **Functional coverage established** | **Not Run** |
+
+The local PostgreSQL validation has been executed successfully.
+
+The 25 manual and API test cases remain in **Not Run** status because
+Postman execution has not started.
+
+The local database is not connected to the public demonstration booking
+API. Therefore, local database success does not represent direct
+API-to-database validation.
 
 ## Requirements Traceability
 
@@ -614,6 +711,8 @@ defect-reports/booking-system-defect-report-drafts.csv
 
 ## Test-Execution Status
 
+### Manual and API Test Cases
+
 | Metric | Current Value |
 |---|---:|
 | Test cases created | 25 |
@@ -622,17 +721,31 @@ defect-reports/booking-system-defect-report-drafts.csv
 | Failed | 0 |
 | Blocked | 0 |
 | Not Run | 25 |
-| Confirmed defects | 0 |
+| Confirmed API defects | 0 |
 | Defect drafts pending validation | 3 |
 
-All test cases currently remain in **Not Run** status.
+### Local Database Validation
 
-Actual Results fields remain blank.
+| Metric | Current Value |
+|---|---:|
+| SQL validation and analysis queries created | 18 |
+| Automated summary checks executed | 12 |
+| Automated summary checks passed | 12 |
+| Automated summary checks failed | 0 |
+| Constraint negative tests executed | 6 |
+| Constraint negative tests passed | 6 |
+| Constraint negative tests failed | 0 |
+| Production integrity failures identified | 0 |
 
-No Pass or Fail statuses have been assigned.
+The local PostgreSQL checks have been executed.
 
-No execution results, screenshots or confirmed defects have been
-invented or assumed.
+The 25 manual and API test cases remain in **Not Run** status because
+Postman API execution has not begun.
+
+The three defect reports remain hypothetical drafts pending validation.
+
+No API execution results or confirmed API defects have been invented or
+assumed.
 
 ## Test Data
 
