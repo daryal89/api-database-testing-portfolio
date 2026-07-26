@@ -1,0 +1,30 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+
+# Local or private Postman environments
+postman/*local*.postman_environment.json
+postman/*private*.postman_environment.json
+postman/secrets/
+
+# Microsoft Office temporary files
+~$*.xlsx
+~$*.docx
+~$*.pptx
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Editor settings
+.vscode/
+.idea/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
