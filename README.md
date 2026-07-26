@@ -842,3 +842,7 @@ The next project activities are:
 **Dhruba Aryal**
 
 QA Automation, API Testing and Database Testing Portfolio
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
