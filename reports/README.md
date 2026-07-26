@@ -1,14 +1,45 @@
 # Test Reports
 
-This folder will contain test-execution summaries and project quality
-reports.
+This folder contains database-validation results and will later contain
+the combined API and database test-execution report.
 
-Reports will document:
+## Current Files
 
-- Total test cases
-- Passed tests
-- Failed tests
-- Blocked tests
-- Defects by severity
-- Testing limitations
-- Overall quality assessment
+### day4-database-validation-summary.csv
+
+Contains the automated PostgreSQL validation results, including:
+
+- Validation metric
+- Expected count
+- Actual count
+- PASS or FAIL result
+
+### day4-database-validation-execution.md
+
+Documents:
+
+- Database environment
+- Tables created
+- Synthetic test-data counts
+- SQL validation coverage
+- Constraint negative-test results
+- Requirements coverage
+- Project limitations
+- Execution evidence
+- Final Day 4 result
+
+## Current Results
+
+| Metric | Result |
+|---|---:|
+| SQL validation and analysis queries | 19 |
+| Automated summary checks executed | 13 |
+| Automated summary checks passed | 13 |
+| Constraint negative tests executed | 6 |
+| Constraint negative tests passed | 6 |
+
+The results apply only to the locally created PostgreSQL portfolio
+database.
+
+The 25 manual and API test cases remain **Not Run** pending Postman
+execution.
