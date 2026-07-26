@@ -8,13 +8,13 @@ Traceability Matrix for the sample booking system.
 ### booking-system-requirements.md
 
 Defines the assumed functional, database, data-quality and
-nonfunctional requirements used by this portfolio project.
+nonfunctional requirements used by the portfolio project.
 
 ### booking-system-requirements-traceability-matrix.xlsx
 
 The Excel matrix connects each requirement to:
 
-- Related test cases
+- Related test cases or SQL checks
 - Coverage status
 - Execution status
 - Related defects
@@ -22,22 +22,41 @@ The Excel matrix connects each requirement to:
 
 ### booking-system-requirements-traceability-matrix.csv
 
-The CSV file provides a GitHub-previewable version of the traceability
-matrix.
+Provides a GitHub-previewable version of the traceability matrix.
 
-## Current Coverage Summary
+## Functional Requirements
 
-Requirements related to authentication, booking creation, retrieval,
-update and deletion have manual test-case coverage.
+The following requirement groups have manual test-case coverage:
 
-Database and nonfunctional requirements are currently marked as:
+- Authentication
+- Booking creation
+- Booking retrieval
+- Booking update
+- Booking deletion
 
-- Planned
-- Partially Covered
+The related manual and API test cases remain **Not Run** pending Postman
+execution.
 
-These requirements will receive additional coverage during SQL and
-Postman testing.
+## Database Requirements
 
-## Execution Status
+The Day 4 local PostgreSQL work produced the following status:
 
-All linked test cases currently remain **Not Run**.
+| Requirement | Coverage Status | Execution Status |
+|---|---|---|
+| DATA-001 | Partially Covered | Pass |
+| DATA-002 | Planned | Not Run |
+| DATA-003 | Covered | Pass |
+| DATA-004 | Covered | Pass |
+| DATA-005 | Covered | Pass |
+| DATA-006 | Covered | Pass |
+| DATA-007 | Covered | Pass |
+| DATA-008 | Planned | Not Run |
+
+`DATA-002` and `DATA-008` remain pending because the local database is
+not the database behind the public demonstration API.
+
+## Nonfunctional Requirements
+
+The nonfunctional API requirements remain planned or partially covered.
+They will receive additional coverage during Postman execution and
+repository-security review.
