@@ -81,6 +81,7 @@ The SQL validation suite includes:
 - Unknown-customer detection
 - Booking-status aggregation
 - Customer booking-value ranking
+- Staging invalid booking status
 
 ## Automated Validation Summary
 
@@ -98,6 +99,7 @@ The SQL validation suite includes:
 | Staging invalid booking-date rows | 2 | 2 | PASS |
 | Staging nonpositive-price rows | 2 | 2 | PASS |
 | Staging unknown-customer rows | 1 | 1 | PASS |
+| Staging invalid or missing booking-status rows | 1 | 1 | PASS |
 
 ## Constraint Negative-Test Results
 
@@ -162,6 +164,7 @@ The following execution evidence was captured during Day 4:
 
 ```text
 day4-01-postgresql-connection.png
+day4-01-2-postgresql-connection.png
 day4-02-database-tables.png
 day4-03-production-row-counts.png
 day4-04-bookings-without-payments.png
@@ -170,8 +173,12 @@ day4-06-staging-duplicate-emails.png
 day4-07-staging-invalid-dates.png
 day4-08-staging-invalid-prices.png
 day4-09-customer-ranking.png
-day4-10-validation-summary.png
-day4-11-constraint-negative-tests.png
+day4-10-expected-row-counts.png
+day4-11-bookings-rows-count.png
+day4-12-customer-without-booking.png
+day4-13-validation-summary.png
+day4-14-constraint-negative-tests.png
+day4-15-staging-invalid-booking-status.png
 ```
 
 ## Final Result
