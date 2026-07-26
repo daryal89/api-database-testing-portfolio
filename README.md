@@ -2,12 +2,18 @@
 
 ## Project Overview
 
-This project demonstrates professional manual software testing, REST API
-testing and SQL database validation for a sample online booking system.
+This project currently demonstrates professional requirement analysis,
+manual test design, requirements traceability, defect-documentation
+planning and executed PostgreSQL database validation for a sample
+online booking system.
+
+REST API testing with Postman is the next project phase and remains in
+progress.
 
 The purpose of the project is to show how a quality assurance
 professional can analyze requirements, design test cases, document
-defects, verify API behavior and validate stored database information.
+potential defects, validate database information and prepare structured
+API testing workflows.
 
 The project is being developed in phases so that each testing activity
 is documented clearly and can be reviewed directly through GitHub.
@@ -58,7 +64,7 @@ The objectives of this project are to:
 9. Compare API information with database information
 10. Document test-execution results accurately
 11. Demonstrate responsible credential and test-data handling
-12. Build a recruiter-friendly quality assurance portfolio
+13. Build a recruiter-friendly quality assurance portfolio
 
 ## Testing Scope
 
@@ -116,7 +122,7 @@ The project follows a structured testing process:
 9. Compare API and database results
 10. Record actual results and test status
 11. Confirm or discard defect-report drafts
-12. Prepare a final test-execution report
+13. Prepare a final test-execution report
 
 ## Skills Demonstrated
 
@@ -139,7 +145,9 @@ The project follows a structured testing process:
 - Requirements traceability
 - Test-execution reporting
 
-### API Testing
+### API Testing Scope — Planned for Day 5
+The following API-testing capabilities will be demonstrated during the
+Postman execution phase:
 
 - REST API testing
 - HTTP methods
@@ -163,7 +171,6 @@ The project follows a structured testing process:
 - Primary-key validation
 - Foreign-key validation
 - Data reconciliation
-- API-to-database comparison
 
 ### Documentation and Tools
 
@@ -278,8 +285,8 @@ The completed project will include:
 - [x] Required-field and business-rule constraints
 - [x] Synthetic production-style test records
 - [x] Controlled staging data-quality anomalies
-- [x] 18 SQL validation and analysis queries
-- [x] 12 automated database-validation summary checks
+- [x] 19 SQL validation and analysis queries
+- [x] 13 automated database-validation summary checks
 - [x] Six database-constraint negative tests
 - [x] Database-validation execution report
 - [x] SQL execution screenshots
@@ -447,8 +454,8 @@ Day 4 accomplishments include:
 - Inserted 15 valid synthetic bookings
 - Inserted 10 valid synthetic payments
 - Added controlled staging anomalies
-- Created 18 SQL validation and analysis queries
-- Created 12 automated validation-summary checks
+- Created 19 SQL validation and analysis queries
+- Created 13 automated validation-summary checks
 - Executed six database-constraint negative tests
 - Updated database requirements in the Requirements Traceability Matrix
 - Added database execution evidence
@@ -457,9 +464,9 @@ Day 4 accomplishments include:
 
 | Metric | Result |
 |---|---:|
-| SQL validation and analysis queries created | 18 |
-| Automated summary checks executed | 12 |
-| Automated summary checks passed | 12 |
+| SQL validation and analysis queries created | 19 |
+| Automated summary checks executed | 13 |
+| Automated summary checks passed | 13 |
 | Automated summary checks failed | 0 |
 | Constraint negative tests executed | 6 |
 | Constraint negative tests passed | 6 |
@@ -608,17 +615,30 @@ The current manual test cases provide coverage for:
 - Booking-update requirements
 - Booking-deletion requirements
 
-Database and nonfunctional requirements are currently either
-**Planned** or **Partially Covered**.
+Local PostgreSQL testing has provided executed coverage for several
+database and data-quality requirements.
 
-Additional coverage will be added through:
+Current database-requirement status:
 
-- Postman API assertions
+- `DATA-001` — Partially Covered / Pass
+- `DATA-002` — Planned / Not Run
+- `DATA-003` — Covered / Pass
+- `DATA-004` — Covered / Pass
+- `DATA-005` — Covered / Pass
+- `DATA-006` — Covered / Pass
+- `DATA-007` — Covered / Pass
+- `DATA-008` — Planned / Not Run
+
+`DATA-002` and `DATA-008` remain pending because the local PostgreSQL
+database is not connected to the public demonstration API.
+
+Additional nonfunctional coverage will be added through:
+
+- Postman response assertions
 - API response-time validation
-- PostgreSQL database testing
-- SQL data-validation queries
-- API-to-database comparison
-- Credential-exposure checks
+- Negative API testing
+- Error-response validation
+- Repository credential-exposure checks
 
 ### Current Coverage Summary
 
@@ -629,8 +649,8 @@ Additional coverage will be added through:
 | Booking Retrieval | 3 manual/API test cases | Covered | Not Run |
 | Booking Update | 5 manual/API test cases | Covered | Not Run |
 | Booking Deletion | 4 manual/API test cases | Covered | Not Run |
-| Local Database Validation | 18 SQL queries | Initial local validation complete | Executed |
-| Automated Database Summary | 12 checks | Covered | Passed |
+| Local Database Validation | 19 SQL queries | Initial local validation complete | Executed |
+| Automated Database Summary | 13 checks | Covered | Passed |
 | Database Constraint Testing | 6 negative tests | Covered | Passed |
 | Nonfunctional API Validation | Planned Postman assertions | Planned | Not Run |
 | **Total Manual/API Test Cases** | **25** | **Functional coverage established** | **Not Run** |
@@ -728,9 +748,9 @@ defect-reports/booking-system-defect-report-drafts.csv
 
 | Metric | Current Value |
 |---|---:|
-| SQL validation and analysis queries created | 18 |
-| Automated summary checks executed | 12 |
-| Automated summary checks passed | 12 |
+| SQL validation and analysis queries created | 19 |
+| Automated summary checks executed | 13 |
+| Automated summary checks passed | 13 |
 | Automated summary checks failed | 0 |
 | Constraint negative tests executed | 6 |
 | Constraint negative tests passed | 6 |
@@ -818,24 +838,33 @@ behavior will be documented honestly as:
 
 ## Next Planned Activities
 
-The next project activities are:
+The next project phase will focus on REST API testing with Postman.
 
-1. Install or verify PostgreSQL
-2. Install or verify DBeaver or pgAdmin
-3. Create the `booking_test_db` database
-4. Create customer, booking and payment tables
-5. Insert synthetic database records
-6. Write SQL validation queries
-7. Validate null values and duplicate records
-8. Validate primary and foreign keys
-9. Validate booking dates and prices
-10. Create the Postman API collection
-11. Add API response assertions
-12. Execute the 25 test cases
-13. Update Actual Result and Status fields
-14. Confirm or discard the defect-report drafts
-15. Add supporting screenshots
-16. Prepare the final test-execution report
+Planned activities are:
+
+1. Install or verify Postman
+2. Select and document the demonstration booking API
+3. Create the Postman workspace and collection
+4. Create collection variables
+5. Create a sanitized Postman environment template
+6. Create the authentication-token workflow
+7. Create booking creation, retrieval and search requests
+8. Create full-update and partial-update requests
+9. Create booking-deletion requests
+10. Add positive API assertions
+11. Add negative API assertions
+12. Add status-code assertions
+13. Add response-body assertions
+14. Add response-time assertions
+15. Execute the applicable manual and API test cases
+16. Record Actual Result and Pass or Fail status
+17. Confirm, revise or discard the defect-report drafts
+18. Export a sanitized Postman collection
+19. Add API execution screenshots
+20. Prepare the combined test-execution report
+
+Direct API-to-database comparison will remain out of scope unless the
+selected API provides authorized access to its underlying database.
 
 ## Author
 
