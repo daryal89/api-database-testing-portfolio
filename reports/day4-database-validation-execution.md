@@ -187,9 +187,9 @@ The Day 4 local database-validation activity was completed successfully.
 
 | Metric | Result |
 |---|---:|
-| SQL validation and analysis queries created | 18 |
-| Automated validation-summary checks executed | 12 |
-| Automated validation-summary checks passed | 12 |
+| SQL validation and analysis queries created | 19 |
+| Automated validation-summary checks executed | 13 |
+| Automated validation-summary checks passed | 13 |
 | Automated validation-summary checks failed | 0 |
 | Constraint negative tests executed | 6 |
 | Constraint negative tests passed | 6 |
