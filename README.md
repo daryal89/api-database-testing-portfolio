@@ -861,24 +861,24 @@ Planned activities are:
 4. Create collection variables
 5. Create a sanitized Postman environment template
 6. Create the authentication-token workflow
-7. Create booking creation, retrieval and search requests
-8. Create full-update and partial-update requests
-9. Create booking-deletion requests
-10. Add positive API assertions
-11. Add negative API assertions
-12. Add status-code assertions
-13. Add response-body assertions
-14. Add response-time assertions
-15. Execute the applicable manual and API test cases
-16. Record Actual Result and Pass or Fail status
-17. Confirm, revise or discard the defect-report drafts
-18. Export a sanitized Postman collection
-19. Add API execution screenshots
-20. Prepare the combined test-execution report
+7. Create booking-creation requests
+8. Create booking-retrieval and search requests
+9. Create full-update and partial-update requests
+10. Create booking-deletion requests
+11. Add positive API assertions
+12. Add negative API assertions
+13. Add status-code assertions
+14. Add response-body assertions
+15. Add response-time assertions
+16. Execute the applicable manual and API test cases
+17. Record Actual Result and Pass or Fail status
+18. Confirm, revise or discard the defect-report drafts
+19. Export a sanitized Postman collection
+20. Add API execution screenshots
+21. Prepare the combined test-execution report
 
 Direct API-to-database comparison will remain out of scope unless the
 selected API provides authorized access to its underlying database.
-
 ## Author
 
 **Dhruba Aryal**
