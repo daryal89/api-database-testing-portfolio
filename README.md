@@ -18,6 +18,19 @@ API testing workflows.
 The project is being developed in phases so that each testing activity
 is documented clearly and can be reviewed directly through GitHub.
 
+## Quick Links
+
+- [Software Test Plan](test-plan/booking-system-test-plan.md)
+- [Manual Test Cases — CSV](test-cases/booking-system-test-cases.csv)
+- [Requirements Baseline](requirements-traceability/booking-system-requirements.md)
+- [Requirements Traceability Matrix — CSV](requirements-traceability/booking-system-requirements-traceability-matrix.csv)
+- [SQL Database Testing Documentation](sql/README.md)
+- [SQL Validation Queries](sql/03_validation_queries.sql)
+- [Automated Database Validation Summary](reports/day4-database-validation-summary.csv)
+- [Day 4 Database Execution Report](reports/day4-database-validation-execution.md)
+- [Defect-Report Drafts — CSV](defect-reports/booking-system-defect-report-drafts.csv)
+- [Execution Screenshots](screenshots/README.md)
+
 ## Business Scenario
 
 The sample online booking system allows users to:
