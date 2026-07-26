@@ -199,6 +199,24 @@ validation_metrics AS (
                 ON k.normalized_email = LOWER(s.customer_email)
             WHERE k.normalized_email IS NULL
         )
+
+    UNION ALL
+
+    SELECT
+        13,
+        'Staging invalid or missing booking-status rows',
+        1::BIGINT,
+        (
+            SELECT COUNT(*)
+            FROM staging_booking_import
+            WHERE booking_status IS NULL
+               OR BTRIM(booking_status) = ''
+               OR booking_status NOT IN (
+                    'CONFIRMED',
+                    'COMPLETED',
+                    'CANCELLED'
+               )
+        )
 )
 SELECT
     validation_metric,
