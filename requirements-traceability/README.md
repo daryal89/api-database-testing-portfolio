@@ -14,7 +14,8 @@ nonfunctional requirements used by the portfolio project.
 
 The Excel matrix connects each requirement to:
 
-- Related test cases or SQL checks
+- Related manual test cases
+- Related SQL validation checks
 - Coverage status
 - Execution status
 - Related defects
@@ -26,7 +27,8 @@ Provides a GitHub-previewable version of the traceability matrix.
 
 ## Functional Requirements
 
-The following requirement groups have manual test-case coverage:
+The following functional requirement groups have manual test-case
+coverage:
 
 - Authentication
 - Booking creation
@@ -39,8 +41,6 @@ execution.
 
 ## Database Requirements
 
-The Day 4 local PostgreSQL work produced the following status:
-
 | Requirement | Coverage Status | Execution Status |
 |---|---|---|
 | DATA-001 | Partially Covered | Pass |
@@ -52,11 +52,11 @@ The Day 4 local PostgreSQL work produced the following status:
 | DATA-007 | Covered | Pass |
 | DATA-008 | Planned | Not Run |
 
-`DATA-002` and `DATA-008` remain pending because the local database is
-not the database behind the public demonstration API.
+`DATA-002` and `DATA-008` remain pending because the local PostgreSQL
+database is not the database behind the public demonstration API.
 
 ## Nonfunctional Requirements
 
 The nonfunctional API requirements remain planned or partially covered.
-They will receive additional coverage during Postman execution and
+Additional validation will be performed during Postman execution and
 repository-security review.
