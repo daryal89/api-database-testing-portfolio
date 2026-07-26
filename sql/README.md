@@ -85,7 +85,7 @@ Inserts:
 
 ### 03_validation_queries.sql
 
-Contains 18 SQL validation and analysis queries covering:
+Contains 19 SQL validation and analysis queries covering:
 
 - Record counts
 - Complete booking and payment details
@@ -105,10 +105,11 @@ Contains 18 SQL validation and analysis queries covering:
 - Unknown-customer detection
 - Booking-status summaries
 - Customer-value ranking
+- Missing or unsupported staging booking-status detection
 
 ### 04_validation_summary.sql
 
-Produces a consolidated 12-row validation report containing:
+Produces a consolidated 13-row validation report containing:
 
 - Validation metric
 - Expected count
@@ -152,8 +153,8 @@ The automated validation summary produced:
 
 | Metric | Result |
 |---|---:|
-| Validation-summary checks executed | 12 |
-| Validation-summary checks passed | 12 |
+| Validation-summary checks executed | 13 |
+| Validation-summary checks passed | 13 |
 | Validation-summary checks failed | 0 |
 
 The database-constraint test suite produced:
