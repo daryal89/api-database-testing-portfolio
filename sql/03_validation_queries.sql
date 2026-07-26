@@ -382,3 +382,26 @@ SELECT
     total_booking_value
 FROM customer_booking_totals
 ORDER BY customer_rank, customer_id;
+
+
+-- =========================================================
+-- SQL-VAL-19
+-- Detect missing or unsupported booking-status values in
+-- staging booking data.
+-- Expected: one row
+-- =========================================================
+
+SELECT
+    source_row_number,
+    customer_email,
+    booking_status,
+    source_system
+FROM staging_booking_import
+WHERE booking_status IS NULL
+   OR BTRIM(booking_status) = ''
+   OR booking_status NOT IN (
+        'CONFIRMED',
+        'COMPLETED',
+        'CANCELLED'
+   )
+ORDER BY source_row_number;
