@@ -1,0 +1,1038 @@
+{
+  "id": "<REDACTED>",
+  "name": "Restful Booker API Testing Portfolio",
+  "timestamp": "2026-07-30T18:33:10.050Z",
+  "collection_id": "<REDACTED>",
+  "folder_id": 0,
+  "environment_id": "<REDACTED>",
+  "totalPass": 51,
+  "delay": 0,
+  "persist": true,
+  "status": "finished",
+  "startedAt": "2026-07-30T18:33:07.595Z",
+  "totalFail": 10,
+  "results": [
+    {
+      "id": "request-001",
+      "name": "HEALTH-001 - Verify API health",
+      "url": "https://restful-booker.herokuapp.com/ping",
+      "time": 41,
+      "responseCode": {
+        "code": 201,
+        "name": "Created"
+      },
+      "tests": {
+        "HEALTH-001 - Status code is 201": true,
+        "NFR-001 - Response time is within configured limit": true
+      },
+      "testPassFailCounts": {
+        "HEALTH-001 - Status code is 201": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Response time is within configured limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        41
+      ],
+      "allTests": [
+        {
+          "HEALTH-001 - Status code is 201": true,
+          "NFR-001 - Response time is within configured limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-002",
+      "name": "TC-AUTH-001 - Valid authentication",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "time": 22,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-AUTH-001 - Status code is 200": true,
+        "TC-AUTH-001 - Authentication token is returned": true,
+        "NFR-001 - Authentication response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-AUTH-001 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-001 - Authentication token is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Authentication response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        22
+      ],
+      "allTests": [
+        {
+          "TC-AUTH-001 - Status code is 200": true,
+          "TC-AUTH-001 - Authentication token is returned": true,
+          "NFR-001 - Authentication response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-003",
+      "name": "TC-AUTH-002 - Invalid password",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "time": 25,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-AUTH-002 - Status code is 200 for bad-credentials response": true,
+        "TC-AUTH-002 - No token is returned": true,
+        "TC-AUTH-002 - Bad credentials reason is returned": true
+      },
+      "testPassFailCounts": {
+        "TC-AUTH-002 - Status code is 200 for bad-credentials response": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-002 - No token is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-002 - Bad credentials reason is returned": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        25
+      ],
+      "allTests": [
+        {
+          "TC-AUTH-002 - Status code is 200 for bad-credentials response": true,
+          "TC-AUTH-002 - No token is returned": true,
+          "TC-AUTH-002 - Bad credentials reason is returned": true
+        }
+      ]
+    },
+    {
+      "id": "request-004",
+      "name": "TC-AUTH-003 - Missing username",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "time": 25,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-AUTH-003 - Status code is 200 for bad-credentials response": true,
+        "TC-AUTH-003 - No token is returned": true,
+        "TC-AUTH-003 - Bad credentials reason is returned": true
+      },
+      "testPassFailCounts": {
+        "TC-AUTH-003 - Status code is 200 for bad-credentials response": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-003 - No token is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-003 - Bad credentials reason is returned": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        25
+      ],
+      "allTests": [
+        {
+          "TC-AUTH-003 - Status code is 200 for bad-credentials response": true,
+          "TC-AUTH-003 - No token is returned": true,
+          "TC-AUTH-003 - Bad credentials reason is returned": true
+        }
+      ]
+    },
+    {
+      "id": "request-005",
+      "name": "TC-AUTH-004 - Missing password",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "time": 29,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-AUTH-004 - Status code is 200 for bad-credentials response": true,
+        "TC-AUTH-004 - No token is returned": true,
+        "TC-AUTH-004 - Bad credentials reason is returned": true
+      },
+      "testPassFailCounts": {
+        "TC-AUTH-004 - Status code is 200 for bad-credentials response": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-004 - No token is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-004 - Bad credentials reason is returned": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        29
+      ],
+      "allTests": [
+        {
+          "TC-AUTH-004 - Status code is 200 for bad-credentials response": true,
+          "TC-AUTH-004 - No token is returned": true,
+          "TC-AUTH-004 - Bad credentials reason is returned": true
+        }
+      ]
+    },
+    {
+      "id": "request-006",
+      "name": "TC-AUTH-005 - Blank username and password",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "time": 23,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-AUTH-005 - Status code is 200 for bad-credentials response": true,
+        "TC-AUTH-005 - No token is returned": true,
+        "TC-AUTH-005 - Bad credentials reason is returned": true
+      },
+      "testPassFailCounts": {
+        "TC-AUTH-005 - Status code is 200 for bad-credentials response": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-005 - No token is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-AUTH-005 - Bad credentials reason is returned": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        23
+      ],
+      "allTests": [
+        {
+          "TC-AUTH-005 - Status code is 200 for bad-credentials response": true,
+          "TC-AUTH-005 - No token is returned": true,
+          "TC-AUTH-005 - Bad credentials reason is returned": true
+        }
+      ]
+    },
+    {
+      "id": "request-007",
+      "name": "TC-BOOK-001 - Create valid booking",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 23,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-BOOK-001 - Status code is 200": true,
+        "TC-BOOK-001 - Response is JSON": true,
+        "TC-BOOK-001 - Booking ID is returned": true,
+        "TC-BOOK-001 - Submitted booking data is returned accurately": true,
+        "NFR-001 - Create response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-BOOK-001 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-BOOK-001 - Response is JSON": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-BOOK-001 - Booking ID is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-BOOK-001 - Submitted booking data is returned accurately": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Create response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        23
+      ],
+      "allTests": [
+        {
+          "TC-BOOK-001 - Status code is 200": true,
+          "TC-BOOK-001 - Response is JSON": true,
+          "TC-BOOK-001 - Booking ID is returned": true,
+          "TC-BOOK-001 - Submitted booking data is returned accurately": true,
+          "NFR-001 - Create response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-008",
+      "name": "TC-VAL-002 - Negative total price",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 29,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "Invalid booking request is rejected with a client-error status": false,
+        "No booking ID is returned for invalid booking data": false
+      },
+      "testPassFailCounts": {
+        "Invalid booking request is rejected with a client-error status": {
+          "pass": 0,
+          "fail": 1
+        },
+        "No booking ID is returned for invalid booking data": {
+          "pass": 0,
+          "fail": 1
+        }
+      },
+      "times": [
+        29
+      ],
+      "allTests": [
+        {
+          "Invalid booking request is rejected with a client-error status": false,
+          "No booking ID is returned for invalid booking data": false
+        }
+      ]
+    },
+    {
+      "id": "request-009",
+      "name": "TC-BOOK-003 - Missing booking dates",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 25,
+      "responseCode": {
+        "code": 500,
+        "name": "Internal Server Error"
+      },
+      "tests": {
+        "TC-BOOK-003 - Missing required field returns HTTP 400 or 422": false,
+        "TC-BOOK-003 - No booking ID is returned": true,
+        "NFR-001 - Create response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-BOOK-003 - Missing required field returns HTTP 400 or 422": {
+          "pass": 0,
+          "fail": 1
+        },
+        "TC-BOOK-003 - No booking ID is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Create response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        25
+      ],
+      "allTests": [
+        {
+          "TC-BOOK-003 - Missing required field returns HTTP 400 or 422": false,
+          "TC-BOOK-003 - No booking ID is returned": true,
+          "NFR-001 - Create response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-010",
+      "name": "TC-BOOK-004 - Checkout before check-in",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 25,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "Invalid booking request is rejected with a client-error status": false,
+        "No booking ID is returned for invalid booking data": false
+      },
+      "testPassFailCounts": {
+        "Invalid booking request is rejected with a client-error status": {
+          "pass": 0,
+          "fail": 1
+        },
+        "No booking ID is returned for invalid booking data": {
+          "pass": 0,
+          "fail": 1
+        }
+      },
+      "times": [
+        25
+      ],
+      "allTests": [
+        {
+          "Invalid booking request is rejected with a client-error status": false,
+          "No booking ID is returned for invalid booking data": false
+        }
+      ]
+    },
+    {
+      "id": "request-011",
+      "name": "TC-BOOK-005 - Zero total price",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 37,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "Invalid booking request is rejected with a client-error status": false,
+        "No booking ID is returned for invalid booking data": false
+      },
+      "testPassFailCounts": {
+        "Invalid booking request is rejected with a client-error status": {
+          "pass": 0,
+          "fail": 1
+        },
+        "No booking ID is returned for invalid booking data": {
+          "pass": 0,
+          "fail": 1
+        }
+      },
+      "times": [
+        37
+      ],
+      "allTests": [
+        {
+          "Invalid booking request is rejected with a client-error status": false,
+          "No booking ID is returned for invalid booking data": false
+        }
+      ]
+    },
+    {
+      "id": "request-012",
+      "name": "TC-BOOK-006 - Missing last name",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 39,
+      "responseCode": {
+        "code": 500,
+        "name": "Internal Server Error"
+      },
+      "tests": {
+        "TC-BOOK-006 - Missing required field returns HTTP 400 or 422": false,
+        "TC-BOOK-006 - No booking ID is returned": true,
+        "NFR-001 - Create response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-BOOK-006 - Missing required field returns HTTP 400 or 422": {
+          "pass": 0,
+          "fail": 1
+        },
+        "TC-BOOK-006 - No booking ID is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Create response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        39
+      ],
+      "allTests": [
+        {
+          "TC-BOOK-006 - Missing required field returns HTTP 400 or 422": false,
+          "TC-BOOK-006 - No booking ID is returned": true,
+          "NFR-001 - Create response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-013",
+      "name": "TC-VAL-001 - Minimum positive total price",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 28,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-VAL-001 - Status code is 200": true,
+        "TC-VAL-001 - Booking ID is returned": true,
+        "TC-VAL-001 - Minimum positive price is accepted": true
+      },
+      "testPassFailCounts": {
+        "TC-VAL-001 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-VAL-001 - Booking ID is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-VAL-001 - Minimum positive price is accepted": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        28
+      ],
+      "allTests": [
+        {
+          "TC-VAL-001 - Status code is 200": true,
+          "TC-VAL-001 - Booking ID is returned": true,
+          "TC-VAL-001 - Minimum positive price is accepted": true
+        }
+      ]
+    },
+    {
+      "id": "request-014",
+      "name": "TC-BOOK-002 - Missing first name",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "time": 27,
+      "responseCode": {
+        "code": 500,
+        "name": "Internal Server Error"
+      },
+      "tests": {
+        "TC-BOOK-002 - Missing required field returns HTTP 400 or 422": false,
+        "TC-BOOK-002 - No booking ID is returned": true,
+        "NFR-001 - Create response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-BOOK-002 - Missing required field returns HTTP 400 or 422": {
+          "pass": 0,
+          "fail": 1
+        },
+        "TC-BOOK-002 - No booking ID is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Create response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        27
+      ],
+      "allTests": [
+        {
+          "TC-BOOK-002 - Missing required field returns HTTP 400 or 422": false,
+          "TC-BOOK-002 - No booking ID is returned": true,
+          "NFR-001 - Create response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-015",
+      "name": "TC-RET-001 - Retrieve existing booking",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 28,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-RET-001 - Status code is 200": true,
+        "TC-RET-001 - Complete booking information is returned": true,
+        "NFR-001 - Retrieve response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-RET-001 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-RET-001 - Complete booking information is returned": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Retrieve response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        28
+      ],
+      "allTests": [
+        {
+          "TC-RET-001 - Status code is 200": true,
+          "TC-RET-001 - Complete booking information is returned": true,
+          "NFR-001 - Retrieve response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-016",
+      "name": "TC-RET-002 - Retrieve nonexistent booking",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>?",
+      "time": 23,
+      "responseCode": {
+        "code": 404,
+        "name": "Not Found"
+      },
+      "tests": {
+        "TC-RET-002 - Status code is 404": true
+      },
+      "testPassFailCounts": {
+        "TC-RET-002 - Status code is 404": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        23
+      ],
+      "allTests": [
+        {
+          "TC-RET-002 - Status code is 404": true
+        }
+      ]
+    },
+    {
+      "id": "request-017",
+      "name": "TC-RET-003 - Search booking by customer name",
+      "url": "https://restful-booker.herokuapp.com/booking?firstname=%3CREDACTED%3E&lastname=%3CREDACTED%3E",
+      "time": 27,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-RET-003 - Status code is 200": true,
+        "TC-RET-003 - Response is an array": true,
+        "TC-RET-003 - Created booking ID appears in search results": true
+      },
+      "testPassFailCounts": {
+        "TC-RET-003 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-RET-003 - Response is an array": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-RET-003 - Created booking ID appears in search results": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        27
+      ],
+      "allTests": [
+        {
+          "TC-RET-003 - Status code is 200": true,
+          "TC-RET-003 - Response is an array": true,
+          "TC-RET-003 - Created booking ID appears in search results": true
+        }
+      ]
+    },
+    {
+      "id": "request-018",
+      "name": "TC-UPD-001 - Authorized full booking update",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 27,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-UPD-001 - Status code is 200": true,
+        "TC-UPD-001 - Booking information is updated accurately": true,
+        "NFR-001 - Update response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-UPD-001 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-UPD-001 - Booking information is updated accurately": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Update response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        27
+      ],
+      "allTests": [
+        {
+          "TC-UPD-001 - Status code is 200": true,
+          "TC-UPD-001 - Booking information is updated accurately": true,
+          "NFR-001 - Update response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-019",
+      "name": "TC-UPD-004 – Authorized partial booking update",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 52,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-UPD-004 - Status code is 200": true,
+        "TC-UPD-004 - Selected field is updated": true,
+        "TC-UPD-004 - Other booking fields remain unchanged": true
+      },
+      "testPassFailCounts": {
+        "TC-UPD-004 - Status code is 200": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-UPD-004 - Selected field is updated": {
+          "pass": 1,
+          "fail": 0
+        },
+        "TC-UPD-004 - Other booking fields remain unchanged": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        52
+      ],
+      "allTests": [
+        {
+          "TC-UPD-004 - Status code is 200": true,
+          "TC-UPD-004 - Selected field is updated": true,
+          "TC-UPD-004 - Other booking fields remain unchanged": true
+        }
+      ]
+    },
+    {
+      "id": "request-020",
+      "name": "TC-UPD-002 - Update without authentication",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 29,
+      "responseCode": {
+        "code": 403,
+        "name": "Forbidden"
+      },
+      "tests": {
+        "TC-UPD-002 - Unauthorized update returns 403": true
+      },
+      "testPassFailCounts": {
+        "TC-UPD-002 - Unauthorized update returns 403": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        29
+      ],
+      "allTests": [
+        {
+          "TC-UPD-002 - Unauthorized update returns 403": true
+        }
+      ]
+    },
+    {
+      "id": "request-021",
+      "name": "TC-UPD-003 - Update nonexistent booking",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 32,
+      "responseCode": {
+        "code": 405,
+        "name": "Method Not Allowed"
+      },
+      "tests": {
+        "TC-UPD-003 - Authorized update of nonexistent booking returns 405": true
+      },
+      "testPassFailCounts": {
+        "TC-UPD-003 - Authorized update of nonexistent booking returns 405": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        32
+      ],
+      "allTests": [
+        {
+          "TC-UPD-003 - Authorized update of nonexistent booking returns 405": true
+        }
+      ]
+    },
+    {
+      "id": "request-022",
+      "name": "TC-UPD-005 - Update with invalid date sequence",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 27,
+      "responseCode": {
+        "code": 200,
+        "name": "OK"
+      },
+      "tests": {
+        "TC-UPD-005 - Authenticated invalid date update returns 400": false
+      },
+      "testPassFailCounts": {
+        "TC-UPD-005 - Authenticated invalid date update returns 400": {
+          "pass": 0,
+          "fail": 1
+        }
+      },
+      "times": [
+        27
+      ],
+      "allTests": [
+        {
+          "TC-UPD-005 - Authenticated invalid date update returns 400": false
+        }
+      ]
+    },
+    {
+      "id": "request-023",
+      "name": "TC-DEL-003 - Delete without authentication",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 27,
+      "responseCode": {
+        "code": 403,
+        "name": "Forbidden"
+      },
+      "tests": {
+        "TC-DEL-003 - Unauthorized deletion returns 403": true
+      },
+      "testPassFailCounts": {
+        "TC-DEL-003 - Unauthorized deletion returns 403": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        27
+      ],
+      "allTests": [
+        {
+          "TC-DEL-003 - Unauthorized deletion returns 403": true
+        }
+      ]
+    },
+    {
+      "id": "request-024",
+      "name": "TC-DEL-001 - Authorized booking deletion",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 34,
+      "responseCode": {
+        "code": 201,
+        "name": "Created"
+      },
+      "tests": {
+        "TC-DEL-001 - Authorized deletion returns 201": true,
+        "NFR-001 - Delete response time is within limit": true
+      },
+      "testPassFailCounts": {
+        "TC-DEL-001 - Authorized deletion returns 201": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NFR-001 - Delete response time is within limit": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        34
+      ],
+      "allTests": [
+        {
+          "TC-DEL-001 - Authorized deletion returns 201": true,
+          "NFR-001 - Delete response time is within limit": true
+        }
+      ]
+    },
+    {
+      "id": "request-025",
+      "name": "TC-DEL-002 - Retrieve deleted booking",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 31,
+      "responseCode": {
+        "code": 404,
+        "name": "Not Found"
+      },
+      "tests": {
+        "TC-DEL-002 - Deleted booking returns 404": true
+      },
+      "testPassFailCounts": {
+        "TC-DEL-002 - Deleted booking returns 404": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        31
+      ],
+      "allTests": [
+        {
+          "TC-DEL-002 - Deleted booking returns 404": true
+        }
+      ]
+    },
+    {
+      "id": "request-026",
+      "name": "TC-DEL-004 - Delete nonexistent booking",
+      "url": "https://restful-booker.herokuapp.com/booking/<REDACTED>",
+      "time": 25,
+      "responseCode": {
+        "code": 405,
+        "name": "Method Not Allowed"
+      },
+      "tests": {
+        "TC-DEL-004 - Authorized deletion of nonexistent booking returns 405": true
+      },
+      "testPassFailCounts": {
+        "TC-DEL-004 - Authorized deletion of nonexistent booking returns 405": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "times": [
+        25
+      ],
+      "allTests": [
+        {
+          "TC-DEL-004 - Authorized deletion of nonexistent booking returns 405": true
+        }
+      ]
+    }
+  ],
+  "count": 1,
+  "totalTime": 760,
+  "collection": {
+    "requests": [
+      {
+        "id": "request-001",
+        "method": "GET"
+      },
+      {
+        "id": "request-002",
+        "method": "POST"
+      },
+      {
+        "id": "request-003",
+        "method": "POST"
+      },
+      {
+        "id": "request-004",
+        "method": "POST"
+      },
+      {
+        "id": "request-005",
+        "method": "POST"
+      },
+      {
+        "id": "request-006",
+        "method": "POST"
+      },
+      {
+        "id": "request-007",
+        "method": "POST"
+      },
+      {
+        "id": "request-008",
+        "method": "POST"
+      },
+      {
+        "id": "request-009",
+        "method": "POST"
+      },
+      {
+        "id": "request-010",
+        "method": "POST"
+      },
+      {
+        "id": "request-011",
+        "method": "POST"
+      },
+      {
+        "id": "request-012",
+        "method": "POST"
+      },
+      {
+        "id": "request-013",
+        "method": "POST"
+      },
+      {
+        "id": "request-014",
+        "method": "POST"
+      },
+      {
+        "id": "request-015",
+        "method": "GET"
+      },
+      {
+        "id": "request-016",
+        "method": "GET"
+      },
+      {
+        "id": "request-017",
+        "method": "GET"
+      },
+      {
+        "id": "request-018",
+        "method": "PUT"
+      },
+      {
+        "id": "request-019",
+        "method": "PATCH"
+      },
+      {
+        "id": "request-020",
+        "method": "PUT"
+      },
+      {
+        "id": "request-021",
+        "method": "PUT"
+      },
+      {
+        "id": "request-022",
+        "method": "PUT"
+      },
+      {
+        "id": "request-023",
+        "method": "DELETE"
+      },
+      {
+        "id": "request-024",
+        "method": "DELETE"
+      },
+      {
+        "id": "request-025",
+        "method": "GET"
+      },
+      {
+        "id": "request-026",
+        "method": "DELETE"
+      }
+    ]
+  }
+}

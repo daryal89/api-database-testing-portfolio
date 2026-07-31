@@ -1,0 +1,1984 @@
+{
+  "info": {
+    "_postman_id": "09a8096b-62e3-4f9f-a478-b42ae69f20b0",
+    "name": "Restful Booker API Testing Portfolio",
+    "description": "Portfolio collection for REST API testing of the Restful Booker  \ndemonstration API.\n\nCoverage includes:\n\n- API health check\n    \n- Valid and invalid authentication\n    \n- Booking creation\n    \n- Required-field validation\n    \n- Boundary-value testing\n    \n- Booking retrieval\n    \n- Booking search\n    \n- Full booking update\n    \n- Partial booking update\n    \n- Authorization testing\n    \n- Booking deletion\n    \n- Nonexistent booking handling\n    \n- Status-code assertions\n    \n- Response-body assertions\n    \n- Response-time assertions\n    \n\nImportant limitation:\n\nRestful Booker is a public demonstration API that resets its booking  \nrecords regularly. The API is not connected to the local PostgreSQL  \nportfolio database.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Health Check",
+      "item": [
+        {
+          "name": "HEALTH-001 - Verify API health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HEALTH-001 - Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "\r",
+                  "pm.test(\"NFR-001 - Response time is within configured limit\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "01 - Authentication",
+      "item": [
+        {
+          "name": "TC-AUTH-001 - Valid authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-AUTH-001 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"TC-AUTH-001 - Authentication token is returned\", function () {\r",
+                  "    pm.expect(json).to.have.property(\"token\");\r",
+                  "    pm.expect(json.token).to.be.a(\"string\");\r",
+                  "    pm.expect(json.token).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "// Save only when a real token was returned\r",
+                  "if (json.token) {\r",
+                  "    pm.environment.set(\"authToken\", json.token);\r",
+                  "    console.log(\"authToken saved successfully. Token value not logged.\");\r",
+                  "}\r",
+                  "\r",
+                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "\r",
+                  "pm.test(\"NFR-001 - Authentication response time is within limit\", function () {\r",
+                  "    pm.expect(limit, \"responseTimeLimit must be a valid number\")\r",
+                  "        .to.be.a(\"number\")\r",
+                  "        .and.not.satisfy(Number.isNaN);\r",
+                  "\r",
+                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-AUTH-002 - Invalid password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Status code is 200 for bad-credentials response`, function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "let json = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    json = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    json = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - No token is returned`, function () {\r",
+                  "    pm.expect(json).to.not.have.property(\"token\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Bad credentials reason is returned`, function () {\r",
+                  "    pm.expect(json.reason).to.eql(\"Bad credentials\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"invalid-demo-password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-AUTH-003 - Missing username",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Status code is 200 for bad-credentials response`, function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "let json = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    json = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    json = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - No token is returned`, function () {\r",
+                  "    pm.expect(json).to.not.have.property(\"token\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Bad credentials reason is returned`, function () {\r",
+                  "    pm.expect(json.reason).to.eql(\"Bad credentials\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-AUTH-004 - Missing password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Status code is 200 for bad-credentials response`, function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "let json = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    json = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    json = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - No token is returned`, function () {\r",
+                  "    pm.expect(json).to.not.have.property(\"token\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Bad credentials reason is returned`, function () {\r",
+                  "    pm.expect(json.reason).to.eql(\"Bad credentials\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"{{username}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-AUTH-005 - Blank username and password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Status code is 200 for bad-credentials response`, function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "let json = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    json = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    json = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - No token is returned`, function () {\r",
+                  "    pm.expect(json).to.not.have.property(\"token\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(`${testCaseId} - Bad credentials reason is returned`, function () {\r",
+                  "    pm.expect(json.reason).to.eql(\"Bad credentials\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"\",\r\n    \"password\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - Booking Creation and Validation",
+      "item": [
+        {
+          "name": "TC-BOOK-001 - Create valid booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-BOOK-001 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"TC-BOOK-001 - Response is JSON\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "const expectedPrice = Number(pm.environment.get(\"totalPrice\"));\r",
+                  "const expectedDeposit =\r",
+                  "    String(pm.environment.get(\"depositPaid\")).toLowerCase() === \"true\";\r",
+                  "\r",
+                  "pm.test(\"TC-BOOK-001 - Booking ID is returned\", function () {\r",
+                  "    pm.expect(json.bookingid).to.be.a(\"number\");\r",
+                  "    pm.expect(json.bookingid).to.be.greaterThan(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"TC-BOOK-001 - Submitted booking data is returned accurately\", function () {\r",
+                  "    pm.expect(json.booking.firstname)\r",
+                  "        .to.eql(pm.environment.get(\"firstName\"));\r",
+                  "\r",
+                  "    pm.expect(json.booking.lastname)\r",
+                  "        .to.eql(pm.environment.get(\"lastName\"));\r",
+                  "\r",
+                  "    pm.expect(json.booking.totalprice)\r",
+                  "        .to.eql(expectedPrice);\r",
+                  "\r",
+                  "    pm.expect(json.booking.depositpaid)\r",
+                  "        .to.eql(expectedDeposit);\r",
+                  "\r",
+                  "    pm.expect(json.booking.bookingdates.checkin)\r",
+                  "        .to.eql(pm.environment.get(\"checkIn\"));\r",
+                  "\r",
+                  "    pm.expect(json.booking.bookingdates.checkout)\r",
+                  "        .to.eql(pm.environment.get(\"checkOut\"));\r",
+                  "\r",
+                  "    pm.expect(json.booking.additionalneeds)\r",
+                  "        .to.eql(pm.environment.get(\"additionalNeeds\"));\r",
+                  "});\r",
+                  "\r",
+                  "if (typeof json.bookingid === \"number\") {\r",
+                  "    pm.environment.set(\"bookingId\", String(json.bookingid));\r",
+                  "}\r",
+                  "\r",
+                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "\r",
+                  "pm.test(\"NFR-001 - Create response time is within limit\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-VAL-002 - Negative total price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const acceptedStatusCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\"Invalid booking request is rejected with a client-error status\", function () {\r",
+                  "    pm.expect(\r",
+                  "        acceptedStatusCodes,\r",
+                  "        `Expected 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "    ).to.include(pm.response.code);\r",
+                  "});\r",
+                  "\r",
+                  "let responseJson = null;\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    console.log(\"Response was not JSON:\", pm.response.text());\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\"No booking ID is returned for invalid booking data\", function () {\r",
+                  "    if (responseJson !== null) {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    } else {\r",
+                  "        pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r",
+                  "    }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": -1,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-BOOK-003 - Missing booking dates",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "const acceptedValidationCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - Missing required field returns HTTP 400 or 422`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            acceptedValidationCodes,\r",
+                  "            `Expected HTTP 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "        ).to.include(pm.response.code);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "let responseJson = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    responseJson = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - No booking ID is returned`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "const responseTimeLimit = Number(\r",
+                  "    pm.environment.get(\"responseTimeLimit\")\r",
+                  ");\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    \"NFR-001 - Create response time is within limit\",\r",
+                  "    function () {\r",
+                  "        pm.expect(pm.response.responseTime)\r",
+                  "            .to.be.at.most(responseTimeLimit);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "console.log(\r",
+                  "    `${testCaseId} actual validation response`,\r",
+                  "    {\r",
+                  "        statusCode: pm.response.code,\r",
+                  "        statusText: pm.response.status,\r",
+                  "        responseBody: pm.response.text()\r",
+                  "    }\r",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-BOOK-004 - Checkout before check-in",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const acceptedStatusCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\"Invalid booking request is rejected with a client-error status\", function () {\r",
+                  "    pm.expect(\r",
+                  "        acceptedStatusCodes,\r",
+                  "        `Expected 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "    ).to.include(pm.response.code);\r",
+                  "});\r",
+                  "\r",
+                  "let responseJson = null;\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    console.log(\"Response was not JSON:\", pm.response.text());\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\"No booking ID is returned for invalid booking data\", function () {\r",
+                  "    if (responseJson !== null) {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    } else {\r",
+                  "        pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r",
+                  "    }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{invalidCheckIn}}\",\r\n        \"checkout\": \"{{invalidCheckOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-BOOK-005 - Zero total price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const acceptedStatusCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\"Invalid booking request is rejected with a client-error status\", function () {\r",
+                  "    pm.expect(\r",
+                  "        acceptedStatusCodes,\r",
+                  "        `Expected 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "    ).to.include(pm.response.code);\r",
+                  "});\r",
+                  "\r",
+                  "let responseJson = null;\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    console.log(\"Response was not JSON:\", pm.response.text());\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\"No booking ID is returned for invalid booking data\", function () {\r",
+                  "    if (responseJson !== null) {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    } else {\r",
+                  "        pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r",
+                  "    }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": 0,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-BOOK-006 - Missing last name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "const acceptedValidationCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - Missing required field returns HTTP 400 or 422`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            acceptedValidationCodes,\r",
+                  "            `Expected HTTP 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "        ).to.include(pm.response.code);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "let responseJson = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    responseJson = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - No booking ID is returned`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "const responseTimeLimit = Number(\r",
+                  "    pm.environment.get(\"responseTimeLimit\")\r",
+                  ");\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    \"NFR-001 - Create response time is within limit\",\r",
+                  "    function () {\r",
+                  "        pm.expect(pm.response.responseTime)\r",
+                  "            .to.be.at.most(responseTimeLimit);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "console.log(\r",
+                  "    `${testCaseId} actual validation response`,\r",
+                  "    {\r",
+                  "        statusCode: pm.response.code,\r",
+                  "        statusText: pm.response.status,\r",
+                  "        responseBody: pm.response.text()\r",
+                  "    }\r",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-VAL-001 - Minimum positive total price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-VAL-001 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"TC-VAL-001 - Booking ID is returned\", function () {\r",
+                  "    pm.expect(json.bookingid).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"TC-VAL-001 - Minimum positive price is accepted\", function () {\r",
+                  "    pm.expect(json.booking.totalprice).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": 1,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"None\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-BOOK-002 - Missing first name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const testCaseId = pm.info.requestName.split(\" - \")[0];\r",
+                  "const acceptedValidationCodes = [400, 422];\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - Missing required field returns HTTP 400 or 422`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            acceptedValidationCodes,\r",
+                  "            `Expected HTTP 400 or 422, but received ${pm.response.code} ${pm.response.status}`\r",
+                  "        ).to.include(pm.response.code);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "let responseJson = {};\r",
+                  "\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    responseJson = {};\r",
+                  "}\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    `${testCaseId} - No booking ID is returned`,\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            responseJson,\r",
+                  "            `A booking was unexpectedly created. Response: ${pm.response.text()}`\r",
+                  "        ).to.not.have.property(\"bookingid\");\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "const responseTimeLimit = Number(\r",
+                  "    pm.environment.get(\"responseTimeLimit\")\r",
+                  ");\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    \"NFR-001 - Create response time is within limit\",\r",
+                  "    function () {\r",
+                  "        pm.expect(pm.response.responseTime)\r",
+                  "            .to.be.at.most(responseTimeLimit);\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "console.log(\r",
+                  "    `${testCaseId} actual validation response`,\r",
+                  "    {\r",
+                  "        statusCode: pm.response.code,\r",
+                  "        statusText: pm.response.status,\r",
+                  "        responseBody: pm.response.text()\r",
+                  "    }\r",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - Booking Retrieval",
+      "item": [
+        {
+          "name": "TC-RET-001 - Retrieve existing booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-RET-001 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "const expectedPrice = Number(pm.environment.get(\"totalPrice\"));\r",
+                  "\r",
+                  "pm.test(\"TC-RET-001 - Complete booking information is returned\", function () {\r",
+                  "    pm.expect(json.firstname)\r",
+                  "        .to.eql(pm.environment.get(\"firstName\"));\r",
+                  "\r",
+                  "    pm.expect(json.lastname)\r",
+                  "        .to.eql(pm.environment.get(\"lastName\"));\r",
+                  "\r",
+                  "    pm.expect(json.totalprice)\r",
+                  "        .to.eql(expectedPrice);\r",
+                  "\r",
+                  "    pm.expect(json.bookingdates.checkin)\r",
+                  "        .to.eql(pm.environment.get(\"checkIn\"));\r",
+                  "\r",
+                  "    pm.expect(json.bookingdates.checkout)\r",
+                  "        .to.eql(pm.environment.get(\"checkOut\"));\r",
+                  "});\r",
+                  "\r",
+                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "\r",
+                  "pm.test(\"NFR-001 - Retrieve response time is within limit\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-RET-002 - Retrieve nonexistent booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-RET-002 - Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{nonexistentBookingId}}"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-RET-003 - Search booking by customer name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-RET-003 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "const bookingId = Number(pm.environment.get(\"bookingId\"));\r",
+                  "const returnedIds = json.map(function (item) {\r",
+                  "    return Number(item.bookingid);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"TC-RET-003 - Response is an array\", function () {\r",
+                  "    pm.expect(json).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"TC-RET-003 - Created booking ID appears in search results\", function () {\r",
+                  "    pm.expect(returnedIds).to.include(bookingId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/booking?firstname={{firstName}}&lastname={{lastName}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking"
+              ],
+              "query": [
+                {
+                  "key": "firstname",
+                  "value": "{{firstName}}",
+                  "type": "text"
+                },
+                {
+                  "key": "lastname",
+                  "value": "{{lastName}}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 - Booking Update",
+      "item": [
+        {
+          "name": "TC-UPD-001 - Authorized full booking update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-UPD-001 - Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "if (pm.response.code === 200) {\r",
+                  "    try {\r",
+                  "        const json = pm.response.json();\r",
+                  "        const expectedPrice = Number(\r",
+                  "            pm.environment.get(\"updatedPrice\")\r",
+                  "        );\r",
+                  "\r",
+                  "        pm.test(\r",
+                  "            \"TC-UPD-001 - Booking information is updated accurately\",\r",
+                  "            function () {\r",
+                  "                pm.expect(json.firstname)\r",
+                  "                    .to.eql(\r",
+                  "                        pm.environment.get(\"updatedFirstName\")\r",
+                  "                    );\r",
+                  "\r",
+                  "                pm.expect(json.lastname)\r",
+                  "                    .to.eql(\r",
+                  "                        pm.environment.get(\"updatedLastName\")\r",
+                  "                    );\r",
+                  "\r",
+                  "                pm.expect(json.totalprice)\r",
+                  "                    .to.eql(expectedPrice);\r",
+                  "\r",
+                  "                pm.expect(json.bookingdates.checkin)\r",
+                  "                    .to.eql(\r",
+                  "                        pm.environment.get(\"checkIn\")\r",
+                  "                    );\r",
+                  "\r",
+                  "                pm.expect(json.bookingdates.checkout)\r",
+                  "                    .to.eql(\r",
+                  "                        pm.environment.get(\"checkOut\")\r",
+                  "                    );\r",
+                  "            }\r",
+                  "        );\r",
+                  "    } catch (error) {\r",
+                  "        pm.test(\r",
+                  "            \"TC-UPD-001 - Successful response contains valid JSON\",\r",
+                  "            function () {\r",
+                  "                throw error;\r",
+                  "            }\r",
+                  "        );\r",
+                  "    }\r",
+                  "} else {\r",
+                  "    console.error(\r",
+                  "        \"TC-UPD-001 UPDATE FAILED\",\r",
+                  "        {\r",
+                  "            statusCode: pm.response.code,\r",
+                  "            responseBody: pm.response.text()\r",
+                  "        }\r",
+                  "    );\r",
+                  "}\r",
+                  "\r",
+                  "const limit = Number(\r",
+                  "    pm.environment.get(\"responseTimeLimit\")\r",
+                  ");\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    \"NFR-001 - Update response time is within limit\",\r",
+                  "    function () {\r",
+                  "        pm.expect(pm.response.responseTime)\r",
+                  "            .to.be.at.most(limit);\r",
+                  "    }\r",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get(\"token\");\r",
+                  "const bookingId = pm.environment.get(\"bookingId\");\r",
+                  "\r",
+                  "console.log(\r",
+                  "    \"TC-UPD-001 SETUP CHECK\",\r",
+                  "    {\r",
+                  "        tokenExists: Boolean(token),\r",
+                  "        tokenLength: token ? token.length : 0,\r",
+                  "        bookingIdExists: Boolean(bookingId),\r",
+                  "        bookingId: bookingId || \"MISSING\"\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "if (!token) {\r",
+                  "    console.error(\r",
+                  "        \"SETUP PROBLEM: token environment variable is empty.\"\r",
+                  "    );\r",
+                  "}\r",
+                  "\r",
+                  "if (!bookingId) {\r",
+                  "    console.error(\r",
+                  "        \"SETUP PROBLEM: bookingId environment variable is empty.\"\r",
+                  "    );\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{updatedFirstName}}\",\r\n    \"lastname\": \"{{updatedLastName}}\",\r\n    \"totalprice\": {{updatedPrice}},\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-UPD-004 – Authorized partial booking update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// --------------------------------------------------\r",
+                  "// Test 1: Verify successful partial update\r",
+                  "// --------------------------------------------------\r",
+                  "pm.test(\"TC-UPD-004 - Status code is 200\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 200 for authorized partial update, but received ${pm.response.code} ${pm.response.status}. A 403 indicates an authorization problem.`\r",
+                  "    ).to.eql(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "// --------------------------------------------------\r",
+                  "// Run body validations only after a successful response\r",
+                  "// --------------------------------------------------\r",
+                  "if (pm.response.code === 200) {\r",
+                  "\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    const expectedPartialFirstName =\r",
+                  "        pm.environment.get(\"partialFirstName\");\r",
+                  "\r",
+                  "    const expectedLastName =\r",
+                  "        pm.environment.get(\"updatedLastName\");\r",
+                  "\r",
+                  "    const expectedPrice =\r",
+                  "        Number(pm.environment.get(\"updatedPrice\"));\r",
+                  "\r",
+                  "    const expectedCheckIn =\r",
+                  "        pm.environment.get(\"checkIn\");\r",
+                  "\r",
+                  "    const expectedCheckOut =\r",
+                  "        pm.environment.get(\"checkOut\");\r",
+                  "\r",
+                  "\r",
+                  "    // --------------------------------------------------\r",
+                  "    // Test 2: Confirm the selected PATCH field changed\r",
+                  "    // --------------------------------------------------\r",
+                  "    pm.test(\"TC-UPD-004 - Selected field is updated\", function () {\r",
+                  "        pm.expect(\r",
+                  "            json.firstname,\r",
+                  "            \"The firstname returned by the API does not match partialFirstName\"\r",
+                  "        ).to.eql(expectedPartialFirstName);\r",
+                  "    });\r",
+                  "\r",
+                  "\r",
+                  "    // --------------------------------------------------\r",
+                  "    // Test 3: Confirm important unselected fields did not change\r",
+                  "    // --------------------------------------------------\r",
+                  "    pm.test(\"TC-UPD-004 - Other booking fields remain unchanged\", function () {\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            json.lastname,\r",
+                  "            \"Lastname changed unexpectedly\"\r",
+                  "        ).to.eql(expectedLastName);\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            json.totalprice,\r",
+                  "            \"Total price changed unexpectedly\"\r",
+                  "        ).to.eql(expectedPrice);\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            json.bookingdates.checkin,\r",
+                  "            \"Check-in date changed unexpectedly\"\r",
+                  "        ).to.eql(expectedCheckIn);\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            json.bookingdates.checkout,\r",
+                  "            \"Checkout date changed unexpectedly\"\r",
+                  "        ).to.eql(expectedCheckOut);\r",
+                  "    });\r",
+                  "\r",
+                  "} else {\r",
+                  "\r",
+                  "    console.error(\r",
+                  "        \"TC-UPD-004 body validations were not executed because the request did not return 200.\"\r",
+                  "    );\r",
+                  "\r",
+                  "    console.error(\r",
+                  "        \"Actual response:\",\r",
+                  "        pm.response.code,\r",
+                  "        pm.response.status,\r",
+                  "        pm.response.text()\r",
+                  "    );\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get(\"token\");\r",
+                  "const bookingId = pm.environment.get(\"bookingId\");\r",
+                  "\r",
+                  "console.log(\r",
+                  "    \"TC-UPD-001 SETUP CHECK\",\r",
+                  "    {\r",
+                  "        tokenExists: Boolean(token),\r",
+                  "        tokenLength: token ? token.length : 0,\r",
+                  "        bookingIdExists: Boolean(bookingId),\r",
+                  "        bookingId: bookingId || \"MISSING\"\r",
+                  "    }\r",
+                  ");\r",
+                  "\r",
+                  "if (!token) {\r",
+                  "    console.error(\r",
+                  "        \"SETUP PROBLEM: token environment variable is empty.\"\r",
+                  "    );\r",
+                  "}\r",
+                  "\r",
+                  "if (!bookingId) {\r",
+                  "    console.error(\r",
+                  "        \"SETUP PROBLEM: bookingId environment variable is empty.\"\r",
+                  "    );\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{partialFirstName}}\",\r\n    \"lastname\": \"{{updatedLastName}}\",\r\n    \"totalprice\": {{updatedPrice}},\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-UPD-002 - Update without authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-UPD-002 - Unauthorized update returns 403\", function () {\r",
+                  "    pm.response.to.have.status(403);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Unauthorized Update\",\r\n    \"lastname\": \"Should Not Succeed\",\r\n    \"totalprice\": 999,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"Unauthorized\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-UPD-003 - Update nonexistent booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-UPD-003 - Authorized update of nonexistent booking returns 405\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 405 for nonexistent booking, but received ${pm.response.code} ${pm.response.status}. Check authorization if actual status is 403.`\r",
+                  "    ).to.eql(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstname\": \"{{updatedFirstName}}\",\r\n  \"lastname\": \"{{updatedLastName}}\",\r\n  \"totalprice\": 450,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-08-10\",\r\n    \"checkout\": \"2026-08-14\"\r\n  },\r\n  \"additionalneeds\": \"Breakfast\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{nonexistentBookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-UPD-005 - Update with invalid date sequence",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-UPD-005 - Authenticated invalid date update returns 400\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 400 for invalid booking dates, but received ${pm.response.code} ${pm.response.status}. A 403 means authorization failed and the date validation was not tested.`\r",
+                  "    ).to.eql(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{updatedFirstName}}\",\r\n    \"lastname\": \"{{updatedLastName}}\",\r\n    \"totalprice\": {{updatedPrice}},\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{invalidCheckIn}}\",\r\n        \"checkout\": \"{{invalidCheckOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{updatedAdditionalNeeds}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 - Booking Deletion",
+      "item": [
+        {
+          "name": "TC-DEL-003 - Delete without authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-DEL-003 - Unauthorized deletion returns 403\", function () {\r",
+                  "    pm.response.to.have.status(403);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-DEL-001 - Authorized booking deletion",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-DEL-001 - Authorized deletion returns 201\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 201 but received ${pm.response.code} ${pm.response.status}. A 403 means the token was not transmitted or was invalid.`\r",
+                  "    ).to.eql(201);\r",
+                  "});\r",
+                  "\r",
+                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "\r",
+                  "pm.test(\"NFR-001 - Delete response time is within limit\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-DEL-002 - Retrieve deleted booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-DEL-002 - Deleted booking returns 404\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 404 after deletion but received ${pm.response.code} ${pm.response.status}. If actual status is 200, check whether TC-DEL-001 succeeded first.`\r",
+                  "    ).to.eql(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-DEL-004 - Delete nonexistent booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"TC-DEL-004 - Authorized deletion of nonexistent booking returns 405\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.code,\r",
+                  "        `Expected 405 for nonexistent booking but received ${pm.response.code} ${pm.response.status}. A 403 means authorization failed.`\r",
+                  "    ).to.eql(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "booking",
+                "{{nonexistentBookingId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
