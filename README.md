@@ -2,33 +2,86 @@
 
 ## Project Overview
 
-This project currently demonstrates professional requirement analysis,
-manual test design, requirements traceability, defect-documentation
-planning and executed PostgreSQL database validation for a sample
-online booking system.
+This portfolio demonstrates an end-to-end quality-assurance workflow for
+a sample online booking system.
 
-REST API testing with Postman is the next project phase and remains in
-progress.
+The project includes:
 
-The purpose of the project is to show how a quality assurance
-professional can analyze requirements, design test cases, document
-potential defects, validate database information and prepare structured
-API testing workflows.
+- Requirements analysis
+- Professional test planning
+- Manual and REST API test-case design
+- Requirements traceability
+- PostgreSQL database validation
+- Postman collection development
+- Positive, negative, boundary-value and authorization testing
+- Automated API assertions
+- Defect investigation and reporting
+- Test-execution reporting
+- Public-safe credential and test-data handling
 
-The project is being developed in phases so that each testing activity
-is documented clearly and can be reviewed directly through GitHub.
+The REST API phase uses the public **Restful Booker** demonstration API.
+The database phase uses a separate locally created PostgreSQL portfolio
+database.
+
+Because the public API does not provide authorized access to its
+underlying database, direct API-to-database comparison was not
+performed. API results and local database results are documented as
+separate testing activities.
+
+## Key Results
+
+| Area | Final Result |
+|---|---:|
+| Manual/API test cases designed | 25 |
+| Manual/API test cases executed | 25 |
+| Test cases passed | 18 |
+| Test cases failed | 7 |
+| Postman requests executed | 26 |
+| Postman assertions executed | 61 |
+| Assertions passed | 51 |
+| Assertions failed | 10 |
+| Postman runtime errors | 0 |
+| Average API response time | 36 ms |
+| Confirmed API defects | 3 |
+| SQL validation and analysis queries | 19 |
+| Automated database-summary checks passed | 13 of 13 |
+| Database-constraint negative tests passed | 6 of 6 |
+
+The seven failed API test cases represent observed application behavior,
+not Postman configuration or runtime failures.
 
 ## Quick Links
 
+### Planning and Requirements
+
 - [Software Test Plan](test-plan/booking-system-test-plan.md)
-- [Manual Test Cases — CSV](test-cases/booking-system-test-cases.csv)
 - [Requirements Baseline](requirements-traceability/booking-system-requirements.md)
 - [Requirements Traceability Matrix — CSV](requirements-traceability/booking-system-requirements-traceability-matrix.csv)
+
+### Test Cases and Defects
+
+- [Manual/API Test Cases — CSV](test-cases/booking-system-test-cases.csv)
+- [Confirmed Defect Reports — CSV](defect-reports/booking-system-defect-reports.csv)
+- [DEF-API-001 — Invalid Date Sequence](defect-reports/DEF-API-001-invalid-booking-date-sequence.md)
+- [DEF-API-002 — Nonpositive Total Price](defect-reports/DEF-API-002-nonpositive-total-price.md)
+- [DEF-API-003 — Missing Required Fields Return HTTP 500](defect-reports/DEF-API-003-missing-required-fields-return-500.md)
+
+### Postman API Testing
+
+- [Public-Safe Postman Collection](postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json)
+- [Sanitized Postman Environment Template](postman/restful-booker-template.public-sanitized.postman_environment.json)
+- [Sanitized Collection Runner Result](postman/day5-postman-collection-run-results.public-sanitized.json)
+- [Day 5 API Execution Report](reports/day5-api-validation-execution.md)
+
+### PostgreSQL Database Testing
+
 - [SQL Database Testing Documentation](sql/README.md)
 - [SQL Validation Queries](sql/03_validation_queries.sql)
 - [Automated Database Validation Summary](reports/day4-database-validation-summary.csv)
 - [Day 4 Database Execution Report](reports/day4-database-validation-execution.md)
-- [Defect-Report Drafts — CSV](defect-reports/booking-system-defect-report-drafts.csv)
+
+### Evidence
+
 - [Execution Screenshots](screenshots/README.md)
 
 ## Business Scenario
@@ -39,9 +92,9 @@ The sample online booking system allows users to:
 - Create a booking
 - Retrieve booking information
 - Search for bookings
-- Update an existing booking
+- Fully update a booking
 - Partially update a booking
-- Delete or cancel a booking
+- Delete a booking
 
 A booking may contain:
 
@@ -53,14 +106,14 @@ A booking may contain:
 - Checkout date
 - Optional additional needs
 
-Testing will verify that the system:
+Testing validates whether the system:
 
 - Processes valid information correctly
 - Rejects invalid or missing information appropriately
 - Enforces authentication and authorization requirements
 - Returns accurate API responses
-- Stores accurate information in the database
-- Maintains data integrity throughout the booking lifecycle
+- Maintains database integrity
+- Handles expected and unexpected error conditions clearly
 
 ## Project Objectives
 
@@ -74,10 +127,10 @@ The objectives of this project are to:
 6. Test REST API endpoints with Postman
 7. Validate HTTP status codes, response bodies and response times
 8. Validate database records using SQL
-9. Compare API information with database information
-10. Document test-execution results accurately
+9. Execute end-to-end booking CRUD workflows
+10. Record actual results and Pass or Fail status accurately
 11. Demonstrate responsible credential and test-data handling
-13. Build a recruiter-friendly quality assurance portfolio
+12. Build a recruiter-friendly quality-assurance portfolio
 
 ## Testing Scope
 
@@ -89,7 +142,7 @@ The objectives of this project are to:
 - Booking-creation testing
 - Booking-retrieval testing
 - Booking-search testing
-- Booking-update testing
+- Full-update testing
 - Partial-update testing
 - Booking-deletion testing
 - Required-field validation
@@ -99,13 +152,15 @@ The objectives of this project are to:
 - Negative testing
 - Boundary-value testing
 - Authorization testing
-- API response validation
-- Database validation
+- API status-code validation
+- API response-body validation
+- API response-time validation
+- PostgreSQL database validation
 - Data-integrity validation
 - Requirements traceability
 - Defect reporting
-- Regression-test planning
 - Test-execution reporting
+- Public repository security review
 
 ### Out of Scope
 
@@ -119,29 +174,32 @@ The objectives of this project are to:
 - Production deployment
 - Disaster-recovery testing
 - Full accessibility certification
+- Direct API-to-database validation without authorized database access
 
 ## Testing Approach
 
-The project follows a structured testing process:
+The project follows this structured testing process:
 
-1. Define assumed portfolio requirements
-2. Analyze the requirements for clarity and testability
+1. Define the portfolio requirement baseline
+2. Analyze requirements for clarity and testability
 3. Create a professional test plan
-4. Design detailed manual test cases
+4. Design detailed manual and API test cases
 5. Map requirements to test cases
-6. Prepare defect-report drafts
-7. Execute API tests using Postman
-8. Validate database information using SQL
-9. Compare API and database results
-10. Record actual results and test status
-11. Confirm or discard defect-report drafts
-13. Prepare a final test-execution report
+6. Prepare hypothetical defect-report drafts
+7. Build and execute the local PostgreSQL validation suite
+8. Build and execute the Postman API collection
+9. Record actual results and test status
+10. Investigate failed assertions
+11. Confirm, reject or revise defect drafts
+12. Update the Requirements Traceability Matrix
+13. Sanitize public portfolio assets
+14. Prepare database and API execution reports
+15. Review the public repository for consistency and security
 
 ## Skills Demonstrated
 
 ### Software Testing
 
-- Software-testing fundamentals
 - Requirement analysis
 - Test planning
 - Test-scenario development
@@ -153,37 +211,47 @@ The project follows a structured testing process:
 - Equivalence partitioning
 - Authentication testing
 - Authorization testing
+- Business-rule validation
+- Error-handling validation
 - Regression-test planning
 - Defect reporting
 - Requirements traceability
 - Test-execution reporting
 
-### API Testing Scope — Planned for Day 5
-The following API-testing capabilities will be demonstrated during the
-Postman execution phase:
+### REST API Testing
 
-- REST API testing
+- REST API fundamentals
 - HTTP methods
 - Status-code validation
 - Response-body validation
 - Response-time validation
 - Authentication-token handling
+- Environment-variable management
 - Positive API testing
 - Negative API testing
 - CRUD workflow testing
+- Full and partial update testing
+- Authorization testing
 - Postman collection development
+- Collection Runner execution
+- Automated Postman assertions
+- Public-safe Postman exports
 
 ### Database Testing
 
 - SQL
 - PostgreSQL
-- Database validation
+- Schema and table validation
 - Data-integrity testing
 - Null-value validation
 - Duplicate detection
 - Primary-key validation
 - Foreign-key validation
-- Data reconciliation
+- Check-constraint validation
+- Staging-data validation
+- Data-quality analysis
+- Automated SQL summary checks
+- Negative database-constraint testing
 
 ### Documentation and Tools
 
@@ -191,20 +259,24 @@ Postman execution phase:
 - GitHub
 - Markdown
 - Microsoft Excel
+- Postman
+- PostgreSQL
+- pgAdmin 4
 - Requirements documentation
 - Test-plan documentation
 - Defect-report documentation
 - Test-data documentation
+- Execution-report documentation
 
 ## Technologies and Tools
 
-- GitHub
 - Git
+- GitHub
 - Microsoft Excel
 - Markdown
-- Postman
+- Postman Desktop
 - PostgreSQL
-- DBeaver or pgAdmin
+- pgAdmin 4
 - SQL
 - Microsoft Edge or Google Chrome
 - Windows 10 or Windows 11
@@ -213,6 +285,8 @@ Postman execution phase:
 
 ```text
 api-database-testing-portfolio/
+├── .gitignore
+├── LICENSE
 ├── README.md
 ├── test-plan/
 │   ├── README.md
@@ -223,15 +297,21 @@ api-database-testing-portfolio/
 │   └── booking-system-test-cases.csv
 ├── defect-reports/
 │   ├── README.md
-│   ├── booking-system-defect-report-drafts.xlsx
-│   └── booking-system-defect-report-drafts.csv
+│   ├── booking-system-defect-reports.xlsx
+│   ├── booking-system-defect-reports.csv
+│   ├── DEF-API-001-invalid-booking-date-sequence.md
+│   ├── DEF-API-002-nonpositive-total-price.md
+│   └── DEF-API-003-missing-required-fields-return-500.md
 ├── requirements-traceability/
 │   ├── README.md
 │   ├── booking-system-requirements.md
 │   ├── booking-system-requirements-traceability-matrix.xlsx
 │   └── booking-system-requirements-traceability-matrix.csv
 ├── postman/
-│   └── README.md
+│   ├── README.md
+│   ├── restful-booker-api-portfolio.public-sanitized.postman_collection.json
+│   ├── restful-booker-template.public-sanitized.postman_environment.json
+│   └── day5-postman-collection-run-results.public-sanitized.json
 ├── sql/
 │   ├── README.md
 │   ├── 01_create_schema.sql
@@ -242,57 +322,43 @@ api-database-testing-portfolio/
 ├── reports/
 │   ├── README.md
 │   ├── day4-database-validation-summary.csv
-│   └── day4-database-validation-execution.md
+│   ├── day4-database-validation-execution.md
+│   └── day5-api-validation-execution.md
 └── screenshots/
     ├── README.md
-    └── Day 4 execution screenshots
+    ├── Day 4 database evidence
+    └── Day 5 API and defect evidence
 ```
-
-## Planned Deliverables
-
-The completed project will include:
-
-- Booking-system requirements baseline
-- Professional software test plan
-- Detailed manual test cases
-- Positive test cases
-- Negative test cases
-- Boundary-value test cases
-- Requirements Traceability Matrix
-- Professional defect reports
-- Postman API collection
-- Postman environment template
-- Positive and negative API assertions
-- PostgreSQL database schema
-- Synthetic database test data
-- SQL validation queries
-- API-to-database comparison
-- Test-execution report
-- Supporting screenshots
 
 ## Current Project Status
 
 ### Completed
 
+#### Project Foundation and Documentation
+
 - [x] Professional GitHub repository structure
-- [x] Initial project README
+- [x] Main project README
 - [x] Repository description and topics
+- [x] Folder-level README documentation
 - [x] Booking-system requirements baseline
 - [x] Comprehensive software test plan
+- [x] Data-security and credential-handling rules
+
+#### Test Design and Traceability
+
+- [x] 25 detailed manual/API test cases
 - [x] Excel test-case workbook
 - [x] Requirements worksheet
 - [x] Test-data worksheet
-- [x] 25 detailed manual test cases
 - [x] GitHub-previewable test-case CSV
 - [x] Requirements Traceability Matrix
 - [x] GitHub-previewable traceability CSV
-- [x] Three clearly labeled defect-report drafts
-- [x] GitHub-previewable defect-report CSV
-- [x] Folder-level README documentation
-- [x] Local PostgreSQL database
-- [x] `booking_test_db` database
-- [x] `booking_portfolio` schema
-- [x] Customers, bookings and payments tables
+- [x] Requirements traceability updated after database and API execution
+
+#### PostgreSQL Database Testing
+
+- [x] Local PostgreSQL portfolio database
+- [x] Relational customer, booking and payment tables
 - [x] Customer and booking staging tables
 - [x] Primary-key and foreign-key controls
 - [x] Required-field and business-rule constraints
@@ -303,29 +369,60 @@ The completed project will include:
 - [x] Six database-constraint negative tests
 - [x] Database-validation execution report
 - [x] SQL execution screenshots
-- [x] Updated database-requirement traceability
-- [x] Data-security and credential-handling rules
+
+#### Postman REST API Testing
+
+- [x] Private Postman workspace
+- [x] 26-request Postman API collection
+- [x] Reusable Postman environment
+- [x] Authentication-token workflow
+- [x] Automated booking-ID workflow
+- [x] Booking CRUD API execution
+- [x] Positive and negative API assertions
+- [x] Boundary-value assertions
+- [x] Status-code assertions
+- [x] Response-body assertions
+- [x] Authorization assertions
+- [x] Response-time assertions
+- [x] Full 26-request Collection Runner execution
+- [x] Final run completed with zero runtime errors
+
+#### Final API Test Results
+
+- [x] All 25 manual/API test cases executed
+- [x] 18 API test cases passed
+- [x] Seven API test cases failed
+- [x] Three confirmed API defects documented
+- [x] Original defect-draft history preserved
+- [x] Two hypothetical defect drafts rejected
+- [x] GitHub-previewable confirmed defect-report CSV
+- [x] Day 5 API execution report
+- [x] API execution and defect screenshots
+
+#### Public-Safe Portfolio Assets
+
+- [x] Public-safe Postman collection export
+- [x] Sanitized Postman environment template
+- [x] Sanitized Collection Runner result
+- [x] Active tokens and dynamic booking IDs removed
+- [x] Public repository credential-exposure safeguards
 
 ### In Progress
 
-- [ ] Actual manual and API test execution
-- [ ] Validation of defect-report drafts
-- [ ] Postman API collection
-- [ ] Postman environment template
-- [ ] API response assertions
-- [ ] API response-time validation
-- [ ] Authentication-token workflow
-- [ ] Booking CRUD API execution
-- [ ] Direct API-to-database comparison
-- [ ] Database verification after API deletion
-- [ ] Final test-execution report
-- [ ] API execution screenshots
+- [ ] Final cross-document consistency review
+- [ ] Final public repository security review
+- [ ] Combined API and database test-summary report
+- [ ] Recruiter-friendly main README optimization
+- [ ] Final repository navigation and Quick Links review
+- [ ] Final screenshot organization and evidence verification
+- [ ] Final portfolio quality-assurance review
+- [ ] Day 6 portfolio presentation and job-readiness activities
 
 ## Day 1 Deliverables
 
 Day 1 established the professional GitHub foundation for the project.
 
-The following work was completed:
+Completed work:
 
 - Reviewed and optimized the GitHub account
 - Removed or privatized weak and unfinished public repositories
@@ -338,8 +435,6 @@ The following work was completed:
 - Created the project folder structure
 - Added folder-level README files
 - Reviewed the public profile using an InPrivate browser
-
-Day 1 established a clean and organized public portfolio foundation.
 
 ## Day 2 Deliverables
 
@@ -355,39 +450,28 @@ test-cases/booking-system-test-cases.xlsx
 test-cases/booking-system-test-cases.csv
 ```
 
-Day 2 accomplishments include:
+Day 2 accomplishments included:
 
 - Reviewed essential software-testing concepts
 - Documented SDLC and STLC fundamentals
 - Reviewed positive, negative and boundary-value testing
 - Reviewed severity, priority and the defect lifecycle
 - Created the booking-system requirements baseline
-- Defined authentication requirements
-- Defined booking-creation requirements
-- Defined booking-retrieval requirements
-- Defined booking-update requirements
-- Defined booking-deletion requirements
-- Defined database and data-quality requirements
-- Defined nonfunctional expectations
+- Defined functional, database and nonfunctional requirements
 - Created a comprehensive software test plan
-- Defined testing objectives
-- Defined in-scope and out-of-scope areas
-- Defined the test approach
-- Defined entry and exit criteria
-- Defined risks and mitigation strategies
 - Created the initial Excel test-case workbook
 - Created the Requirements worksheet
 - Created the Test_Data worksheet
 - Created the first 10 manual test cases
 - Created a GitHub-previewable CSV file
 
-All Day 2 test cases were correctly left in **Not Run** status because
-execution had not begun.
+At the end of Day 2, all test cases remained in **Not Run** status
+because execution had not started.
 
 ## Day 3 Deliverables
 
-Day 3 expanded the project’s manual test coverage and introduced formal
-requirements traceability and defect-documentation examples.
+Day 3 expanded the project’s manual/API test coverage and introduced
+formal requirements traceability and defect-documentation examples.
 
 Files added or updated:
 
@@ -400,40 +484,29 @@ defect-reports/booking-system-defect-report-drafts.xlsx
 defect-reports/booking-system-defect-report-drafts.csv
 ```
 
-Day 3 accomplishments include:
+Day 3 accomplishments included:
 
 - Expanded the test suite from 10 to 25 test cases
-- Added missing-last-name validation
-- Added minimum positive-price validation
-- Added negative-price validation
-- Added booking-retrieval test cases
-- Added booking-search coverage
-- Added full booking-update coverage
-- Added partial booking-update coverage
-- Added unauthorized-update coverage
-- Added nonexistent-booking update coverage
-- Added invalid-date update coverage
-- Added authorized booking-deletion coverage
-- Added unauthorized-deletion coverage
-- Added deleted-booking retrieval coverage
-- Added nonexistent-booking deletion coverage
-- Completed the remaining Requirements worksheet entries
+- Added authentication, booking, retrieval, update and deletion coverage
+- Added required-field, invalid-date and price-boundary scenarios
 - Created a formal Requirements Traceability Matrix
 - Mapped functional requirements to test cases
-- Identified planned and partially covered requirements
-- Created three clearly labeled defect-report drafts
+- Created three clearly labeled hypothetical defect-report drafts
 - Updated folder-level documentation
 - Updated the main project status
 
-All test cases remain in **Not Run** status.
+At the end of Day 3:
 
-The defect reports remain **Draft—Pending Validation** and do not claim
-that actual defects have been observed.
+- All API test cases remained **Not Run**
+- All three defect reports remained **Draft—Pending Validation**
+
+These were historical Day 3 statuses and were updated after Day 5
+execution.
 
 ## Day 4 Deliverables
 
 Day 4 established the local PostgreSQL database-testing and data-quality
-foundation for the project.
+foundation.
 
 Files added:
 
@@ -447,30 +520,18 @@ reports/day4-database-validation-summary.csv
 reports/day4-database-validation-execution.md
 ```
 
-Day 4 accomplishments include:
+Day 4 accomplishments included:
 
-- Installed or verified PostgreSQL and pgAdmin
 - Created the `booking_test_db` database
 - Created the `booking_portfolio` schema
-- Created the `customers` table
-- Created the `bookings` table
-- Created the `payments` table
-- Created customer and booking staging tables
-- Added primary-key controls
-- Added foreign-key controls
-- Added required-field controls
-- Added case-insensitive unique-email controls
-- Added booking-date validation
-- Added positive-price validation
-- Added booking-status and payment-status validation
-- Inserted 10 valid synthetic customers
-- Inserted 15 valid synthetic bookings
-- Inserted 10 valid synthetic payments
+- Created customer, booking, payment and staging tables
+- Added key, required-field and business-rule constraints
+- Inserted synthetic production-style records
 - Added controlled staging anomalies
 - Created 19 SQL validation and analysis queries
 - Created 13 automated validation-summary checks
 - Executed six database-constraint negative tests
-- Updated database requirements in the Requirements Traceability Matrix
+- Updated database requirements in the RTM
 - Added database execution evidence
 
 ### Day 4 Validation Results
@@ -487,123 +548,84 @@ Day 4 accomplishments include:
 | Production integrity failures identified | 0 |
 
 The local database is a portfolio testing environment and is not the
-database used by the public demonstration booking API.
+database used by the public demonstration API.
 
-Direct API-to-database comparison and database verification after an API
-deletion therefore remain pending.
+## Day 5 Deliverables
+
+Day 5 completed the REST API testing and Postman execution phase.
+
+Files added or updated:
+
+```text
+postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json
+postman/restful-booker-template.public-sanitized.postman_environment.json
+postman/day5-postman-collection-run-results.public-sanitized.json
+reports/day5-api-validation-execution.md
+test-cases/booking-system-test-cases.xlsx
+test-cases/booking-system-test-cases.csv
+defect-reports/booking-system-defect-reports.xlsx
+defect-reports/booking-system-defect-reports.csv
+defect-reports/DEF-API-001-invalid-booking-date-sequence.md
+defect-reports/DEF-API-002-nonpositive-total-price.md
+defect-reports/DEF-API-003-missing-required-fields-return-500.md
+requirements-traceability/booking-system-requirements-traceability-matrix.xlsx
+requirements-traceability/booking-system-requirements-traceability-matrix.csv
+```
+
+Day 5 accomplishments included:
+
+- Created and executed a 26-request Postman collection
+- Automated authentication-token and booking-ID storage
+- Added positive, negative, boundary, authorization, response-body and
+  response-time assertions
+- Executed all 25 manual/API test cases
+- Passed 18 test cases
+- Failed seven test cases
+- Confirmed three API defects
+- Converted one draft into a confirmed defect
+- Rejected two hypothetical defect drafts
+- Completed the run with zero runtime errors
+- Sanitized the exported Postman assets
+- Updated requirements traceability
+
+### Day 5 Execution Results
+
+| Metric | Result |
+|---|---:|
+| Requests created | 26 |
+| Requests executed | 26 |
+| Assertions executed | 61 |
+| Assertions passed | 51 |
+| Assertions failed | 10 |
+| Runtime errors | 0 |
+| Average response time | 36 ms |
+| Manual/API test cases executed | 25 |
+| Test cases passed | 18 |
+| Test cases failed | 7 |
+| Test cases blocked | 0 |
+| Confirmed API defects | 3 |
+
+The failed tests represent observed API behavior rather than Postman
+runtime or configuration errors.
 
 ## Current Test Coverage
 
-The current manual test suite contains **25 test cases** covering the
-main functional workflows, business rules, authorization controls and
-negative scenarios for the sample booking system.
+The current manual/API suite contains **25 executed test cases**
+covering the main functional workflows, business rules, authorization
+controls and negative scenarios for the booking API.
 
-### Authentication Testing
+### Coverage by Area
 
-Authentication coverage includes:
-
-- Valid username and password
-- Valid username with an invalid password
-- Missing username
-- Missing password
-- Blank username and password
-- Successful authentication-token generation
-
-Related test cases:
-
-```text
-TC-AUTH-001
-TC-AUTH-002
-TC-AUTH-003
-TC-AUTH-004
-TC-AUTH-005
-```
-
-### Booking-Creation and Validation Testing
-
-Booking-creation and validation coverage includes:
-
-- Successful booking creation using valid information
-- Missing first name
-- Missing last name
-- Missing booking dates
-- Checkout date earlier than check-in date
-- Total price equal to zero
-- Minimum valid positive total price
-- Negative total price
-- Unique booking-identifier validation
-- Submitted-data response validation
-
-Related test cases:
-
-```text
-TC-BOOK-001
-TC-BOOK-002
-TC-BOOK-003
-TC-BOOK-004
-TC-BOOK-005
-TC-BOOK-006
-TC-VAL-001
-TC-VAL-002
-```
-
-### Booking-Retrieval Testing
-
-Booking-retrieval coverage includes:
-
-- Retrieving an existing booking using a valid booking identifier
-- Attempting to retrieve a nonexistent booking
-- Searching for bookings using supported customer-name criteria
-
-Related test cases:
-
-```text
-TC-RET-001
-TC-RET-002
-TC-RET-003
-```
-
-### Booking-Update Testing
-
-Booking-update coverage includes:
-
-- Full booking update using valid authentication
-- Update attempt without authentication
-- Update attempt using a nonexistent booking identifier
-- Partial update of the additional-needs field
-- Update attempt using an invalid booking-date sequence
-
-Related test cases:
-
-```text
-TC-UPD-001
-TC-UPD-002
-TC-UPD-003
-TC-UPD-004
-TC-UPD-005
-```
-
-### Booking-Deletion Testing
-
-Booking-deletion coverage includes:
-
-- Successful deletion using valid authentication
-- Attempting to retrieve a successfully deleted booking
-- Deletion attempt without authentication
-- Deletion attempt using a nonexistent booking identifier
-
-Related test cases:
-
-```text
-TC-DEL-001
-TC-DEL-002
-TC-DEL-003
-TC-DEL-004
-```
+| Test Area | Test Cases | Execution Result |
+|---|---:|---|
+| Authentication | 5 | 5 Pass |
+| Booking Creation and Validation | 8 | 3 Pass / 5 Fail |
+| Booking Retrieval | 3 | 3 Pass |
+| Booking Update | 5 | 4 Pass / 1 Fail |
+| Booking Deletion | 4 | 4 Pass |
+| **Total** | **25** | **18 Pass / 7 Fail** |
 
 ### Testing Techniques Represented
-
-The current test suite demonstrates:
 
 - Functional testing
 - Positive testing
@@ -616,22 +638,51 @@ The current test suite demonstrates:
 - Error-handling validation
 - Data-integrity validation
 - CRUD workflow testing
-- Regression-test planning
+- Automated response validation
 
-### Requirements Coverage
+### Combined Coverage Summary
 
-The current manual test cases provide coverage for:
+| Test Area | Test Assets | Coverage Status | Execution Status |
+|---|---:|---|---|
+| Authentication | 5 manual/API test cases | Covered | 5 Pass |
+| Booking Creation and Validation | 8 manual/API test cases | Covered | 3 Pass / 5 Fail |
+| Booking Retrieval | 3 manual/API test cases | Covered | 3 Pass |
+| Booking Update | 5 manual/API test cases | Covered | 4 Pass / 1 Fail |
+| Booking Deletion | 4 manual/API test cases | Covered | 4 Pass |
+| Local Database Validation | 19 SQL queries | Covered locally | Executed |
+| Automated Database Summary | 13 checks | Covered | 13 Pass |
+| Database Constraint Testing | 6 negative tests | Covered | 6 Pass |
+| API Response-Time Validation | Configured assertions | Partially Covered | Pass |
+| Public Asset Security Review | Sanitized exports | Partially Covered | Pass |
 
-- Authentication requirements
-- Booking-creation requirements
-- Booking-retrieval requirements
-- Booking-update requirements
-- Booking-deletion requirements
+## Requirements Traceability
 
-Local PostgreSQL testing has provided executed coverage for several
-database and data-quality requirements.
+The RTM connects requirements to test cases, SQL validation activities,
+execution status and related defects.
 
-Current database-requirement status:
+### Current RTM Summary
+
+| Metric | Result |
+|---|---:|
+| Requirements documented | 35 |
+| Covered | 30 |
+| Partially Covered | 3 |
+| Planned | 2 |
+| Execution Pass | 28 |
+| Execution Fail | 5 |
+| Not Run | 2 |
+
+### Failed Requirement Rows
+
+| Requirement | Result | Related Defect |
+|---|---|---|
+| BOOK-001 | Fail | DEF-API-003 |
+| BOOK-002 | Fail | DEF-API-003 |
+| BOOK-003 | Fail | DEF-API-001 |
+| BOOK-004 | Fail | DEF-API-002 |
+| NFR-002 | Fail | DEF-API-001; DEF-API-002; DEF-API-003 |
+
+### Database Requirement Status
 
 - `DATA-001` — Partially Covered / Pass
 - `DATA-002` — Planned / Not Run
@@ -645,102 +696,26 @@ Current database-requirement status:
 `DATA-002` and `DATA-008` remain pending because the local PostgreSQL
 database is not connected to the public demonstration API.
 
-Additional nonfunctional coverage will be added through:
+## Confirmed Defects and Draft Outcomes
 
-- Postman response assertions
-- API response-time validation
-- Negative API testing
-- Error-response validation
-- Repository credential-exposure checks
+### Confirmed API Defects
 
-### Current Coverage Summary
+| Defect ID | Summary | Related Test Cases | Severity |
+|---|---|---|---|
+| DEF-API-001 | Checkout before check-in accepted during creation and update | TC-BOOK-004; TC-UPD-005 | High |
+| DEF-API-002 | Zero and negative total prices accepted | TC-BOOK-005; TC-VAL-002 | High |
+| DEF-API-003 | Missing required fields return HTTP 500 | TC-BOOK-002; TC-BOOK-003; TC-BOOK-006 | Medium |
 
-| Test Area | Test Assets | Coverage Status | Execution Status |
-|---|---:|---|---|
-| Authentication | 5 manual/API test cases | Covered | Not Run |
-| Booking Creation and Validation | 8 manual/API test cases | Covered | Not Run |
-| Booking Retrieval | 3 manual/API test cases | Covered | Not Run |
-| Booking Update | 5 manual/API test cases | Covered | Not Run |
-| Booking Deletion | 4 manual/API test cases | Covered | Not Run |
-| Local Database Validation | 19 SQL queries | Initial local validation complete | Executed |
-| Automated Database Summary | 13 checks | Covered | Passed |
-| Database Constraint Testing | 6 negative tests | Covered | Passed |
-| Nonfunctional API Validation | Planned Postman assertions | Planned | Not Run |
-| **Total Manual/API Test Cases** | **25** | **Functional coverage established** | **Not Run** |
+### Original Draft Outcomes
 
-The local PostgreSQL validation has been executed successfully.
+| Draft | Outcome |
+|---|---|
+| DEF-DRAFT-001 | Confirmed and converted to DEF-API-001 |
+| DEF-DRAFT-002 | Rejected because unauthorized update returned HTTP 403 |
+| DEF-DRAFT-003 | Rejected because deleted-booking retrieval returned HTTP 404 |
 
-The 25 manual and API test cases remain in **Not Run** status because
-Postman execution has not started.
-
-The local database is not connected to the public demonstration booking
-API. Therefore, local database success does not represent direct
-API-to-database validation.
-
-## Requirements Traceability
-
-The Requirements Traceability Matrix connects the project requirements
-to related test cases and planned validation activities.
-
-The matrix includes:
-
-- Requirement ID
-- Requirement category
-- Requirement summary
-- Linked test-case IDs
-- Coverage status
-- Execution status
-- Related defect IDs
-- Coverage comments
-
-Current traceability status:
-
-- Authentication requirements: Covered
-- Booking-creation requirements: Covered
-- Booking-retrieval requirements: Covered
-- Booking-update requirements: Covered
-- Booking-deletion requirements: Covered
-- Database requirements: Planned or Partially Covered
-- Nonfunctional requirements: Planned or Partially Covered
-
-Files:
-
-```text
-requirements-traceability/booking-system-requirements.md
-requirements-traceability/booking-system-requirements-traceability-matrix.xlsx
-requirements-traceability/booking-system-requirements-traceability-matrix.csv
-```
-
-## Defect-Report Drafts
-
-Three defect-report drafts were created to demonstrate professional
-defect-documentation structure.
-
-The draft scenarios include:
-
-1. Booking may accept a checkout date earlier than the check-in date
-2. Booking update may be accepted without valid authentication
-3. A deleted booking may remain retrievable
-
-These entries are clearly labeled:
-
-**Draft—Pending Validation**
-
-They are hypothetical portfolio examples and are not confirmed
-application defects.
-
-After API test execution, each draft will be:
-
-- Confirmed and converted into an actual defect report
-- Updated with actual results and supporting evidence
-- Or discarded when the system behaves correctly
-
-Files:
-
-```text
-defect-reports/booking-system-defect-report-drafts.xlsx
-defect-reports/booking-system-defect-report-drafts.csv
-```
+The original draft history is preserved in the defect workbook for
+auditability.
 
 ## Test-Execution Status
 
@@ -749,13 +724,25 @@ defect-reports/booking-system-defect-report-drafts.csv
 | Metric | Current Value |
 |---|---:|
 | Test cases created | 25 |
-| Test cases executed | 0 |
-| Passed | 0 |
-| Failed | 0 |
+| Test cases executed | 25 |
+| Passed | 18 |
+| Failed | 7 |
 | Blocked | 0 |
-| Not Run | 25 |
-| Confirmed API defects | 0 |
-| Defect drafts pending validation | 3 |
+| Not Run | 0 |
+| Confirmed API defects | 3 |
+
+### Postman Collection Runner
+
+| Metric | Current Value |
+|---|---:|
+| Requests executed | 26 |
+| Assertions executed | 61 |
+| Assertions passed | 51 |
+| Assertions failed | 10 |
+| Runtime errors | 0 |
+| Assertions skipped | 0 |
+| Average response time | 36 ms |
+| Duration | 3.256 seconds |
 
 ### Local Database Validation
 
@@ -770,35 +757,30 @@ defect-reports/booking-system-defect-report-drafts.csv
 | Constraint negative tests failed | 0 |
 | Production integrity failures identified | 0 |
 
-The local PostgreSQL checks have been executed.
-
-The 25 manual and API test cases remain in **Not Run** status because
-Postman API execution has not begun.
-
-The three defect reports remain hypothetical drafts pending validation.
-
-No API execution results or confirmed API defects have been invented or
-assumed.
-
 ## Test Data
 
 The project uses synthetic, nonproduction test data.
 
-Example placeholders include:
+Public-safe Postman variables include:
 
 ```text
-{{validUsername}}
-{{validPassword}}
+{{baseUrl}}
+{{username}}
+{{password}}
 {{authToken}}
 {{bookingId}}
 {{deletedBookingId}}
+{{nonexistentBookingId}}
+{{responseTimeLimit}}
 ```
 
-Example synthetic booking information includes:
+Sensitive and dynamic values are blank or redacted in public exports.
+
+Example synthetic booking information:
 
 ```text
-First Name: Dhruba
-Last Name: Aryal
+First Name: Test
+Last Name: User
 Total Price: 450
 Deposit Paid: true
 Check-in Date: 2026-08-10
@@ -806,31 +788,38 @@ Checkout Date: 2026-08-14
 Additional Needs: Breakfast
 ```
 
-The use of names in this project represents synthetic portfolio test
-data and not production customer information.
+No production customer information is used.
 
 ## Data and Security Rules
 
-The repository will not contain:
+The public repository does not contain:
 
 - Real customer information
 - Real passwords
-- Live authentication tokens
+- Active authentication tokens
 - Private API keys
 - Confidential employer information
 - Payment-card information
 - Production database records
 - Personal health information
 - Secret environment files
+- Private Postman account information
 
-Actual credentials and tokens will not be uploaded to GitHub.
+Sensitive values are represented using empty values, placeholders,
+environment variables or `<REDACTED>` markers.
 
-Sensitive values will be represented using placeholders or secure
-environment variables.
+Public Postman assets were reviewed to remove:
+
+- Active tokens
+- Dynamic booking identifiers
+- Private credentials
+- Saved response examples containing dynamic records
+- Account-linked export metadata
+- Token values printed by scripts
 
 ## Project Limitations
 
-This is a portfolio demonstration project based on:
+This portfolio demonstration is based on:
 
 - Assumed requirements
 - Synthetic test data
@@ -838,53 +827,39 @@ This is a portfolio demonstration project based on:
 - A publicly available demonstration API
 - A locally created PostgreSQL database
 
-The selected demonstration API may not enforce every assumed business
-requirement.
+The Restful Booker API may intentionally behave differently from the
+portfolio requirement baseline.
 
-A difference between the expected requirement and actual system
-behavior will be documented honestly as:
+The public API and local database are separate systems. Therefore:
 
-- An observed behavior
-- A project limitation
-- A potential defect pending review
-- Or a confirmed defect after reproduction
+- API success does not prove local database persistence
+- Local database success does not prove API persistence
+- Direct API-to-database reconciliation was not performed
+- Database verification after API deletion was not performed
+
+Differences between expected and actual behavior are documented
+honestly as observations, limitations or confirmed defects.
 
 ## Next Planned Activities
 
-The next project phase will focus on REST API testing with Postman.
+The remaining portfolio activities are:
 
-Planned activities are:
+1. Complete the final cross-document consistency review
+2. Complete the final public repository security review
+3. Prepare a combined API and database test-summary report
+4. Optimize the main README for recruiter review
+5. Verify all Quick Links
+6. Confirm screenshot filenames match defect evidence references
+7. Perform the final portfolio quality-assurance review
+8. Prepare Day 6 presentation and job-readiness materials
 
-1. Install or verify Postman
-2. Select and document the demonstration booking API
-3. Create the Postman workspace and collection
-4. Create collection variables
-5. Create a sanitized Postman environment template
-6. Create the authentication-token workflow
-7. Create booking-creation requests
-8. Create booking-retrieval and search requests
-9. Create full-update and partial-update requests
-10. Create booking-deletion requests
-11. Add positive API assertions
-12. Add negative API assertions
-13. Add status-code assertions
-14. Add response-body assertions
-15. Add response-time assertions
-16. Execute the applicable manual and API test cases
-17. Record Actual Result and Pass or Fail status
-18. Confirm, revise or discard the defect-report drafts
-19. Export a sanitized Postman collection
-20. Add API execution screenshots
-21. Prepare the combined test-execution report
-
-Direct API-to-database comparison will remain out of scope unless the
-selected API provides authorized access to its underlying database.
 ## Author
 
 **Dhruba Aryal**
 
-QA Automation, API Testing and Database Testing Portfolio
+QA, REST API and Database Testing Portfolio
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the
+[LICENSE](LICENSE) file for details.
