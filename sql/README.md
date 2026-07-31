@@ -2,25 +2,37 @@
 
 This folder contains the PostgreSQL schema, synthetic test data,
 validation queries, automated validation summary and database-constraint
-tests for the booking-system portfolio project.
+tests for the booking-system testing portfolio.
+
+## Files
+
+- [Create Database Schema](01_create_schema.sql)
+- [Seed Synthetic Test Data](02_seed_test_data.sql)
+- [SQL Validation and Analysis Queries](03_validation_queries.sql)
+- [Automated Validation Summary](04_validation_summary.sql)
+- [Database-Constraint Negative Tests](05_constraint_negative_tests.sql)
+- [Day 4 Database Validation Summary — CSV](../reports/day4-database-validation-summary.csv)
+- [Day 4 Database Execution Report](../reports/day4-database-validation-execution.md)
+- [Requirements Traceability Matrix](../requirements-traceability/README.md)
+- [Database Screenshot Evidence](../screenshots/README.md#day-4-postgresql-evidence)
 
 ## Database Environment
 
 | Component | Value |
 |---|---|
 | Database Platform | PostgreSQL |
-| Database Name | booking_test_db |
-| Schema Name | booking_portfolio |
+| Database Name | `booking_test_db` |
+| Schema Name | `booking_portfolio` |
 | Administration Tool | pgAdmin 4 |
 | Environment | Local nonproduction portfolio environment |
 | Data Classification | Synthetic test data only |
 
 ## Important Project Boundary
 
-The local PostgreSQL database is not the actual database behind the
-public demonstration booking API.
+The local PostgreSQL database is not the database used by the public
+Restful Booker demonstration API.
 
-The local database is used to demonstrate:
+The local database was created independently to demonstrate:
 
 - Relational database design
 - SQL database testing
@@ -35,28 +47,39 @@ The local database is used to demonstrate:
 - Staging-data anomaly detection
 - Database-constraint testing
 
-Direct API-to-database comparison remains a planned project activity.
+Direct API-to-database comparison was not performed because the public
+Restful Booker API does not provide authorized access to its underlying
+database.
+
+The public API and local PostgreSQL database are documented as separate
+testing environments.
 
 ## Database Tables
 
 ### Production-Style Tables
 
-- `customers`
-- `bookings`
-- `payments`
+| Table | Purpose |
+|---|---|
+| `customers` | Stores synthetic customer information |
+| `bookings` | Stores synthetic booking records |
+| `payments` | Stores synthetic booking-payment records |
 
 ### Staging Tables
 
-- `staging_customer_import`
-- `staging_booking_import`
+| Table | Purpose |
+|---|---|
+| `staging_customer_import` | Stores controlled customer-import anomalies |
+| `staging_booking_import` | Stores controlled booking-import anomalies |
 
-The staging tables intentionally contain controlled data-quality issues
-used to verify that the SQL validation queries detect expected
-anomalies.
+The staging tables intentionally contain known data-quality issues.
 
-## SQL Files
+These records are testing inputs used to verify that SQL validation
+queries correctly detect duplicates, missing values, invalid dates,
+invalid prices, unknown customers and unsupported booking statuses.
 
-### 01_create_schema.sql
+## SQL File Details
+
+### `01_create_schema.sql`
 
 Creates:
 
@@ -66,14 +89,15 @@ Creates:
 - `payments` table
 - `staging_customer_import` table
 - `staging_booking_import` table
-- Primary keys
-- Foreign keys
-- Unique controls
+- Primary-key constraints
+- Foreign-key constraints
+- Unique-value controls
 - Required-field controls
 - Date and price check constraints
+- Booking-status and payment-status constraints
 - Supporting indexes
 
-### 02_seed_test_data.sql
+### `02_seed_test_data.sql`
 
 Inserts:
 
@@ -83,49 +107,94 @@ Inserts:
 - Controlled customer-staging anomalies
 - Controlled booking-staging anomalies
 
-### 03_validation_queries.sql
+The production-style tables contain valid synthetic records.
 
-Contains 19 SQL validation and analysis queries covering:
+The staging tables contain intentional anomalies used for data-quality
+testing.
 
-- Record counts
-- Complete booking and payment details
-- Customers without bookings
-- Bookings without payments
-- Duplicate booking identifiers
-- Duplicate customer emails
-- Missing required values
-- Invalid booking dates
-- Zero and negative booking prices
-- Orphan booking records
-- Payment-to-booking reconciliation
-- Staging duplicate detection
-- Staging missing-data detection
-- Staging invalid-date detection
-- Staging invalid-price detection
-- Unknown-customer detection
-- Booking-status summaries
-- Customer-value ranking
-- Missing or unsupported staging booking-status detection
+### `03_validation_queries.sql`
 
-### 04_validation_summary.sql
+Contains **19 SQL validation and analysis queries**.
 
-Produces a consolidated 13-row validation report containing:
+The validation suite covers:
+
+1. Expected production record counts
+2. Complete booking, customer and payment details
+3. Customers without bookings
+4. Bookings without payment records
+5. Duplicate production booking identifiers
+6. Duplicate production customer email addresses
+7. Missing required production values
+8. Invalid production booking-date sequences
+9. Zero or negative production booking prices
+10. Production bookings without valid customers
+11. Payment-to-booking reconciliation
+12. Duplicate staging customer email addresses
+13. Missing required staging customer data
+14. Invalid staging booking-date sequences
+15. Zero or negative staging booking prices
+16. Staging bookings associated with unknown customers
+17. Booking counts and values by status
+18. Customer ranking by total booking value
+19. Missing or unsupported staging booking-status values
+
+The file demonstrates:
+
+- `SELECT`
+- `WHERE`
+- `JOIN`
+- `LEFT JOIN`
+- `GROUP BY`
+- `HAVING`
+- Aggregate functions
+- Common Table Expressions
+- Window functions
+- Conditional data-quality filtering
+- Production and staging-data comparison
+
+### `04_validation_summary.sql`
+
+Produces a consolidated **13-row automated validation report**.
+
+Each validation row contains:
 
 - Validation metric
 - Expected count
 - Actual count
-- PASS or FAIL result
+- Pass or Fail result
 
-### 05_constraint_negative_tests.sql
+The summary checks:
 
-Verifies that PostgreSQL rejects:
-
-- Blank first names
+- Production record counts
+- Duplicate identifiers
 - Duplicate customer emails
-- Missing last names
-- Bookings associated with unknown customers
-- Checkout dates earlier than check-in dates
-- Zero booking prices
+- Missing production data
+- Invalid production dates
+- Invalid production prices
+- Orphan bookings
+- Payment reconciliation
+- Staging duplicate emails
+- Missing staging customer data
+- Invalid staging booking dates
+- Invalid staging booking prices
+- Missing or unsupported staging booking statuses
+
+### `05_constraint_negative_tests.sql`
+
+Verifies that PostgreSQL rejects invalid records.
+
+The six negative tests confirm enforcement of:
+
+1. Blank customer first name
+2. Duplicate customer email
+3. Missing customer last name
+4. Booking associated with an unknown customer
+5. Checkout date earlier than check-in date
+6. Zero booking price
+
+Each negative test is executed inside a controlled transaction so the
+database can be returned to its valid state after the expected error is
+observed.
 
 ## Execution Order
 
@@ -137,79 +206,3 @@ Run the SQL files in this order:
 3. 03_validation_queries.sql
 4. 04_validation_summary.sql
 5. 05_constraint_negative_tests.sql
-```
-
-## Expected Production Record Counts
-
-| Table | Expected Count |
-|---|---:|
-| customers | 10 |
-| bookings | 15 |
-| payments | 10 |
-
-## Validation Results
-
-The automated validation summary produced:
-
-| Metric | Result |
-|---|---:|
-| Validation-summary checks executed | 13 |
-| Validation-summary checks passed | 13 |
-| Validation-summary checks failed | 0 |
-
-The database-constraint test suite produced:
-
-| Metric | Result |
-|---|---:|
-| Constraint negative tests executed | 6 |
-| Constraint negative tests passed | 6 |
-| Constraint negative tests failed | 0 |
-
-These values reflect the local portfolio database only.
-
-## Controlled Staging Anomalies
-
-The staging data intentionally includes:
-
-- One duplicate customer-email group
-- Two customer rows with missing or blank required information
-- Two booking rows with invalid date sequences
-- Two booking rows with zero or negative prices
-- One booking row with an unknown customer
-- One booking row with a missing status value
-
-These records are intentional testing inputs. They are not production
-records and are not unexpected database defects.
-
-## Requirements Coverage
-
-The local database testing provides coverage for:
-
-- `DATA-001` — Local booking-data storage
-- `DATA-003` — Unique booking identifiers
-- `DATA-004` — Valid customer relationships
-- `DATA-005` — Required database fields
-- `DATA-006` — Booking-date integrity
-- `DATA-007` — Positive-price integrity
-
-The following requirements remain pending:
-
-- `DATA-002` — Direct API-to-database comparison
-- `DATA-008` — Database verification after API booking deletion
-
-## Security Rules
-
-The SQL files do not contain:
-
-- Real passwords
-- Database connection passwords
-- Live API tokens
-- Private API keys
-- Real customer information
-- Employer information
-- Production database records
-- Payment-card information
-- Personal health information
-
-Local PostgreSQL and pgAdmin passwords must never be committed to this
-repository.

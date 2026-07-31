@@ -313,13 +313,18 @@ api-database-testing-portfolio/
 - [x] Organized screenshot evidence index
 - [x] Day 5 API execution report
 
-### In Progress
+#### Final Repository Quality and Security Review
 
-- [ ] Final public link verification after repository upload
-- [ ] Final public repository security review
+- [x] Final public link verification
+- [x] Final public repository security review
+- [x] Final cross-document consistency check
+
+#### In Progress
+
 - [ ] Combined API and database executive summary
-- [ ] Final cross-document consistency check
-- [ ] Day 6 automation, presentation and job-readiness activities
+- [ ] Day 6 Newman command-line execution
+- [ ] Day 6 GitHub Actions workflow
+- [ ] Day 6 portfolio presentation and job-readiness activities
 
 ## Day 4 Database Validation Summary
 
