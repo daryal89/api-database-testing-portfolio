@@ -1,42 +1,20 @@
 # Defect Reports
 
-This folder contains the defect-reporting template and clearly labeled
-portfolio defect-report drafts.
+This folder contains confirmed REST API defects and the preserved outcome
+of the original hypothetical defect drafts.
 
-## Current Files
+## Confirmed Defects
 
-### booking-system-defect-report-drafts.xlsx
+| Defect ID | Related Test Cases | Status |
+|---|---|---|
+| DEF-API-001 | TC-BOOK-004; TC-UPD-005 | New |
+| DEF-API-002 | TC-BOOK-005; TC-VAL-002 | New |
+| DEF-API-003 | TC-BOOK-002; TC-BOOK-003; TC-BOOK-006 | New |
 
-Contains three defect-report drafts demonstrating professional defect
-documentation.
+## Original Draft Outcomes
 
-### booking-system-defect-report-drafts.csv
-
-Provides a GitHub-previewable version of the draft reports.
-
-## Important Validation Notice
-
-The current entries are hypothetical portfolio examples.
-
-They are marked:
-
-**Draft—Pending Validation**
-
-They must not be presented as defects observed in the demonstration API
-until the related tests are executed and the behavior is reproduced.
-
-## Draft Scenarios
-
-1. Checkout date earlier than check-in date may be accepted
-2. Booking update may be accepted without authentication
-3. Deleted booking may remain retrievable
-
-## Required Action After Test Execution
-
-Each draft will be:
-
-- Confirmed and converted into an actual defect report
-- Updated with actual results and evidence
-- Or discarded when the system behaves correctly
-
-No actual application defect is currently claimed.
+| Draft | Outcome |
+|---|---|
+| DEF-DRAFT-001 | Confirmed and converted to DEF-API-001 |
+| DEF-DRAFT-002 | Rejected — unauthorized update returned HTTP 403 |
+| DEF-DRAFT-003 | Rejected — deleted booking returned HTTP 404 |

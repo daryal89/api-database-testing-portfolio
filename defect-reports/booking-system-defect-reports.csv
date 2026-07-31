@@ -1,0 +1,12 @@
+﻿Defect ID,Title,Requirement IDs,Related Test Case IDs,Module,Environment,Preconditions,Steps to Reproduce,Expected Result,Actual Result,Severity,Priority,Status,Validation State,Evidence,Comments,
+DEF-API-001,API accepts checkout date earlier than check-in date during booking creation and update,BOOK-003,TC-BOOK-004; TC-UPD-005,Booking Creation and Booking Update,Restful Booker public demonstration API; Postman Desktop,API is available. A valid token and booking ID exist for the update scenario.,"1. Submit POST /booking with check-in 2026-08-14 and checkout 2026-08-10.
+2. Authenticate and create a valid booking.
+3. Submit authenticated PUT /booking/{{bookingId}} using the same invalid date sequence.
+4. Review both responses.",The API returns HTTP 400 or 422 and does not create or update a booking using the invalid date sequence.,The API returned HTTP 200 and accepted the invalid date sequence during both booking creation and update.,High,High,New,Confirmed through Postman execution,day5-22 through day5-25; day5-37 through day5-39,"Reproduced on July 30, 2026.",
+DEF-API-002,API accepts zero and negative total prices during booking creation,BOOK-004,TC-BOOK-005; TC-VAL-002,Booking Creation and Validation,Restful Booker public demonstration API; Postman Desktop,API is available.,"1. Submit POST /booking with totalprice 0.
+2. Submit POST /booking with totalprice -1.
+3. Review both responses.",The API returns HTTP 400 or 422 and does not create either booking.,The API returned HTTP 200 and created bookings using zero and negative total prices.,High,High,New,Confirmed through Postman execution,day5-26 through day5-29; day5-37 through day5-39,"Reproduced on July 30, 2026.",
+DEF-API-003,POST /booking returns HTTP 500 instead of a client-validation response when required fields are missing,BOOK-001; BOOK-002; NFR-002,TC-BOOK-002; TC-BOOK-003; TC-BOOK-006,Booking Creation and Error Handling,Restful Booker public demonstration API; Postman Desktop,API is available and valid JSON headers are configured.,"1. Omit firstname and submit POST /booking.
+2. Omit bookingdates and submit POST /booking.
+3. Omit lastname and submit POST /booking.
+4. Review each response.","The API returns HTTP 400 or 422, identifies the missing field, and does not create a booking.","The API returned HTTP 500 for all three scenarios. No booking ID was created, but no clear field-validation response was returned.",Medium,High,New,Confirmed through Postman execution,day5-30 through day5-36; day5-37 through day5-39,"Reproduced on July 30, 2026.",
