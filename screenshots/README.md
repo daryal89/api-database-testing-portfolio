@@ -1,46 +1,47 @@
 # Project Screenshots
 
-This folder contains execution evidence supporting the API and database
-testing portfolio.
+This folder contains public-safe execution evidence supporting the API
+and database testing portfolio.
 
-The screenshots document:
+The evidence is organized so that reviewers can locate database
+validation, successful API workflows, final Collection Runner results
+and confirmed defect evidence without searching through unrelated
+screenshots.
 
-- PostgreSQL database setup and validation
-- SQL data-quality and constraint testing
-- Postman REST API execution
-- Positive and negative API test results
-- Confirmed API defects
-- Final Collection Runner results
+## Recommended Folder Structure
 
-Only screenshots containing public-safe, nonproduction information are
-included.
+```text
+screenshots/
+├── README.md
+├── day4-database/
+├── day5-api-execution/
+└── day5-defects/
+```
 
-## Evidence Categories
+- `day4-database/` contains PostgreSQL and SQL validation evidence.
+- `day5-api-execution/` contains successful workflows and final runner
+  summaries.
+- `day5-defects/` contains request, response and focused runner evidence
+  for confirmed API defects.
 
-### Day 4 — PostgreSQL Database Testing
+## Day 4 PostgreSQL Evidence
 
-The Day 4 screenshots demonstrate:
+Day 4 evidence demonstrates:
 
-- PostgreSQL connection and database selection
+- PostgreSQL connection and correct database selection
 - `booking_test_db` database
-- `booking_portfolio` schema
-- Customer, booking and payment tables
-- Customer and booking staging tables
+- `booking_portfolio` schema and tables
 - Production-style record counts
+- Customer and booking staging tables
 - Customers without bookings
 - Bookings without payment records
-- Duplicate and orphan-record checks
-- Production date-integrity validation
-- Production price-integrity validation
-- Controlled staging duplicate detection
-- Controlled staging date-error detection
-- Controlled staging price-error detection
-- Invalid or missing booking-status detection
+- Duplicate, null, orphan, date and price validation
+- Controlled staging anomalies
 - Customer-value ranking
-- Automated 13-check database-validation summary
-- Six database-constraint negative-test results
+- Automated 13-check validation summary
+- Six database-constraint negative tests
 
-### Day 4 Validation Results
+### Day 4 Results
 
 | Metric | Result |
 |---|---:|
@@ -54,33 +55,21 @@ The Day 4 screenshots demonstrate:
 | Production integrity failures identified | 0 |
 
 The Day 4 screenshots represent a local, nonproduction PostgreSQL
-portfolio environment.
+portfolio environment. They do not represent direct access to the
+database used by the public Restful Booker API.
 
-They do not represent access to the database used by the public Restful
-Booker demonstration API.
+## Day 5 API Execution Evidence
 
-## Day 5 — Postman REST API Testing
-
-The Day 5 screenshots demonstrate:
-
-- Postman workspace and collection organization
-- Reusable environment-variable configuration
-- Authentication-token workflow
-- Automated booking-ID workflow
-- Valid and invalid authentication testing
-- Valid booking creation
-- Required-field validation
-- Boundary-value validation
-- Booking retrieval and search
-- Full and partial booking updates
-- Authorization testing
-- Booking deletion
-- Positive and negative assertions
-- Status-code assertions
-- Response-body assertions
-- Response-time assertions
-- Complete Collection Runner execution
-- Confirmed API defect evidence
+| Screenshot | Purpose | Related Test Case |
+|---|---|---|
+| [Valid authentication](day5-api-execution/day5-17-valid-authentication-results.png) | Proves successful authentication, token assertion and response-time validation | TC-AUTH-001 |
+| [Valid booking creation](day5-api-execution/day5-18-valid-booking-creation-results.png) | Proves successful booking creation, booking-ID generation and returned-data validation | TC-BOOK-001 |
+| [Booking retrieval and search](day5-api-execution/day5-19-booking-retrieval-results.png) | Proves existing retrieval, nonexistent-booking handling and customer-name search | TC-RET-001; TC-RET-002; TC-RET-003 |
+| [Booking update results](day5-api-execution/day5-20-booking-update-results.png) | Proves authorized full and partial update workflows and unauthorized-update rejection | TC-UPD-001; TC-UPD-002; TC-UPD-004 |
+| [Booking deletion results](day5-api-execution/day5-21-booking-deletion-results.png) | Proves authorized deletion, unauthorized-deletion rejection and deleted-booking retrieval | TC-DEL-001; TC-DEL-002; TC-DEL-003 |
+| [Final collection run](day5-api-execution/day5-37-final-complete-collection-run.png) | Proves full 26-request execution with zero runtime errors | All API test cases |
+| [Final failed assertions — Part 1](day5-api-execution/day5-38-final-failed-assertions-part-1.png) | Shows the first portion of the final failed-assertion results | Failed API test cases |
+| [Final failed assertions — Part 2](day5-api-execution/day5-39-final-failed-assertions-part-2.png) | Shows the remaining final failed-assertion results | Failed API test cases |
 
 ### Day 5 Final Execution Results
 
@@ -88,7 +77,6 @@ The Day 5 screenshots demonstrate:
 |---|---:|
 | Requests planned | 26 |
 | Requests executed | 26 |
-| Collection completion | 100% |
 | Assertions executed | 61 |
 | Assertions passed | 51 |
 | Assertions failed | 10 |
@@ -104,28 +92,120 @@ The failed assertions represent observed API behavior that did not
 satisfy the portfolio requirement baseline. They are not Postman
 runtime or collection-configuration errors.
 
-## Day 5 Functional Evidence
-
-| Screenshot | Purpose | Related Test Cases |
-|---|---|---|
-| [Valid authentication results](day5-17-valid-authentication-results.png) | Demonstrates successful authentication, token validation and response-time testing | TC-AUTH-001 |
-| [Valid booking creation results](day5-18-valid-booking-creation-results.png) | Demonstrates successful booking creation, booking-ID generation and response-data validation | TC-BOOK-001 |
-| [Booking retrieval results](day5-19-booking-retrieval-results.png) | Demonstrates existing-booking retrieval, nonexistent-booking handling and customer-name search | TC-RET-001; TC-RET-002; TC-RET-003 |
-| [Booking update results](day5-20-booking-update-results.png) | Demonstrates authorized full update, authorized partial update and unauthorized-update rejection | TC-UPD-001; TC-UPD-002; TC-UPD-004 |
-| [Booking deletion results](day5-21-booking-deletion-results.png) | Demonstrates authorized deletion, unauthorized-deletion rejection and deleted-booking verification | TC-DEL-001; TC-DEL-002; TC-DEL-003 |
-| [Final complete Collection Runner result](day5-37-final-complete-collection-run.png) | Demonstrates completion of the full 26-request workflow with zero runtime errors | All API test cases |
-| [Final failed assertions — Part 1](day5-38-final-failed-assertions-part-1.png) | Shows the first portion of the final failed-assertion evidence | Failed API test cases |
-| [Final failed assertions — Part 2](day5-39-final-failed-assertions-part-2.png) | Shows the remaining final failed-assertion evidence | Failed API test cases |
-
-## Confirmed API Defect Evidence
+## Confirmed Defect Evidence
 
 ### DEF-API-001 — Invalid Booking-Date Sequence Accepted
 
-The API accepted a checkout date earlier than the check-in date during
-both booking creation and authenticated update.
+| Screenshot | Finding | Related Test Case |
+|---|---|---|
+| [Invalid-date creation request](day5-defects/day5-22-defect-invalid-date-create-request.png) | POST request contains checkout before check-in | TC-BOOK-004 |
+| [Invalid-date creation response](day5-defects/day5-23-defect-invalid-date-create-response.png) | HTTP 200 returned and invalid booking was created | TC-BOOK-004 |
+| [Invalid-date update request](day5-defects/day5-24-defect-invalid-date-update-request.png) | Authenticated PUT request contains checkout before check-in | TC-UPD-005 |
+| [Invalid-date update response](day5-defects/day5-25-defect-invalid-date-update-response.png) | HTTP 200 returned and invalid date update was accepted | TC-UPD-005 |
 
-Related test cases:
+[Open DEF-API-001](../defect-reports/DEF-API-001-invalid-booking-date-sequence.md)
+
+### DEF-API-002 — Zero and Negative Total Prices Accepted
+
+| Screenshot | Finding | Related Test Case |
+|---|---|---|
+| [Zero-price request](day5-defects/day5-26-defect-zero-price-request.png) | Booking request uses `totalprice = 0` | TC-BOOK-005 |
+| [Zero-price response](day5-defects/day5-27-defect-zero-price-response.png) | HTTP 200 returned and zero-price booking was created | TC-BOOK-005 |
+| [Negative-price request](day5-defects/day5-28-defect-negative-price-request.png) | Booking request uses `totalprice = -1` | TC-VAL-002 |
+| [Negative-price response](day5-defects/day5-29-defect-negative-price-response.png) | HTTP 200 returned and negative-price booking was created | TC-VAL-002 |
+
+[Open DEF-API-002](../defect-reports/DEF-API-002-nonpositive-total-price.md)
+
+### DEF-API-003 — Missing Required Fields Return HTTP 500
+
+| Screenshot | Finding | Related Test Case |
+|---|---|---|
+| [Missing-first-name request](day5-defects/day5-30-defect-missing-firstname-request.png) | Booking request omits `firstname` | TC-BOOK-002 |
+| [Missing-first-name response](day5-defects/day5-31-defect-missing-firstname-response.png) | HTTP 500 returned instead of HTTP 400 or 422 | TC-BOOK-002 |
+| [Missing-booking-dates request](day5-defects/day5-32-defect-missing-booking-dates-request.png) | Booking request omits `bookingdates` | TC-BOOK-003 |
+| [Missing-booking-dates response](day5-defects/day5-33-defect-missing-booking-dates-response.png) | HTTP 500 returned instead of HTTP 400 or 422 | TC-BOOK-003 |
+| [Missing-last-name request](day5-defects/day5-34-defect-missing-lastname-request.png) | Booking request omits `lastname` | TC-BOOK-006 |
+| [Missing-last-name response](day5-defects/day5-35-defect-missing-lastname-response.png) | HTTP 500 returned instead of HTTP 400 or 422 | TC-BOOK-006 |
+| [Required-field runner results](day5-defects/day5-36-missing-required-fields-run-results.png) | Runner evidence groups the three required-field failures | TC-BOOK-002; TC-BOOK-003; TC-BOOK-006 |
+
+[Open DEF-API-003](../defect-reports/DEF-API-003-missing-required-fields-return-500.md)
+
+## Final Failed Test Cases
+
+| Test Case | Observed Behavior | Related Defect |
+|---|---|---|
+| TC-BOOK-002 | Missing first name returned HTTP 500 | DEF-API-003 |
+| TC-BOOK-003 | Missing booking dates returned HTTP 500 | DEF-API-003 |
+| TC-BOOK-004 | Checkout before check-in was accepted with HTTP 200 | DEF-API-001 |
+| TC-BOOK-005 | Zero total price was accepted with HTTP 200 | DEF-API-002 |
+| TC-BOOK-006 | Missing last name returned HTTP 500 | DEF-API-003 |
+| TC-VAL-002 | Negative total price was accepted with HTTP 200 | DEF-API-002 |
+| TC-UPD-005 | Invalid date update was accepted with HTTP 200 | DEF-API-001 |
+
+## Preliminary Execution Evidence
+
+Preliminary Collection Runner screenshots may be retained locally for
+learning and troubleshooting history.
+
+Screenshots showing outdated totals, incomplete execution or runtime
+errors should not be uploaded as final public evidence.
+
+The authoritative Day 5 execution result is:
 
 ```text
-TC-BOOK-004
-TC-UPD-005
+26 requests executed
+61 assertions executed
+51 assertions passed
+10 assertions failed
+0 runtime errors
+```
+
+## Screenshot Security Rules
+
+Public screenshots must not contain:
+
+- Passwords
+- Active authentication tokens
+- Private API keys
+- Cookie values
+- Private environment-variable values
+- Private Postman account information
+- Personal email addresses
+- Confidential employer information
+- Real customer information
+- Production database records
+- Personal documents
+- Unrelated browser tabs
+- Desktop notifications
+- Sensitive local file paths
+
+Authentication-token values must always be hidden, cropped or redacted.
+
+Temporary synthetic booking IDs may appear only when they do not expose
+private or production information.
+
+## Environment and Evidence Limitations
+
+The Restful Booker API is a public demonstration service whose data may
+reset periodically.
+
+Therefore:
+
+- Booking IDs may differ between executions.
+- Individual response times may differ.
+- Existing bookings may disappear after an API reset.
+- Screenshots represent the documented Day 5 execution session.
+- The public API is not connected to the local PostgreSQL portfolio
+  database.
+- API and local database evidence must be interpreted as separate
+  testing environments.
+
+## Related Documentation
+
+- [Main Project README](../README.md)
+- [Postman Testing Documentation](../postman/README.md)
+- [Test Cases](../test-cases/README.md)
+- [Confirmed Defect Reports](../defect-reports/README.md)
+- [Requirements Traceability](../requirements-traceability/README.md)
+- [Day 4 Database Execution Report](../reports/day4-database-validation-execution.md)
+- [Day 5 API Execution Report](../reports/day5-api-validation-execution.md)

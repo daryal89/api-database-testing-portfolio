@@ -1,30 +1,227 @@
-# Secrets and local environment files
+# ============================================================
+# API and Database Testing Portfolio
+# Public Repository Protection Rules
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Environment files and local secrets
+# ------------------------------------------------------------
+
 .env
 .env.*
 !.env.example
 
-# Local or private Postman environments
-postman/*local*.postman_environment.json
-postman/*private*.postman_environment.json
-postman/secrets/
+*.env.local
+*.secret
+*.secrets
+secrets/
+private-secrets/
 
-# Microsoft Office temporary files
-~$*.xlsx
-~$*.docx
-~$*.pptx
 
-# Backup files
+# ------------------------------------------------------------
+# Private Postman environments and unsanitized exports
+# ------------------------------------------------------------
+
+# Local or private Postman environment files
+*.local.postman_environment.json
+*.private.postman_environment.json
+*.unsanitized.postman_environment.json
+
+# Raw, private, or unsanitized Postman exports
+postman/*raw*.json
+postman/*private*.json
+postman/*unsanitized*.json
+postman/private/
+postman/local/
+
+# Private Collection Runner results
+run-results/private/
+Run-Results/Private/
+**/run-results/private/
+
+# Generic local JSON configuration
+*.local.json
+
+
+# ------------------------------------------------------------
+# Keep approved public-safe Postman assets trackable
+# ------------------------------------------------------------
+
+!postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json
+!postman/restful-booker-template.public-sanitized.postman_environment.json
+!postman/day5-postman-collection-run-results.public-sanitized.json
+
+
+# ------------------------------------------------------------
+# Local backups and working copies
+# ------------------------------------------------------------
+
+Backups/
+backups/
+Backup/
+backup/
+
 *.bak
 *.backup
+*.old
+*.orig
 *.tmp
+*.temp
+*.copy
 
-# Editor settings
+* copy.*
+* - Copy.*
+
+
+# ------------------------------------------------------------
+# Newman and generated API reports
+# ------------------------------------------------------------
+
+newman/
+newman-report/
+newman-reports/
+reports/generated/
+reports/private/
+
+*.newman.json
+newman-*.html
+newman-*.xml
+
+
+# ------------------------------------------------------------
+# Node.js dependencies and logs
+# ------------------------------------------------------------
+
+node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# ------------------------------------------------------------
+# Microsoft Office temporary and lock files
+# ------------------------------------------------------------
+
+~$*
+*.xlk
+*.asd
+*.wbk
+
+
+# ------------------------------------------------------------
+# Database dumps, credentials, and local database files
+# ------------------------------------------------------------
+
+*.dump
+*.backup.sql
+*.private.sql
+*.local.sql
+
+*.db
+*.sqlite
+*.sqlite3
+
+pgpass.conf
+.pgpass
+
+
+# ------------------------------------------------------------
+# Log and runtime files
+# ------------------------------------------------------------
+
+*.log
+logs/
+log/
+
+*.pid
+*.pid.lock
+
+
+# ------------------------------------------------------------
+# IDE and editor settings
+# ------------------------------------------------------------
+
 .vscode/
 .idea/
 
-# Operating-system files
-.DS_Store
-Thumbs.db
+*.code-workspace
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Logs
-*.log
+.history/
+
+
+# ------------------------------------------------------------
+# Operating-system generated files
+# ------------------------------------------------------------
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+.Trash-*
+
+
+# ------------------------------------------------------------
+# Python cache files, if local utility scripts are added
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+.venv/
+venv/
+
+
+# ------------------------------------------------------------
+# Test and coverage outputs
+# ------------------------------------------------------------
+
+coverage/
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+
+
+# ------------------------------------------------------------
+# Compressed local archives
+# ------------------------------------------------------------
+
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+
+# ------------------------------------------------------------
+# Do not ignore portfolio deliverables
+# ------------------------------------------------------------
+
+!*.md
+!*.csv
+!*.xlsx
+!*.png
+!*.jpg
+!*.jpeg
+!*.sql
