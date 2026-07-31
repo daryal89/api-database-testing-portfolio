@@ -1,62 +1,24 @@
 # Requirements Traceability
 
-This folder contains the requirements baseline and Requirements
-Traceability Matrix for the sample booking system.
+This folder contains the Requirements Traceability Matrix in Excel and
+GitHub-previewable CSV formats.
 
-## Current Files
+## Day 5 API Execution
 
-### booking-system-requirements.md
+All 25 manual/API test cases were executed.
 
-Defines the assumed functional, database, data-quality and
-nonfunctional requirements used by the portfolio project.
+| Result | Count |
+|---|---:|
+| Passed | 18 |
+| Failed | 7 |
+| Blocked | 0 |
+| Not Run | 0 |
 
-### booking-system-requirements-traceability-matrix.xlsx
+The failed requirements are associated with:
 
-The Excel matrix connects each requirement to:
+- Invalid booking-date validation
+- Nonpositive total-price validation
+- Required-field error handling
 
-- Related manual test cases
-- Related SQL validation checks
-- Coverage status
-- Execution status
-- Related defects
-- Coverage comments
-
-### booking-system-requirements-traceability-matrix.csv
-
-Provides a GitHub-previewable version of the traceability matrix.
-
-## Functional Requirements
-
-The following functional requirement groups have manual test-case
-coverage:
-
-- Authentication
-- Booking creation
-- Booking retrieval
-- Booking update
-- Booking deletion
-
-The related manual and API test cases remain **Not Run** pending Postman
-execution.
-
-## Database Requirements
-
-| Requirement | Coverage Status | Execution Status |
-|---|---|---|
-| DATA-001 | Partially Covered | Pass |
-| DATA-002 | Planned | Not Run |
-| DATA-003 | Covered | Pass |
-| DATA-004 | Covered | Pass |
-| DATA-005 | Covered | Pass |
-| DATA-006 | Covered | Pass |
-| DATA-007 | Covered | Pass |
-| DATA-008 | Planned | Not Run |
-
-`DATA-002` and `DATA-008` remain pending because the local PostgreSQL
-database is not the database behind the public demonstration API.
-
-## Nonfunctional Requirements
-
-The nonfunctional API requirements remain planned or partially covered.
-Additional validation will be performed during Postman execution and
-repository-security review.
+`DATA-002` and `DATA-008` remain planned because the public API does not
+provide authorized access to its underlying database.
