@@ -88,6 +88,23 @@ not Postman configuration or runtime failures.
 - [Screenshot Evidence Index](screenshots/README.md)
 - [Project Development Journal](docs/project-development-journal.md)
 
+  ## Latest Release
+
+[Day 5 — Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
+
+The `v1.0.0` release preserves the completed manual, REST API and
+PostgreSQL testing baseline before Day 6 automation work begins.
+
+Key release results:
+
+- 25 test cases executed: 18 passed and seven failed
+- 26 Postman requests and 61 assertions executed
+- Zero Postman runtime errors
+- Three confirmed API defects
+- 19 SQL validation queries
+- 13 automated database checks
+- Six database-constraint negative tests
+
 ## Portfolio Highlights
 
 - Designed and executed a complete booking CRUD workflow using Postman.
