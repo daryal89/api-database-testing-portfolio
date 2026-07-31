@@ -1,48 +1,20 @@
 # Test Reports
 
-This folder contains completed local PostgreSQL validation results and
-will later contain the combined API and database test-execution report.
+This folder contains completed database and REST API execution reports.
 
-## Current Files
-
-### day4-database-validation-summary.csv
-
-Contains the 13 automated PostgreSQL validation results, including:
-
-- Validation metric
-- Expected count
-- Actual count
-- PASS or FAIL result
-
-### day4-database-validation-execution.md
-
-Documents:
-
-- Database environment
-- Database objects
-- Synthetic test-data counts
-- SQL validation coverage
-- Automated validation results
-- Constraint negative-test results
-- Database requirements coverage
-- Execution evidence
-- Project limitations
-- Final Day 4 result
-
-## Current Results
+## Day 5 REST API Results
 
 | Metric | Result |
 |---|---:|
-| SQL validation and analysis queries | 19 |
-| Automated summary checks executed | 13 |
-| Automated summary checks passed | 13 |
-| Automated summary checks failed | 0 |
-| Constraint negative tests executed | 6 |
-| Constraint negative tests passed | 6 |
-| Constraint negative tests failed | 0 |
+| Requests executed | 26 |
+| Assertions executed | 61 |
+| Assertions passed | 51 |
+| Assertions failed | 10 |
+| Runtime errors | 0 |
+| API test cases passed | 18 |
+| API test cases failed | 7 |
+| Confirmed API defects | 3 |
 
-These results apply only to the locally created PostgreSQL portfolio
-database.
+Current Day 5 report:
 
-The 25 manual and API test cases remain **Not Run** pending Postman
-execution.
+- `day5-api-validation-execution.md`
