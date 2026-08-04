@@ -1,0 +1,85 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches:
+      - main
+      - day6-newman-github-actions
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  newman-api-tests:
+    name: Run Restful Booker API Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Display Node.js and npm versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Display Newman version
+        run: npm run newman:version
+
+      - name: Create Newman report directory
+        run: mkdir -p reports/newman
+
+      - name: Verify required repository secrets
+        env:
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+        run: |
+          if [ -z "$BOOKER_USERNAME" ]; then
+            echo "::error::BOOKER_USERNAME repository secret is missing."
+            exit 1
+          fi
+
+          if [ -z "$BOOKER_PASSWORD" ]; then
+            echo "::error::BOOKER_PASSWORD repository secret is missing."
+            exit 1
+          fi
+
+          echo "Required repository secrets are configured."
+
+      - name: Run Postman collection with Newman
+        env:
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+        run: |
+          npx newman run \
+            "postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json" \
+            -e "postman/restful-booker-template.public-sanitized.postman_environment.json" \
+            --env-var "username=$BOOKER_USERNAME" \
+            --env-var "password=$BOOKER_PASSWORD" \
+            -r cli,junit \
+            --reporter-junit-export "reports/newman/newman-results.xml"
+
+      - name: Upload Newman JUnit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: newman-junit-report
+          path: reports/newman/newman-results.xml
+          if-no-files-found: warn
+          retention-days: 14

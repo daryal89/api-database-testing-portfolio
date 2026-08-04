@@ -1,9 +1,11 @@
 {
   "info": {
-    "_postman_id": "09a8096b-62e3-4f9f-a478-b42ae69f20b0",
+    "_postman_id": "5639b99a-38d8-48f7-9adb-bcebdd8690f7",
     "name": "Restful Booker API Testing Portfolio",
     "description": "Portfolio collection for REST API testing of the Restful Booker  \ndemonstration API.\n\nCoverage includes:\n\n- API health check\n    \n- Valid and invalid authentication\n    \n- Booking creation\n    \n- Required-field validation\n    \n- Boundary-value testing\n    \n- Booking retrieval\n    \n- Booking search\n    \n- Full booking update\n    \n- Partial booking update\n    \n- Authorization testing\n    \n- Booking deletion\n    \n- Nonexistent booking handling\n    \n- Status-code assertions\n    \n- Response-body assertions\n    \n- Response-time assertions\n    \n\nImportant limitation:\n\nRestful Booker is a public demonstration API that resets its booking  \nrecords regularly. The API is not connected to the local PostgreSQL  \nportfolio database.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56913804",
+    "_collection_link": "https://go.postman.co/collection/56913804-5639b99a-38d8-48f7-9adb-bcebdd8690f7?source=collection_link"
   },
   "item": [
     {
@@ -59,33 +61,87 @@
               "listen": "test",
               "script": {
                 "exec": [
+                  "/**\r",
+                  " * TC-AUTH-001 - Valid authentication\r",
+                  " *\r",
+                  " * Verifies successful authentication, stores the returned token\r",
+                  " * as the environment variable \"authToken\", and validates response time.\r",
+                  " *\r",
+                  " * Security rule:\r",
+                  " * Never print the actual authentication token to the console.\r",
+                  " */\r",
+                  "\r",
                   "pm.test(\"TC-AUTH-001 - Status code is 200\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "\r",
-                  "const json = pm.response.json();\r",
+                  "let responseJson;\r",
                   "\r",
-                  "pm.test(\"TC-AUTH-001 - Authentication token is returned\", function () {\r",
-                  "    pm.expect(json).to.have.property(\"token\");\r",
-                  "    pm.expect(json.token).to.be.a(\"string\");\r",
-                  "    pm.expect(json.token).to.not.be.empty;\r",
-                  "});\r",
+                  "try {\r",
+                  "    responseJson = pm.response.json();\r",
+                  "} catch (error) {\r",
+                  "    responseJson = {};\r",
                   "\r",
-                  "// Save only when a real token was returned\r",
-                  "if (json.token) {\r",
-                  "    pm.environment.set(\"authToken\", json.token);\r",
-                  "    console.log(\"authToken saved successfully. Token value not logged.\");\r",
+                  "    console.error(\r",
+                  "        \"TC-AUTH-001: Authentication response could not be parsed as JSON.\"\r",
+                  "    );\r",
                   "}\r",
                   "\r",
-                  "const limit = Number(pm.environment.get(\"responseTimeLimit\"));\r",
+                  "pm.test(\"TC-AUTH-001 - Authentication token is returned\", function () {\r",
+                  "    pm.expect(responseJson).to.be.an(\"object\");\r",
+                  "    pm.expect(responseJson).to.have.property(\"token\");\r",
+                  "    pm.expect(responseJson.token).to.be.a(\"string\");\r",
+                  "    pm.expect(responseJson.token.trim()).to.not.be.empty;\r",
+                  "});\r",
                   "\r",
-                  "pm.test(\"NFR-001 - Authentication response time is within limit\", function () {\r",
-                  "    pm.expect(limit, \"responseTimeLimit must be a valid number\")\r",
-                  "        .to.be.a(\"number\")\r",
-                  "        .and.not.satisfy(Number.isNaN);\r",
+                  "const hasValidToken =\r",
+                  "    typeof responseJson.token === \"string\" &&\r",
+                  "    responseJson.token.trim().length > 0;\r",
                   "\r",
-                  "    pm.expect(pm.response.responseTime).to.be.at.most(limit);\r",
-                  "});"
+                  "if (hasValidToken) {\r",
+                  "    pm.environment.set(\"authToken\", responseJson.token);\r",
+                  "\r",
+                  "    console.log(\r",
+                  "        \"authToken saved successfully. Token value not logged.\"\r",
+                  "    );\r",
+                  "} else {\r",
+                  "    /*\r",
+                  "     * Remove a token left over from an earlier run.\r",
+                  "     * This prevents stale credentials from making later requests\r",
+                  "     * appear authenticated when the current authentication failed.\r",
+                  "     */\r",
+                  "    pm.environment.unset(\"authToken\");\r",
+                  "\r",
+                  "    console.error(\r",
+                  "        \"authToken was not saved because the authentication response did not contain a valid token.\"\r",
+                  "    );\r",
+                  "}\r",
+                  "\r",
+                  "const responseTimeLimitValue =\r",
+                  "    pm.environment.get(\"responseTimeLimit\");\r",
+                  "\r",
+                  "const responseTimeLimit =\r",
+                  "    Number(responseTimeLimitValue);\r",
+                  "\r",
+                  "pm.test(\r",
+                  "    \"NFR-001 - Authentication response time is within limit\",\r",
+                  "    function () {\r",
+                  "        pm.expect(\r",
+                  "            Number.isFinite(responseTimeLimit),\r",
+                  "            \"responseTimeLimit must be a valid finite number\"\r",
+                  "        ).to.be.true;\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            responseTimeLimit,\r",
+                  "            \"responseTimeLimit must be greater than zero\"\r",
+                  "        ).to.be.above(0);\r",
+                  "\r",
+                  "        pm.expect(\r",
+                  "            pm.response.responseTime,\r",
+                  "            `Authentication response exceeded ${responseTimeLimit} ms`\r",
+                  "        ).to.be.at.most(responseTimeLimit);\r",
+                  "    }\r",
+                  ");"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -179,7 +235,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"invalid-demo-password\"\r\n}",
+              "raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"InvalidPassword123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -510,7 +566,91 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "TC-BOOK-001 - Create valid booking",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"{{firstName}}\",\r\n    \"lastname\": \"{{lastName}}\",\r\n    \"totalprice\": {{totalPrice}},\r\n    \"depositpaid\": {{depositPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkIn}}\",\r\n        \"checkout\": \"{{checkOut}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/booking",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "booking"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Length",
+                  "value": "200"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 29 Jul 2026 16:16:22 GMT"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"c8-wuC+wLt59ih9LeFLWgHnjsuh7jE\""
+                },
+                {
+                  "key": "Nel",
+                  "value": "{\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=IwV%2FXIIUBkF%2FafvnhY%2F5eLgyK3TBXQqEmu7MhYexQ3E%3D\\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\\u0026ts=1785341782\"}],\"max_age\":3600}"
+                },
+                {
+                  "key": "Reporting-Endpoints",
+                  "value": "heroku-nel=\"https://nel.heroku.com/reports?s=IwV%2FXIIUBkF%2FafvnhY%2F5eLgyK3TBXQqEmu7MhYexQ3E%3D&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&ts=1785341782\""
+                },
+                {
+                  "key": "Server",
+                  "value": "Heroku"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 heroku-router"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"bookingid\": 2746,\n    \"booking\": {\n        \"firstname\": \"Dhruba\",\n        \"lastname\": \"Aryal\",\n        \"totalprice\": 450,\n        \"depositpaid\": true,\n        \"bookingdates\": {\n            \"checkin\": \"2026-08-10\",\n            \"checkout\": \"2026-08-14\"\n        },\n        \"additionalneeds\": \"Breakfast\"\n    }\n}"
+            }
+          ]
         },
         {
           "name": "TC-VAL-002 - Negative total price",
@@ -1199,7 +1339,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}?",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -1365,28 +1505,37 @@
               "listen": "prerequest",
               "script": {
                 "exec": [
-                  "const token = pm.environment.get(\"token\");\r",
+                  "/**\r",
+                  " * TC-UPD-001 setup validation\r",
+                  " *\r",
+                  " * Verifies that the authentication token and booking ID created by\r",
+                  " * earlier collection requests are available before the full update runs.\r",
+                  " *\r",
+                  " * The authentication request stores the token as \"authToken\".\r",
+                  " * Never print the actual token value to the console.\r",
+                  " */\r",
+                  "\r",
+                  "const authToken = pm.environment.get(\"authToken\");\r",
                   "const bookingId = pm.environment.get(\"bookingId\");\r",
                   "\r",
-                  "console.log(\r",
-                  "    \"TC-UPD-001 SETUP CHECK\",\r",
-                  "    {\r",
-                  "        tokenExists: Boolean(token),\r",
-                  "        tokenLength: token ? token.length : 0,\r",
-                  "        bookingIdExists: Boolean(bookingId),\r",
-                  "        bookingId: bookingId || \"MISSING\"\r",
-                  "    }\r",
-                  ");\r",
+                  "console.log(\"TC-UPD-001 SETUP CHECK\", {\r",
+                  "    tokenExists: Boolean(authToken),\r",
+                  "    tokenLength: authToken ? String(authToken).length : 0,\r",
+                  "    bookingIdExists: Boolean(bookingId),\r",
+                  "    bookingId: bookingId || \"\"\r",
+                  "});\r",
                   "\r",
-                  "if (!token) {\r",
+                  "if (!authToken) {\r",
                   "    console.error(\r",
-                  "        \"SETUP PROBLEM: token environment variable is empty.\"\r",
+                  "        \"SETUP PROBLEM: authToken environment variable is empty. \" +\r",
+                  "        \"Run TC-AUTH-001 before this request.\"\r",
                   "    );\r",
                   "}\r",
                   "\r",
                   "if (!bookingId) {\r",
                   "    console.error(\r",
-                  "        \"SETUP PROBLEM: bookingId environment variable is empty.\"\r",
+                  "        \"SETUP PROBLEM: bookingId environment variable is empty. \" +\r",
+                  "        \"Run TC-BOOK-001 before this request.\"\r",
                   "    );\r",
                   "}"
                 ],
@@ -1541,28 +1690,37 @@
               "listen": "prerequest",
               "script": {
                 "exec": [
-                  "const token = pm.environment.get(\"token\");\r",
+                  "/**\r",
+                  " * TC-UPD-004 setup validation\r",
+                  " *\r",
+                  " * Verifies that the authentication token and booking ID created by\r",
+                  " * earlier collection requests are available before the partial update runs.\r",
+                  " *\r",
+                  " * The authentication request stores the token as \"authToken\".\r",
+                  " * Never print the actual token value to the console.\r",
+                  " */\r",
+                  "\r",
+                  "const authToken = pm.environment.get(\"authToken\");\r",
                   "const bookingId = pm.environment.get(\"bookingId\");\r",
                   "\r",
-                  "console.log(\r",
-                  "    \"TC-UPD-001 SETUP CHECK\",\r",
-                  "    {\r",
-                  "        tokenExists: Boolean(token),\r",
-                  "        tokenLength: token ? token.length : 0,\r",
-                  "        bookingIdExists: Boolean(bookingId),\r",
-                  "        bookingId: bookingId || \"MISSING\"\r",
-                  "    }\r",
-                  ");\r",
+                  "console.log(\"TC-UPD-004 SETUP CHECK\", {\r",
+                  "    tokenExists: Boolean(authToken),\r",
+                  "    tokenLength: authToken ? String(authToken).length : 0,\r",
+                  "    bookingIdExists: Boolean(bookingId),\r",
+                  "    bookingId: bookingId || \"\"\r",
+                  "});\r",
                   "\r",
-                  "if (!token) {\r",
+                  "if (!authToken) {\r",
                   "    console.error(\r",
-                  "        \"SETUP PROBLEM: token environment variable is empty.\"\r",
+                  "        \"SETUP PROBLEM: authToken environment variable is empty. \" +\r",
+                  "        \"Run TC-AUTH-001 before this request.\"\r",
                   "    );\r",
                   "}\r",
                   "\r",
                   "if (!bookingId) {\r",
                   "    console.error(\r",
-                  "        \"SETUP PROBLEM: bookingId environment variable is empty.\"\r",
+                  "        \"SETUP PROBLEM: bookingId environment variable is empty. \" +\r",
+                  "        \"Run TC-BOOK-001 before this request.\"\r",
                   "    );\r",
                   "}"
                 ],
@@ -1705,7 +1863,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"firstname\": \"{{updatedFirstName}}\",\r\n  \"lastname\": \"{{updatedLastName}}\",\r\n  \"totalprice\": 450,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-08-10\",\r\n    \"checkout\": \"2026-08-14\"\r\n  },\r\n  \"additionalneeds\": \"Breakfast\"\r\n}",
+              "raw": "{\r\n  \"firstname\": \"Dhruba\",\r\n  \"lastname\": \"Aryal\",\r\n  \"totalprice\": 450,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-08-10\",\r\n    \"checkout\": \"2026-08-14\"\r\n  },\r\n  \"additionalneeds\": \"Breakfast\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1713,13 +1871,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "raw": "{{baseUrl}}/booking/99999999",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "booking",
-                "{{nonexistentBookingId}}"
+                "99999999"
               ]
             }
           },
@@ -1966,13 +2124,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/booking/{{nonexistentBookingId}}",
+              "raw": "{{baseUrl}}/booking/99999999",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "booking",
-                "{{nonexistentBookingId}}"
+                "99999999"
               ]
             }
           },
