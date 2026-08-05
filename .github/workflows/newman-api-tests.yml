@@ -1,19 +1,35 @@
 name: Newman API Tests
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
       - day6-newman-github-actions
+    paths:
+      - "postman/**"
+      - "automation/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/newman-api-tests.yml"
 
   pull_request:
     branches:
       - main
-
-  workflow_dispatch:
+    paths:
+      - "postman/**"
+      - "automation/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/newman-api-tests.yml"
 
 permissions:
   contents: read
+
+concurrency:
+  group: restful-booker-api-tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   newman-api-tests:
@@ -40,12 +56,9 @@ jobs:
         run: npm ci
 
       - name: Display Newman version
-        run: npm run newman:version
+        run: npx newman --version
 
-      - name: Create Newman report directory
-        run: mkdir -p reports/newman
-
-      - name: Verify required repository secrets
+      - name: Validate required repository secrets
         env:
           BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
           BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
@@ -62,7 +75,43 @@ jobs:
 
           echo "Required repository secrets are configured."
 
-      - name: Run Postman collection with Newman
+      - name: Create Newman results directory
+        run: mkdir -p newman-results
+
+      # ------------------------------------------------------
+      # STRICT CI QUALITY GATE
+      #
+      # This stable smoke suite must pass.
+      # Any failed assertion makes the workflow fail.
+      # ------------------------------------------------------
+      - name: Run CI smoke collection
+        id: smoke
+        env:
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+        run: |
+          npx newman run \
+            "postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json" \
+            -e "postman/restful-booker-template.public-sanitized.postman_environment.json" \
+            --env-var "username=$BOOKER_USERNAME" \
+            --env-var "password=$BOOKER_PASSWORD" \
+            --delay-request 100 \
+            --timeout-request 15000 \
+            -r cli,json,junit \
+            --reporter-json-export "newman-results/smoke-results.json" \
+            --reporter-junit-export "newman-results/smoke-results.xml" \
+            --color off
+
+      # ------------------------------------------------------
+      # COMPLETE VALIDATION SUITE
+      #
+      # The full suite retains negative tests and confirmed
+      # requirement mismatches. Its failures remain visible
+      # but do not override a successful smoke quality gate.
+      # ------------------------------------------------------
+      - name: Run full validation suite
+        id: full_validation
+        continue-on-error: true
         env:
           BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
           BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
@@ -72,14 +121,61 @@ jobs:
             -e "postman/restful-booker-template.public-sanitized.postman_environment.json" \
             --env-var "username=$BOOKER_USERNAME" \
             --env-var "password=$BOOKER_PASSWORD" \
-            -r cli,junit \
-            --reporter-junit-export "reports/newman/newman-results.xml"
+            --delay-request 100 \
+            --timeout-request 15000 \
+            -r cli,json,junit \
+            --reporter-json-export "newman-results/full-validation-results.json" \
+            --reporter-junit-export "newman-results/full-validation-results.xml" \
+            --color off
 
-      - name: Upload Newman JUnit report
+      - name: Report full validation status
+        if: always()
+        run: |
+          if [ "${{ steps.full_validation.outcome }}" = "failure" ]; then
+            echo "::warning::The full validation suite detected documented Restful Booker API requirement mismatches."
+            echo "::warning::Review the full-validation-newman-results artifact for details."
+          elif [ "${{ steps.full_validation.outcome }}" = "success" ]; then
+            echo "The full validation suite completed without failed assertions."
+          else
+            echo "::notice::The full validation suite did not run."
+          fi
+
+      - name: Write Newman workflow summary
+        if: always()
+        run: |
+          {
+            echo "## Newman API Test Results"
+            echo ""
+            echo "| Test suite | Outcome | CI behavior |"
+            echo "|---|---|---|"
+            echo "| CI smoke suite | ${{ steps.smoke.outcome }} | Strict quality gate |"
+            echo "| Full validation suite | ${{ steps.full_validation.outcome }} | Known-defect reporting |"
+            echo ""
+            echo "### Testing Strategy"
+            echo ""
+            echo "The CI smoke suite determines the final workflow result."
+            echo ""
+            echo "The complete validation suite preserves negative tests and documented API requirement mismatches. Its results remain visible without overriding a successful smoke quality gate."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload smoke-test reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: newman-junit-report
-          path: reports/newman/newman-results.xml
+          name: smoke-newman-results
+          path: |
+            newman-results/smoke-results.json
+            newman-results/smoke-results.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload full-validation reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: full-validation-newman-results
+          path: |
+            newman-results/full-validation-results.json
+            newman-results/full-validation-results.xml
           if-no-files-found: warn
           retention-days: 14
