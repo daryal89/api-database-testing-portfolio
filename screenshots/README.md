@@ -15,7 +15,8 @@ screenshots/
 ├── README.md
 ├── day4-database/
 ├── day5-api-execution/
-└── day5-defects/
+├── day5-defects/
+└── day6-automation/
 ```
 
 - `day4-database/` contains PostgreSQL and SQL validation evidence.
@@ -141,6 +142,29 @@ runtime or collection-configuration errors.
 | TC-BOOK-006 | Missing last name returned HTTP 500 | DEF-API-003 |
 | TC-VAL-002 | Negative total price was accepted with HTTP 200 | DEF-API-002 |
 | TC-UPD-005 | Invalid date update was accepted with HTTP 200 | DEF-API-001 |
+
+## Day 6 Automation Evidence
+
+| Screenshot | Purpose |
+|---|---|
+| [Node, npm and Git versions](day6-automation/day6-01-node-npm-git-versions.png) | Confirms the local command-line environment and Day 6 branch |
+| [Newman installation](day6-automation/day6-02-newman-installation.png) | Confirms Newman was installed as a project dependency |
+| [Full Newman validation run](day6-automation/day6-03-full-newman-run-known-findings.png) | Shows the complete regression collection executing with known findings retained |
+| [Smoke collection structure](day6-automation/day6-04-postman-smoke-collection-structure.png) | Shows the stable critical booking workflow selected for CI |
+| [Passing Postman smoke run](day6-automation/day6-05-postman-smoke-run-passed.png) | Shows the smoke collection passing in Postman Desktop |
+| [Initial GitHub Actions failure](day6-automation/day6-06-initial-github-actions-failure.png) | Documents the first CI result and generated artifact |
+| [Initial failure log](day6-automation/day6-07-github-actions-failure-log.png) | Shows that known requirement-mismatch assertions caused exit code 1 |
+| [Passing local Newman smoke run](day6-automation/day6-08-local-newman-smoke-pass.png) | Shows zero failed assertions and exit code 0 locally |
+| [Repository secret names](day6-automation/day6-09-github-actions-secret-names.png) | Confirms secure credential configuration without exposing values |
+| [Green GitHub Actions workflow](day6-automation/day6-11-github-actions-green-summary.png) | Shows the automated smoke workflow completing successfully |
+| [Passing GitHub Actions Newman step](day6-automation/day6-12-github-actions-newman-pass.png) | Shows zero failed smoke assertions in CI |
+| [Workflow report artifact](day6-automation/day6-13-github-actions-artifact.png) | Shows the generated JSON and JUnit report artifact |
+
+The initial failed workflow is retained as troubleshooting evidence. It
+does not represent the final automation result.
+
+The final CI quality gate is the separate smoke collection, which must
+complete with zero failed assertions and zero runtime errors.
 
 ## Preliminary Execution Evidence
 

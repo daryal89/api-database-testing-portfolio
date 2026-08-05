@@ -19,6 +19,15 @@ Postman REST API execution reports.
 - [Public-Safe Postman Collection](../postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json)
 - [Screenshot Evidence Index](../screenshots/README.md)
 
+### Day 6 — Newman and GitHub Actions Automation
+
+- [Day 6 Newman and GitHub Actions Execution Report](day6-newman-and-github-actions-execution.md)
+- [API, Database and Automation Executive Summary](api-database-automation-executive-summary.md)
+- [Automation Documentation](../automation/README.md)
+- [GitHub Actions Workflow](../.github/workflows/newman-api-tests.yml)
+- [CI Smoke Collection](../postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json)
+- [Day 6 Automation Evidence](../screenshots/README.md#day-6-automation-evidence)
+
 ## Day 4 Database Results
 
 | Metric | Result |
@@ -46,6 +55,20 @@ Postman REST API execution reports.
 | Test cases passed | 18 |
 | Test cases failed | 7 |
 | Confirmed defects | 3 |
+
+## Day 6 Automation Results
+
+| Metric | Result |
+|---|---:|
+| Smoke requests executed | INSERT FINAL COUNT |
+| Smoke assertions executed | INSERT FINAL COUNT |
+| Smoke assertions passed | INSERT FINAL COUNT |
+| Smoke assertions failed | 0 |
+| Smoke runtime errors | 0 |
+| Local Newman exit code | 0 |
+| GitHub Actions workflow | Pass |
+| Automated report formats | JSON and JUnit |
+| Workflow artifact | Generated |
 
 ## Result Interpretation
 

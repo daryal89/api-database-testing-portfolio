@@ -202,6 +202,23 @@ Day 5 accomplishments included:
 The failed tests represent observed API behavior rather than Postman
 runtime or configuration errors.
 
+## Day 6 Deliverables
+
+Day 6 introduced command-line and continuous-integration API
+automation.
+
+Files added or updated:
+
+```text
+.github/workflows/newman-api-tests.yml
+automation/README.md
+package.json
+package-lock.json
+postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json
+reports/day6-newman-and-github-actions-execution.md
+reports/api-database-automation-executive-summary.md
+screenshots/day6-automation/
+
 ## Current Final Status
 
 After Day 5:

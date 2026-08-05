@@ -76,6 +76,15 @@ not Postman configuration or runtime failures.
 - [Sanitized Collection Runner Result](postman/day5-postman-collection-run-results.public-sanitized.json)
 - [Day 5 API Execution Report](reports/day5-api-validation-execution.md)
 
+### Automation and CI/CD
+
+- [CI Smoke Collection](postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json)
+- [Automation Documentation](automation/README.md)
+- [GitHub Actions Workflow](.github/workflows/newman-api-tests.yml)
+- [Day 6 Automation Report](reports/day6-newman-and-github-actions-execution.md)
+- [API, Database and Automation Executive Summary](reports/api-database-automation-executive-summary.md)
+- [Day 6 Automation Evidence](screenshots/README.md#day-6-automation-evidence)
+
 ### PostgreSQL Database Testing
 
 - [SQL Database Testing Documentation](sql/README.md)
@@ -118,6 +127,14 @@ Key release results:
   exposure.
 - Documented the limitation that the public API and local database are
   separate systems.
+  - Automated the stable core API workflow with Newman and GitHub Actions.
+- Separated the full defect-validation suite from the passing CI smoke
+  quality gate.
+- Protected demonstration credentials with GitHub repository secrets.
+- Generated JSON and JUnit test reports as downloadable workflow
+  artifacts.
+- Investigated and corrected an initial CI failure without hiding valid
+  Day 5 defect findings.
 
 ## Business Scenario
 
@@ -196,6 +213,20 @@ Testing validates whether the system:
 - Automated Postman assertions
 - Public-safe Postman exports
 
+### Test Automation and CI/CD
+
+- Node.js and npm
+- Newman command-line execution
+- API smoke-test design
+- npm dependency and lockfile management
+- GitHub Actions
+- YAML workflow configuration
+- CI test-quality gates
+- GitHub repository secrets
+- JSON and JUnit test reporting
+- Workflow artifact management
+- CI failure investigation and resolution
+
 ### Database Testing
 
 - PostgreSQL and SQL
@@ -227,6 +258,12 @@ Testing validates whether the system:
 - SQL
 - Microsoft Edge or Google Chrome
 - Windows
+- Node.js
+- npm
+- Newman
+- GitHub Actions
+- YAML
+- JSON and JUnit test reports
 
 ## Project Structure
 
@@ -262,6 +299,7 @@ api-database-testing-portfolio/
 │   ├── restful-booker-api-portfolio.public-sanitized.postman_collection.json
 │   ├── restful-booker-template.public-sanitized.postman_environment.json
 │   └── day5-postman-collection-run-results.public-sanitized.json
+    ├── restful-booker-ci-smoke.public-sanitized.postman_collection.json
 ├── sql/
 │   ├── README.md
 │   ├── 01_create_schema.sql
@@ -274,11 +312,21 @@ api-database-testing-portfolio/
 │   ├── day4-database-validation-summary.csv
 │   ├── day4-database-validation-execution.md
 │   └── day5-api-validation-execution.md
+    ├── day6-newman-and-github-actions-execution.md
+│   └── api-database-automation-executive-summary.md
 └── screenshots/
     ├── README.md
     ├── day4-database/
     ├── day5-api-execution/
     └── day5-defects/
+    └── day6-automation/
+├── .github/
+│   └── workflows/
+│       └── newman-api-tests.yml
+├── automation/
+│   └── README.md
+├── package.json
+├── package-lock.json
 ```
 
 ## Current Project Status
@@ -336,12 +384,29 @@ api-database-testing-portfolio/
 - [x] Final public repository security review
 - [x] Final cross-document consistency check
 
+#### Day 6 Test Automation
+
+- [x] Node.js, npm and Git verified
+- [x] Newman installed as a project dependency
+- [x] Complete validation collection executed through Newman
+- [x] Stable CI smoke collection created
+- [x] Smoke collection passed in Postman
+- [x] Smoke collection passed locally through Newman
+- [x] GitHub repository secrets configured
+- [x] Initial GitHub Actions failure investigated
+- [x] Root cause documented
+- [x] GitHub Actions smoke-test workflow completed successfully
+- [x] JSON and JUnit reports generated
+- [x] Workflow artifacts preserved
+- [x] Day 6 automation evidence organized
+- [x] Day 6 execution report completed
+
 #### In Progress
 
-- [ ] Combined API and database executive summary
-- [ ] Day 6 Newman command-line execution
-- [ ] Day 6 GitHub Actions workflow
-- [ ] Day 6 portfolio presentation and job-readiness activities
+- [ ] Final Day 6 public-link verification
+- [ ] Portfolio résumé integration
+- [ ] Interview-story preparation
+- [ ] Day 7 job-application and presentation activities
 
 ## Day 4 Database Validation Summary
 
@@ -380,6 +445,40 @@ The failed assertions are intentionally retained as evidence of observed
 requirement mismatches. They are not hidden or changed to create an
 artificially passing collection.
 
+## Day 6 Automation Summary
+
+Day 6 introduced repeatable command-line and continuous-integration API
+testing.
+
+Completed automation includes:
+
+- Newman installed as a project dependency
+- Complete validation collection executed from Git Bash
+- Separate stable CI smoke collection
+- Passing local Newman smoke execution
+- GitHub Actions workflow
+- Repository-secret credential handling
+- JSON and JUnit report generation
+- Downloadable workflow artifacts
+- Initial CI failure investigation and resolution
+
+The complete validation collection retains the confirmed requirement
+mismatches documented on Day 5.
+
+The separate smoke collection validates the stable core booking
+workflow and is used as the required passing CI quality gate.
+
+| Automation Metric | Result |
+|---|---:|
+| Smoke requests executed | INSERT FINAL COUNT |
+| Smoke assertions executed | INSERT FINAL COUNT |
+| Smoke assertions passed | INSERT FINAL COUNT |
+| Smoke assertions failed | 0 |
+| Smoke runtime errors | 0 |
+| Local Newman exit code | 0 |
+| GitHub Actions result | Pass |
+| Report formats generated | JSON and JUnit |
+
 ## Current Test Coverage
 
 | Test Area | Test Cases | Execution Result |
@@ -416,13 +515,25 @@ connected to the local PostgreSQL portfolio database.
 
 ## Reproducing the API Tests
 
-The public-safe collection and environment template can be imported into
-Postman Desktop. Credentials must be entered only in a local environment,
-and dynamic token and booking variables must be cleared before a clean
-run.
+The project provides two public-safe Postman collections:
 
-See [How to Run the Collection](postman/README.md#how-to-run-the-collection)
-for the complete procedure and documented baseline.
+1. The complete validation collection, which preserves the full
+   requirement and defect-testing baseline
+2. The CI smoke collection, which validates the stable critical booking
+   workflow
+
+The complete collection may report known failed assertions associated
+with confirmed Day 5 defects.
+
+The smoke collection is expected to complete with zero failed
+assertions.
+
+See:
+
+- [Postman Reproduction Instructions](postman/README.md)
+- [Automation Documentation](automation/README.md)
+- [GitHub Actions Workflow](.github/workflows/newman-api-tests.yml)
+- [Day 6 Execution Report](reports/day6-newman-and-github-actions-execution.md)
 
 ## Data Security
 
@@ -459,6 +570,8 @@ The portfolio was completed through structured daily milestones:
 - **Day 3** — Test cases, RTM and defect drafts
 - **Day 4** — PostgreSQL database validation
 - **Day 5** — Postman execution and confirmed defects
+- **Day 6** — Newman command-line execution, CI smoke-test design,
+  GitHub Actions automation, secure secrets and report artifacts
 
 [View the complete project development journal](docs/project-development-journal.md)
 

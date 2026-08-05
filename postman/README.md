@@ -6,10 +6,14 @@ API testing of the Restful Booker demonstration service.
 ## Files
 
 - [Public-Safe Postman Collection](restful-booker-api-portfolio.public-sanitized.postman_collection.json)
+- [Public-Safe CI Smoke Collection](restful-booker-ci-smoke.public-sanitized.postman_collection.json)
 - [Sanitized Postman Environment Template](restful-booker-template.public-sanitized.postman_environment.json)
 - [Sanitized Collection Runner Result](day5-postman-collection-run-results.public-sanitized.json)
 - [Day 5 API Execution Report](../reports/day5-api-validation-execution.md)
 - [Screenshot Evidence Index](../screenshots/README.md)
+- [Automation Documentation](../automation/README.md)
+- [GitHub Actions Workflow](../.github/workflows/newman-api-tests.yml)
+- [Day 6 Automation Report](../reports/day6-newman-and-github-actions-execution.md)
 
 ## Collection Coverage
 
@@ -36,6 +40,23 @@ The collection demonstrates:
 - Authorization testing
 - Response-time assertions
 - Complete booking CRUD workflows
+
+## Automation Strategy
+
+The complete validation collection contains the full positive, negative,
+boundary, authorization and confirmed-defect coverage.
+
+Its failed assertions are intentionally retained as evidence of observed
+requirement mismatches.
+
+The separate CI smoke collection contains the stable core booking
+workflow. It is used as the required passing command-line and GitHub
+Actions quality gate.
+
+| Collection | Purpose | Expected Result |
+|---|---|---|
+| Complete validation collection | Full regression and defect evidence | Known failed assertions may remain |
+| CI smoke collection | Stable critical workflow validation | Zero failed assertions |
 
 ## How to Run the Collection
 
@@ -78,6 +99,20 @@ deletedBookingId
 11. Review both passed and failed assertions.
 12. Export a runner result only after sanitizing credentials, tokens,
     dynamic IDs and account-linked metadata.
+
+## How to Run the CI Smoke Collection with Newman
+
+1. Install the project dependencies with `npm ci`.
+2. Create a private local environment from the sanitized template.
+3. Enter valid demonstration credentials only in the private local
+   environment.
+4. Keep token and booking-ID values blank before execution.
+5. Run:
+
+```bash
+npx newman run \
+"postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json" \
+-e "postman/restful-booker-day6.local.postman_environment.json"
 
 ## Baseline Execution Result
 
