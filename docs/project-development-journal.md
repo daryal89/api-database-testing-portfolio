@@ -215,23 +215,77 @@ automation/README.md
 package.json
 package-lock.json
 postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json
+postman/README.md
 reports/day6-newman-and-github-actions-execution.md
 reports/api-database-automation-executive-summary.md
+reports/README.md
 screenshots/day6-automation/
+screenshots/README.md
+docs/day6-ci-troubleshooting-case-study.md
+README.md
+CHANGELOG.md
+```
+
+Day 6 accomplishments included:
+
+- Verified Node.js, npm, Git and Newman
+- Installed Newman as a project dependency
+- Executed the complete Postman collection through Newman
+- Preserved the 61-assertion baseline and ten known failures
+- Created an eight-request stable CI smoke collection
+- Executed 22 passing smoke assertions
+- Configured GitHub repository secrets
+- Created a GitHub Actions workflow
+- Investigated an initial exit-code-1 workflow result
+- Identified the complete suite as unsuitable for the only strict CI gate
+- Preserved the complete suite for known-failure reporting
+- Used the smoke suite as the strict quality gate
+- Generated JSON and JUnit reports
+- Uploaded two workflow artifact groups
+- Documented the CI troubleshooting and final strategy
+
+### Day 6 Automation Results
+
+| Metric | Result |
+|---|---:|
+| Smoke requests | 8 |
+| Smoke assertions | 22 |
+| Smoke assertions passed | 22 |
+| Smoke assertions failed | 0 |
+| Smoke runtime errors | 0 |
+| Full Newman requests | 26 |
+| Full Newman assertions | 61 |
+| Full assertions passed | 51 |
+| Known full-suite failures | 10 |
+| Full-suite runtime errors | 0 |
+| GitHub Actions smoke gate | Pass |
+| Report formats | JSON and JUnit |
+| Artifact groups | 2 |
+
+The smoke suite does not replace the complete test baseline. It
+validates the stable critical workflow for CI.
 
 ## Current Final Status
 
-After Day 5:
+After Day 6:
 
 | Metric | Result |
 |---|---:|
 | API test cases executed | 25 |
 | API test cases passed | 18 |
 | API test cases failed | 7 |
-| Postman requests executed | 26 |
-| Assertions executed | 61 |
-| Runtime errors | 0 |
+| Complete Postman/Newman requests | 26 |
+| Complete assertions | 61 |
+| Known complete-suite failures | 10 |
+| CI smoke requests | 8 |
+| CI smoke assertions passed | 22 |
+| CI smoke failures | 0 |
 | Confirmed API defects | 3 |
+| GitHub Actions smoke gate | Pass |
+| Automated report formats | JSON and JUnit |
 
-The Day 1 through Day 3 planning and draft history is preserved above for
+The Day 1 through Day 3 planning and draft history remains preserved for
 auditability and learning purposes.
+
+The Day 6 pull request must still be merged, verified on `main` and
+published as the `v1.1.0` milestone.
