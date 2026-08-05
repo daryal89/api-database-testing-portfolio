@@ -63,12 +63,13 @@ pnpm-debug.log*
 
 
 # ------------------------------------------------------------
-# Newman and generated reports
+# Newman and generated Newman execution reports/results
 # ------------------------------------------------------------
 
 newman/
 newman-report/
 newman-reports/
+newman-results/
 
 reports/newman/
 reports/generated/
