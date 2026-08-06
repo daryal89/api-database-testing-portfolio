@@ -126,24 +126,25 @@ by the public Restful Booker API.
 | [Node, npm and Git versions](day6-automation/day6-01-node-npm-git-versions.png) | Confirms the local command-line environment and feature branch |
 | [Newman installation](day6-automation/day6-02-newman-installation.png) | Confirms Newman was installed as a project dependency |
 | [Complete Newman run](day6-automation/day6-03-full-newman-run-known-findings.png) | Shows 26 requests, 61 assertions and known findings retained |
-| [Smoke collection structure](day6-automation/day6-04-postman-smoke-collection-structure.png) | Shows the eight critical requests selected for CI |
+| [Smoke collection structure](day6-automation/day6-04-postman-smoke-collection-structure.png) | Shows the stable CI collection built from the health check and 18 passing Day 5 scenarios |
 | [Passing Postman smoke run](day6-automation/day6-05-postman-smoke-run-passed.png) | Shows the smoke suite passing in Postman |
 | [Initial GitHub Actions failure](day6-automation/day6-06-initial-github-actions-failure.png) | Documents the first CI result and generated artifact |
 | [Initial failure log](day6-automation/day6-07-github-actions-failure-log.png) | Shows that retained defect assertions caused exit code 1 |
 | [Passing local Newman smoke run](day6-automation/day6-08-local-newman-smoke-pass.png) | Shows zero smoke failures and local exit code 0 |
 | [Repository secret names](day6-automation/day6-09-github-actions-secret-names.png) | Confirms secure secret configuration without exposing values |
 | [Green GitHub Actions summary](day6-automation/day6-11-github-actions-green-summary.png) | Shows the final successful workflow |
-| [Passing CI smoke log](day6-automation/day6-12-github-actions-newman-pass.png) | Shows 22 passing smoke assertions |
+| [Passing CI smoke log](day6-automation/day6-12-github-actions-newman-pass.png) | Shows 19 requests and 45 assertions completing with zero failures |
 | [Full validation findings](day6-automation/day6-13-full-validation-known-findings.png) | Shows the complete suite findings retained in CI |
 | [Workflow strategy summary](day6-automation/day6-14-workflow-test-strategy-summary.png) | Shows smoke as the strict gate and full validation as reporting |
 | [Workflow artifacts](day6-automation/day6-15-github-actions-artifacts.png) | Shows both JSON/JUnit artifact groups |
 | [Pull-request checks](day6-automation/day6-16-pull-request-checks-passed.png) | Confirms validation before merge |
+| [Final main-branch workflow](day6-automation/day6-17-main-branch-workflow-success.png) | Confirms the merged workflow passed on `main`, preserved complete-suite findings and generated both artifact groups |
 
 The initial failed workflow is retained as troubleshooting evidence. It
 does not represent the final automation result.
 
-The final CI quality gate is the smoke suite, which completed with zero
-failed assertions and zero runtime errors.
+The final CI quality gate is the 19-request smoke/regression suite,
+which completed 45 assertions with zero failures and zero runtime errors.
 
 ## Screenshot Security Rules
 
@@ -179,7 +180,9 @@ Therefore:
 - Screenshots represent specific recorded sessions.
 - The public API is not connected to the local PostgreSQL portfolio
   database.
-- A passing smoke workflow proves only the selected critical path.
+- A passing CI workflow proves the health check and 18 stable passing
+  scenarios; the complete collection remains the source for known-
+  failure and defect coverage.
 
 ## Related Documentation
 

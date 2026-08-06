@@ -12,6 +12,7 @@ demonstration service.
 - [Sanitized Day 5 Collection Runner Result](day5-postman-collection-run-results.public-sanitized.json)
 - [Day 5 API Execution Report](../reports/day5-api-validation-execution.md)
 - [Day 6 Automation Report](../reports/day6-newman-and-github-actions-execution.md)
+- [CI Coverage Mapping](../docs/day6-ci-coverage-mapping.md)
 - [Automation Documentation](../automation/README.md)
 - [GitHub Actions Workflow](../.github/workflows/newman-api-tests.yml)
 - [Screenshot Evidence Index](../screenshots/README.md)
@@ -44,41 +45,53 @@ It demonstrates:
 
 ## CI Smoke Collection Coverage
 
-The CI smoke collection contains eight requests:
+The workflow names this the CI smoke collection. In practice, it is a
+stable smoke/regression suite containing 19 requests and 45 assertions.
 
-| Order | Request Purpose |
-|---:|---|
-| 1 | Verify API health |
-| 2 | Authenticate successfully |
-| 3 | Create a valid booking |
-| 4 | Retrieve the created booking |
-| 5 | Perform an authorized full update |
-| 6 | Perform an authorized partial update |
-| 7 | Delete the booking |
-| 8 | Confirm the deleted booking returns HTTP 404 |
+Its composition is:
 
-The documented smoke baseline is:
+| Component | Count |
+|---|---:|
+| API health check | 1 request |
+| Day 5 passing test scenarios | 18 requests |
+| **Total** | **19 requests** |
+
+Recorded main-branch result:
 
 | Metric | Result |
 |---|---:|
-| Requests | 8 |
-| Assertions | 22 |
-| Passed assertions | 22 |
+| Requests | 19 |
+| Test scripts | 19 |
+| Pre-request scripts | 2 |
+| Assertions | 45 |
+| Passed assertions | 45 |
 | Failed assertions | 0 |
 | Runtime errors | 0 |
+
+The seven known-failure requests remain only in the complete collection:
+
+```text
+TC-BOOK-002
+TC-BOOK-003
+TC-BOOK-004
+TC-BOOK-005
+TC-BOOK-006
+TC-VAL-002
+TC-UPD-005
+```
 
 ## Automation Strategy
 
 | Collection | Purpose | Expected Result | CI Role |
 |---|---|---|---|
 | Complete collection | Full positive, negative, boundary, authorization and defect validation | Known failures may remain | Reporting suite |
-| CI smoke collection | Stable critical workflow validation | Zero failures | Strict quality gate |
+| CI smoke/regression collection | Health check plus 18 passing Day 5 scenarios selected for CI | 19 requests and 45 assertions with zero failures | Strict quality gate |
 
 The complete collection retains failed assertions associated with
 confirmed requirement mismatches.
 
-The CI smoke collection does not replace or renumber the complete test
-baseline.
+The CI collection does not replace or renumber the complete test
+baseline. It reuses the health check and 18 passing Day 5 scenarios selected for CI.
 
 ## How to Run the Complete Collection in Postman
 
@@ -101,8 +114,8 @@ baseline.
 3. Confirm valid demonstration credentials are present.
 4. Clear dynamic token and booking variables.
 5. Run one iteration.
-6. Confirm all eight requests execute.
-7. Confirm all 22 assertions pass.
+6. Confirm all 19 requests execute.
+7. Confirm all 45 assertions pass.
 8. Confirm zero runtime errors.
 
 ## Run the Complete Collection with Newman

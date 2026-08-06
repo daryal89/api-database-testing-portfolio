@@ -66,10 +66,10 @@ Two automation suites were used:
 
 | Suite | Purpose | Result |
 |---|---|---|
-| CI smoke suite | Stable critical booking workflow | 8 requests, 22 of 22 assertions passed |
+| CI smoke/regression suite | Health check plus 18 passing Day 5 scenarios selected for CI | 19 requests, 45 of 45 assertions passed |
 | Complete validation suite | Full requirement and defect evidence | 26 requests, 61 assertions, 10 known failures retained |
 
-The smoke suite is the strict quality gate.
+The 19-request CI smoke/regression suite is the strict quality gate.
 
 The complete suite continues to report known findings but does not
 override a successful smoke result.
@@ -81,7 +81,7 @@ The GitHub Actions workflow:
 - Installs dependencies with `npm ci`
 - Uses Node.js and Newman
 - Validates required repository secrets
-- Runs the smoke suite as a strict gate
+- Runs the 19-request, 45-assertion CI suite as a strict gate
 - Runs the complete suite for broader reporting
 - Produces JSON and JUnit files
 - Uploads separate artifact groups
@@ -105,7 +105,7 @@ which intentionally contains failed defect assertions, was used as the
 required passing step.
 
 The correction preserved the complete suite and introduced a separate
-passing smoke suite.
+19-request passing CI smoke/regression suite.
 
 This approach:
 
@@ -120,7 +120,8 @@ This approach:
 - Restful Booker is a public demonstration API.
 - Its data may reset without notice.
 - Booking IDs and response times may vary.
-- A passing smoke suite proves only the selected critical workflow.
+- A passing CI suite proves the health check and 18 stable scenarios;
+  it does not convert the seven known-failure scenarios into passes.
 - The local PostgreSQL database is not connected to the public API.
 - Direct persistence validation was not possible.
 

@@ -8,6 +8,7 @@ README.
 
 - [Project Development Journal](project-development-journal.md)
 - [Day 6 CI Troubleshooting Case Study](day6-ci-troubleshooting-case-study.md)
+- [Day 6 CI Coverage Mapping](day6-ci-coverage-mapping.md)
 - [Main Project README](../README.md)
 - [API, Database and Automation Executive Summary](../reports/api-database-automation-executive-summary.md)
 - [Day 6 Execution Report](../reports/day6-newman-and-github-actions-execution.md)
@@ -21,7 +22,8 @@ The development journal preserves the chronological Day 1 through Day 6
 history.
 
 The troubleshooting case study documents the initial CI failure,
-root-cause analysis, corrective action and final automation strategy.
+root-cause analysis, corrective action and final 19-request,
+45-assertion automation strategy.
 
 Historical `Not Run`, draft and planned statuses describe the project at
 that earlier milestone. They are not the current final status.

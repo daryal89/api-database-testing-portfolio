@@ -87,7 +87,7 @@ The project adopted a two-suite strategy.
 ### CI Smoke Suite
 
 - Contains eight stable critical requests
-- Executes 22 assertions
+- Executes 45 assertions across 19 requests
 - Must pass all assertions
 - Uses Newman's normal exit-code behavior
 - Determines the final workflow result
@@ -100,12 +100,14 @@ The corrected design was validated at three levels:
 2. Local Newman execution
 3. GitHub Actions
 
-The smoke suite completed with:
+The stable CI smoke/regression suite completed with:
 
 ```text
-8 requests
-22 assertions
-22 passed
+19 requests
+19 test scripts
+2 pre-request scripts
+45 assertions
+45 passed
 0 failed
 0 runtime errors
 ```
@@ -173,7 +175,8 @@ meaningful passing CI design without weakening tests.
 - Confirmed Newman executed successfully
 - Mapped failed assertions to existing defect reports
 - Preserved the complete collection
-- Created a focused eight-request smoke collection
+- Created a stable 19-request CI smoke/regression collection from the
+  health check and 18 passing Day 5 scenarios selected for CI
 - Configured repository secrets
 - Used the smoke suite as the strict gate
 - Used the complete suite for known-failure reporting
@@ -181,7 +184,7 @@ meaningful passing CI design without weakening tests.
 
 ### Result
 
-The smoke suite passed locally and in GitHub Actions with 22 of 22
+The CI suite passed locally and in GitHub Actions with 45 of 45
 assertions, while the complete suite continued to expose ten documented
 requirement mismatches.
 
