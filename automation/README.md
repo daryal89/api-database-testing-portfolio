@@ -10,7 +10,7 @@ The automation uses:
 - Node.js and npm
 - Newman
 - A complete validation collection
-- A separate CI smoke collection
+- A separate stable CI smoke/regression collection
 - GitHub Actions
 - GitHub repository secrets
 - JSON and JUnit reports
@@ -26,7 +26,7 @@ The repository deliberately separates two testing purposes:
 | Suite | Purpose | Expected Result | Workflow Behavior |
 |---|---|---|---|
 | Complete validation suite | Execute the full positive, negative, boundary, authorization and defect baseline | Known failed assertions may remain | Runs for reporting; failure is tolerated |
-| CI smoke suite | Validate the stable critical booking workflow | Zero failed assertions | Strict quality gate |
+| CI smoke/regression suite | Validate the health check and 18 passing Day 5 scenarios selected for CI | 19 requests, 45 assertions, zero failures | Strict quality gate |
 
 The smoke suite determines the final GitHub Actions result.
 
@@ -37,6 +37,7 @@ not weakened merely to produce a green workflow.
 
 - [Complete Validation Collection](../postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json)
 - [CI Smoke Collection](../postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json)
+- [CI Coverage Mapping](../docs/day6-ci-coverage-mapping.md)
 - [Sanitized Environment Template](../postman/restful-booker-template.public-sanitized.postman_environment.json)
 - [GitHub Actions Workflow](../.github/workflows/newman-api-tests.yml)
 - [Day 6 Execution Report](../reports/day6-newman-and-github-actions-execution.md)
@@ -172,28 +173,68 @@ Expected documented baseline:
 
 | Metric | Result |
 |---|---:|
-| Requests | 8 |
-| Assertions | 22 |
-| Passed assertions | 22 |
+| Requests | 19 |
+| Test scripts | 19 |
+| Pre-request scripts | 2 |
+| Assertions | 45 |
+| Passed assertions | 45 |
 | Failed assertions | 0 |
 | Runtime errors | 0 |
 | Exit code | 0 |
 
 ## CI Smoke Workflow
 
-The smoke collection covers the stable core workflow:
+The workflow step is named **CI smoke collection**, but the collection
+also provides stable regression coverage.
 
-1. API health check
-2. Valid authentication
-3. Valid booking creation
-4. Retrieve the created booking
-5. Authorized full booking update
-6. Authorized partial booking update
-7. Authorized booking deletion
-8. Verify the deleted booking returns HTTP 404
+It contains 19 requests:
 
-Known-defect and broad negative scenarios remain in the complete
-validation collection.
+- One API health check
+- The 18 Day 5 test scenarios that passed
+- Authentication behavior
+- Valid booking creation
+- Booking retrieval and search
+- Authorized and unauthorized updates
+- Nonexistent-resource update handling
+- Authorized and unauthorized deletion
+- Verification after deletion
+- Nonexistent-resource deletion handling
+
+The CI collection excludes the seven Day 5 failed scenarios:
+
+```text
+TC-BOOK-002
+TC-BOOK-003
+TC-BOOK-004
+TC-BOOK-005
+TC-BOOK-006
+TC-VAL-002
+TC-UPD-005
+```
+
+Those seven requests remain in the complete validation collection and
+continue to provide confirmed-defect evidence.
+
+### Recorded Main-Branch CI Result
+
+| Metric | Result |
+|---|---:|
+| Requests executed | 19 |
+| Test scripts executed | 19 |
+| Pre-request scripts executed | 2 |
+| Assertions executed | 45 |
+| Assertions passed | 45 |
+| Assertions failed | 0 |
+| Runtime errors | 0 |
+| Total duration | 2.4 seconds |
+| Average response time | 12 ms |
+
+Duration and response-time values describe the recorded run and may vary
+in later executions.
+
+In Newman's summary, `test-scripts` refers to post-response scripts. It
+does not create a separate 19-test-case baseline; the project's manual/API
+baseline remains 25 test cases.
 
 ## GitHub Actions Workflow
 
@@ -323,9 +364,10 @@ The documented requirement mismatches are:
 
 These findings remain visible in the complete validation suite.
 
-The smoke suite does not redefine the affected requirements. It simply
-uses stable scenarios to determine whether the critical API workflow is
-available for CI.
+The CI suite does not redefine the affected requirements. It uses the
+health check and 18 passing Day 5 scenarios selected for CI to provide a broad,
+stable quality gate while the complete suite remains authoritative for
+known-failure coverage.
 
 ## Security Controls
 
@@ -380,7 +422,8 @@ consistent.
 - Restful Booker is a public demonstration service.
 - API data may reset.
 - Response times and booking identifiers may vary.
-- The smoke suite covers only the critical workflow.
+- The CI suite covers 19 stable requests but excludes the seven known-
+  failure requests by design.
 - The complete suite remains the authoritative requirement-validation
   baseline.
 - The local PostgreSQL database is separate from the public API.
@@ -392,4 +435,5 @@ consistent.
 - [Day 6 Execution Report](../reports/day6-newman-and-github-actions-execution.md)
 - [Executive Summary](../reports/api-database-automation-executive-summary.md)
 - [CI Troubleshooting Case Study](../docs/day6-ci-troubleshooting-case-study.md)
+- [CI Coverage Mapping](../docs/day6-ci-coverage-mapping.md)
 - [Screenshot Evidence](../screenshots/README.md#day-6-automation-evidence)

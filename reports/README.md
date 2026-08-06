@@ -59,13 +59,15 @@ reports for the portfolio.
 
 ## Day 6 Automation Results
 
-### Smoke Quality Gate
+### CI Smoke/Regression Quality Gate
 
 | Metric | Result |
 |---|---:|
-| Requests executed | 8 |
-| Assertions executed | 22 |
-| Assertions passed | 22 |
+| Requests executed | 19 |
+| Test scripts executed | 19 |
+| Pre-request scripts executed | 2 |
+| Assertions executed | 45 |
+| Assertions passed | 45 |
 | Assertions failed | 0 |
 | Runtime errors | 0 |
 | GitHub Actions result | Pass |
@@ -99,9 +101,9 @@ confirmed defects. They remain intentionally visible.
 
 Day 6 does not redefine those failures as passes.
 
-Instead, the stable eight-request smoke suite acts as the strict CI gate,
-while the complete suite remains available for requirement and defect
-reporting.
+Instead, the stable 19-request CI smoke/regression suite acts as the
+strict gate, while the complete suite remains available for requirement
+and defect reporting.
 
 The Day 4 and Day 5/Day 6 reports describe separate environments:
 

@@ -1,42 +1,35 @@
 # API, Database and CI Test Automation Portfolio
 
-[![Newman API Tests](https://github.com/daryal89/api-database-testing-portfolio/actions/workflows/newman-api-tests.yml/badge.svg)](https://github.com/daryal89/api-database-testing-portfolio/actions/workflows/newman-api-tests.yml)
+[![Newman API Tests](https://github.com/daryal89/api-database-testing-portfolio/actions/workflows/newman-api-tests.yml/badge.svg?branch=main)](https://github.com/daryal89/api-database-testing-portfolio/actions/workflows/newman-api-tests.yml)
 
 ## Project Overview
 
-This portfolio demonstrates an end-to-end quality-assurance workflow for
-a sample online booking system.
-
-The project progresses from requirements and manual test design through
-database validation, REST API testing, defect reporting and continuous
-integration:
+This portfolio demonstrates a complete quality-assurance workflow for a
+sample online booking system:
 
 - Requirements analysis and software test planning
-- Manual and REST API test-case design
+- Manual and REST API test design
 - Requirements traceability
 - PostgreSQL database validation
-- Postman collection development and execution
-- Positive, negative, boundary-value and authorization testing
-- Automated API assertions
+- Postman API execution
 - Defect investigation and reporting
-- Newman command-line execution
-- GitHub Actions continuous-integration testing
-- JSON and JUnit test-report generation
-- Secure credential handling with repository secrets
-- Public-safe evidence and technical documentation
+- Newman command-line automation
+- GitHub Actions continuous integration
+- JSON and JUnit reporting
+- Secure credential handling
+- Public-safe technical evidence
 
 The REST API phase uses the public **Restful Booker** demonstration API.
 The database phase uses a separate, locally created PostgreSQL portfolio
 database.
 
 The public API does not provide authorized access to its underlying
-database. API results and local database results are therefore
-documented as separate testing activities rather than as direct
-API-to-database reconciliation.
+database. API and database results are therefore documented as separate
+testing activities rather than as direct API-to-database reconciliation.
 
 ## Key Results
 
-### Day 4 — PostgreSQL Validation
+### PostgreSQL Database Validation
 
 | Metric | Result |
 |---|---:|
@@ -45,45 +38,43 @@ API-to-database reconciliation.
 | Database-constraint negative tests | 6 of 6 passed |
 | Production-style integrity failures | 0 |
 
-### Day 5 — Postman REST API Testing
+### Complete Postman and Newman Validation
 
 | Metric | Result |
 |---|---:|
 | Manual/API test cases executed | 25 |
 | Test cases passed | 18 |
 | Test cases failed | 7 |
-| Postman requests executed | 26 |
-| Postman assertions executed | 61 |
+| Requests executed | 26 |
+| Assertions executed | 61 |
 | Assertions passed | 51 |
-| Assertions failed | 10 |
-| Postman runtime errors | 0 |
-| Average response time | 36 ms |
+| Known assertion failures | 10 |
+| Runtime errors | 0 |
 | Confirmed API defects | 3 |
 
-### Day 6 — Newman and GitHub Actions
+### GitHub Actions CI Quality Gate
 
 | Metric | Result |
 |---|---:|
-| CI smoke requests | 8 |
-| CI smoke assertions | 22 |
-| CI smoke assertions passed | 22 |
-| CI smoke assertions failed | 0 |
-| CI smoke runtime errors | 0 |
-| Full Newman validation requests | 26 |
-| Full Newman validation assertions | 61 |
-| Known full-suite assertion failures | 10 |
-| Full-suite runtime errors | 0 |
-| GitHub Actions smoke quality gate | Pass |
+| CI requests executed | 19 |
+| CI test scripts executed | 19 |
+| CI pre-request scripts executed | 2 |
+| CI assertions executed | 45 |
+| CI assertions passed | 45 |
+| CI assertions failed | 0 |
+| CI runtime errors | 0 |
+| GitHub Actions result | Pass |
 | Automated report formats | JSON and JUnit |
 | Workflow artifact groups | 2 |
 
-The full validation suite intentionally preserves the Day 5 requirement
-mismatches. The separate smoke suite is the strict passing CI quality
-gate.
+The final `main` workflow completed successfully.
+
+Newman uses `test-scripts` to describe post-response scripts. The
+project's documented manual/API baseline remains 25 test cases.
 
 ## Quick Links
 
-### Planning and Requirements
+### Planning and Traceability
 
 - [Software Test Plan](test-plan/booking-system-test-plan.md)
 - [Requirements Baseline](requirements-traceability/booking-system-requirements.md)
@@ -100,215 +91,185 @@ gate.
 - [DEF-API-002 — Nonpositive Total Price](defect-reports/DEF-API-002-nonpositive-total-price.md)
 - [DEF-API-003 — Missing Required Fields Return HTTP 500](defect-reports/DEF-API-003-missing-required-fields-return-500.md)
 
-### Postman API Testing
+### Postman and Automation
 
 - [Postman Documentation](postman/README.md)
 - [Complete Public-Safe Collection](postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json)
-- [Public-Safe CI Smoke Collection](postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json)
+- [Stable CI Collection](postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json)
+- [CI Coverage Mapping](docs/day6-ci-coverage-mapping.md)
 - [Sanitized Environment Template](postman/restful-booker-template.public-sanitized.postman_environment.json)
-- [Sanitized Day 5 Runner Result](postman/day5-postman-collection-run-results.public-sanitized.json)
-- [Day 5 API Execution Report](reports/day5-api-validation-execution.md)
-
-### Automation and CI/CD
-
 - [Automation Documentation](automation/README.md)
 - [GitHub Actions Workflow](.github/workflows/newman-api-tests.yml)
+
+### Reports and Evidence
+
+- [Day 4 Database Execution Report](reports/day4-database-validation-execution.md)
+- [Day 5 API Execution Report](reports/day5-api-validation-execution.md)
 - [Day 6 Newman and GitHub Actions Report](reports/day6-newman-and-github-actions-execution.md)
 - [API, Database and Automation Executive Summary](reports/api-database-automation-executive-summary.md)
-- [Day 6 CI Troubleshooting Case Study](docs/day6-ci-troubleshooting-case-study.md)
-- [Day 6 Automation Evidence](screenshots/README.md#day-6-automation-evidence)
-
-### PostgreSQL Database Testing
-
-- [SQL Database Testing Documentation](sql/README.md)
-- [SQL Validation Queries](sql/03_validation_queries.sql)
-- [Automated Database Validation Summary](reports/day4-database-validation-summary.csv)
-- [Day 4 Database Execution Report](reports/day4-database-validation-execution.md)
-
-### Evidence and Project History
-
 - [Screenshot Evidence Index](screenshots/README.md)
+- [Day 6 CI Troubleshooting Case Study](docs/day6-ci-troubleshooting-case-study.md)
 - [Project Development Journal](docs/project-development-journal.md)
 - [Project Changelog](CHANGELOG.md)
 
-## Release Status
-
-The current stable release is:
-
-[Day 5 — Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
-
-After the Day 6 pull request is merged and the final `main` workflow is
-verified, the automation milestone can be published as `v1.1.0`.
-
 ## Portfolio Highlights
 
-- Designed and executed a complete booking CRUD workflow using Postman.
-- Connected failed test cases to requirements, defect reports and
-  screenshot evidence.
-- Preserved the original defect-draft history to show which hypotheses
-  were confirmed or rejected.
-- Built a local PostgreSQL validation suite with data-quality and
-  constraint-negative testing.
-- Automated API execution with Node.js, npm and Newman.
-- Separated complete requirement validation from a stable CI smoke gate.
-- Protected demonstration credentials with GitHub repository secrets.
-- Generated JSON and JUnit results as downloadable workflow artifacts.
-- Investigated and corrected an initial CI failure without weakening
-  valid defect assertions.
-- Sanitized public assets to prevent credential and token exposure.
-- Documented the separation between the public API and local database.
+- Designed and executed 25 manual/API test cases.
+- Built a 26-request complete Postman collection with 61 assertions.
+- Documented seven failed test cases and three confirmed API defects.
+- Created 19 SQL validation queries, 13 automated database checks and
+  six database-constraint negative tests.
+- Installed Newman as a project dependency with a committed lockfile.
+- Created a stable 19-request CI smoke/regression collection.
+- Executed 45 CI assertions with zero failures.
+- Protected credentials with GitHub repository secrets.
+- Generated JSON and JUnit reports as workflow artifacts.
+- Investigated and corrected an initial CI design failure without
+  weakening valid defect assertions.
+- Preserved clear boundaries between the public API and local database.
 
-## Business Scenario
+## Test and Automation Strategy
 
-The sample online booking system allows users to:
+The repository contains two public-safe Postman collections:
 
-- Authenticate
-- Create a booking
-- Retrieve booking information
-- Search for bookings
-- Fully update a booking
-- Partially update a booking
-- Delete a booking
+| Collection | Purpose | Actual Baseline | CI Role |
+|---|---|---|---|
+| Complete validation collection | Full positive, negative, boundary, authorization and defect coverage | 26 requests, 61 assertions, 10 known failures | Reporting suite |
+| Stable CI smoke/regression collection | Health check plus 18 passing Day 5 scenarios selected for CI | 19 requests, 45 assertions, zero failures | Strict quality gate |
 
-Testing validates whether the system:
+The CI collection excludes the seven requests associated with confirmed
+Day 5 requirement mismatches:
 
-- Processes valid information correctly
-- Rejects invalid or missing information appropriately
-- Enforces authentication and authorization requirements
-- Returns accurate API responses
-- Maintains database integrity
-- Handles expected and unexpected error conditions clearly
-- Continues to support a stable critical workflow in CI
+```text
+TC-BOOK-002
+TC-BOOK-003
+TC-BOOK-004
+TC-BOOK-005
+TC-BOOK-006
+TC-VAL-002
+TC-UPD-005
+```
 
-## Testing Scope
+Those scenarios remain unchanged in the complete collection.
 
-### In Scope
+The smoke/regression suite determines the final workflow result. The
+complete suite runs with `continue-on-error` so its known failures remain
+visible and its JSON and JUnit reports are still uploaded.
 
-- Requirement analysis and test planning
-- Authentication and authorization testing
-- Booking creation, retrieval, search, update and deletion
-- Required-field, date and price validation
-- Positive, negative and boundary-value testing
-- API status-code, response-body and response-time validation
-- PostgreSQL data-integrity and data-quality validation
-- Requirements traceability
-- Defect reporting
-- Newman command-line execution
-- API smoke-test design
-- GitHub Actions workflow execution
-- JSON and JUnit reporting
-- Workflow artifact retention
-- Public repository security review
+## Confirmed API Defects
 
-### Out of Scope
+| Defect | Finding | Related Test Cases | Severity |
+|---|---|---|---|
+| [DEF-API-001](defect-reports/DEF-API-001-invalid-booking-date-sequence.md) | Checkout before check-in accepted during creation and update | TC-BOOK-004; TC-UPD-005 | High |
+| [DEF-API-002](defect-reports/DEF-API-002-nonpositive-total-price.md) | Zero and negative total prices accepted | TC-BOOK-005; TC-VAL-002 | High |
+| [DEF-API-003](defect-reports/DEF-API-003-missing-required-fields-return-500.md) | Missing required fields return HTTP 500 | TC-BOOK-002; TC-BOOK-003; TC-BOOK-006 | Medium |
 
-- Production security penetration testing
-- High-volume load and stress testing
-- Production performance testing
-- Payment-card processing
-- Mobile application testing
-- Production customer data
-- Production deployment
-- Disaster-recovery testing
-- Full accessibility certification
-- Direct API-to-database validation without authorized database access
+The severity and priority classifications are based on the assumed
+portfolio requirement baseline. Restful Booker is a demonstration API.
 
 ## Skills Demonstrated
 
-### Software Testing
+### Testing
 
-- Requirement analysis
-- Test planning
-- Test-case development
-- Functional, positive and negative testing
-- Boundary-value analysis
+- Requirements analysis
+- Test planning and traceability
+- Functional, positive, negative and boundary testing
 - Authentication and authorization testing
-- Business-rule and error-handling validation
+- Status-code, response-body and response-time validation
 - Defect reporting
-- Requirements traceability
 - Test-execution reporting
 
-### REST API Testing
+### API Automation and CI/CD
 
-- HTTP methods and CRUD workflows
-- Status-code and response-body validation
-- Response-time validation
-- Authentication-token handling
-- Postman environment variables
-- Automated booking-ID workflow
-- Collection Runner execution
-- Automated Postman assertions
-- Public-safe Postman exports
-
-### Test Automation and CI/CD
-
+- Postman collection design
+- Environment and dynamic-variable workflows
 - Node.js and npm
 - Newman command-line execution
-- API smoke-test design
-- npm dependency and lockfile management
 - GitHub Actions
 - YAML workflow configuration
-- Strict CI quality gates
-- Known-failure regression reporting
-- GitHub repository secrets
-- JSON and JUnit test reports
+- CI quality-gate design
+- Repository-secret management
+- JSON and JUnit reporting
 - Workflow artifact management
-- CI failure investigation and resolution
+- CI troubleshooting and root-cause analysis
 
 ### Database Testing
 
 - PostgreSQL and SQL
-- Schema and table validation
-- Primary-key and foreign-key validation
-- Null, duplicate and orphan detection
-- Check-constraint validation
-- Staging-data and data-quality testing
-- Automated validation-summary checks
+- Schema and relationship validation
+- Required-field, duplicate and orphan detection
+- Date and price validation
+- Staging-data quality checks
 - Database-constraint negative testing
 
-### Documentation and Tools
+## Reproducing the Tests
 
-- Git and GitHub
-- Markdown
-- Microsoft Excel
-- Postman Desktop
-- PostgreSQL and pgAdmin 4
-- Structured test, defect, RTM, execution and automation documentation
+The complete collection preserves the full requirement and defect
+baseline.
 
-## Technologies and Tools
+The CI collection must complete:
 
-- Git and GitHub
-- GitHub Actions
-- Node.js
-- npm
-- Newman
-- Postman Desktop
-- PostgreSQL
-- pgAdmin 4
-- SQL
-- YAML
-- JSON
-- JUnit XML
-- Microsoft Excel
-- Markdown
-- Windows and Git Bash
+```text
+19 requests
+19 test scripts
+2 pre-request scripts
+45 assertions
+0 failures
+0 runtime errors
+```
 
-## Automation Strategy
+Detailed instructions:
 
-The repository contains two public-safe Postman collections:
+- [Postman Reproduction Guide](postman/README.md)
+- [Newman and GitHub Actions Guide](automation/README.md)
+- [Day 6 Execution Report](reports/day6-newman-and-github-actions-execution.md)
 
-| Collection | Purpose | Expected Result | CI Role |
-|---|---|---|---|
-| Complete validation collection | Full positive, negative, boundary, authorization and defect coverage | Known failed assertions may remain | Reporting suite |
-| CI smoke collection | Stable critical booking workflow | Zero failed assertions | Strict quality gate |
+## Scope and Environment Boundaries
 
-The smoke suite determines the GitHub Actions workflow result.
+### In Scope
 
-The complete suite runs with its original expectations preserved.
-`continue-on-error` allows the workflow to retain and publish known
-findings without converting them into artificial passes.
+- Booking authentication and CRUD workflows
+- Positive, negative and boundary API testing
+- Required-field, date and price validation
+- PostgreSQL data-integrity testing
+- Traceability and defect reporting
+- Local and CI Newman execution
+- Secure automated reporting
 
-## Project Structure
+### Out of Scope
+
+- Production penetration testing
+- High-volume load and stress testing
+- Production deployment
+- Payment-card processing
+- Production customer information
+- Direct API-to-database reconciliation without authorized access
+
+## Security Controls
+
+- Public Postman credentials remain blank.
+- Local credentials remain in an ignored environment file.
+- CI credentials use `BOOKER_USERNAME` and `BOOKER_PASSWORD` repository
+  secrets.
+- Active tokens are not committed.
+- Generated local Newman results remain ignored.
+- Public screenshots and exports are sanitized.
+- Workflow permissions are limited to repository-content read access.
+
+## Limitations
+
+- Restful Booker is a public demonstration service.
+- Booking data may reset.
+- Dynamic IDs and response times may vary.
+- The requirement baseline is assumed for portfolio testing.
+- The local PostgreSQL database is separate from the public API.
+- The CI collection excludes seven known-failure scenarios by design.
+- The complete collection remains authoritative for defect coverage.
+- Workflow artifacts expire according to the configured retention
+  period.
+
+<details>
+<summary><strong>Repository Structure</strong></summary>
 
 ```text
 api-database-testing-portfolio/
@@ -325,314 +286,96 @@ api-database-testing-portfolio/
 │   └── README.md
 ├── docs/
 │   ├── README.md
+│   ├── day6-ci-coverage-mapping.md
 │   ├── day6-ci-troubleshooting-case-study.md
 │   └── project-development-journal.md
 ├── test-plan/
-│   ├── README.md
-│   └── booking-system-test-plan.md
 ├── test-cases/
-│   ├── README.md
-│   ├── booking-system-test-cases.xlsx
-│   └── booking-system-test-cases.csv
 ├── defect-reports/
-│   ├── README.md
-│   ├── booking-system-defect-reports.xlsx
-│   ├── booking-system-defect-reports.csv
-│   ├── DEF-API-001-invalid-booking-date-sequence.md
-│   ├── DEF-API-002-nonpositive-total-price.md
-│   └── DEF-API-003-missing-required-fields-return-500.md
 ├── requirements-traceability/
-│   ├── README.md
-│   ├── booking-system-requirements.md
-│   ├── booking-system-requirements-traceability-matrix.xlsx
-│   └── booking-system-requirements-traceability-matrix.csv
 ├── postman/
-│   ├── README.md
-│   ├── restful-booker-api-portfolio.public-sanitized.postman_collection.json
-│   ├── restful-booker-ci-smoke.public-sanitized.postman_collection.json
-│   ├── restful-booker-template.public-sanitized.postman_environment.json
-│   └── day5-postman-collection-run-results.public-sanitized.json
 ├── sql/
-│   ├── README.md
-│   ├── 01_create_schema.sql
-│   ├── 02_seed_test_data.sql
-│   ├── 03_validation_queries.sql
-│   ├── 04_validation_summary.sql
-│   └── 05_constraint_negative_tests.sql
 ├── reports/
-│   ├── README.md
-│   ├── day4-database-validation-summary.csv
-│   ├── day4-database-validation-execution.md
-│   ├── day5-api-validation-execution.md
-│   ├── day6-newman-and-github-actions-execution.md
-│   └── api-database-automation-executive-summary.md
 └── screenshots/
-    ├── README.md
     ├── day4-database/
     ├── day5-api-execution/
     ├── day5-defects/
     └── day6-automation/
 ```
 
-Generated Newman JSON and JUnit files are stored locally or as GitHub
-Actions artifacts. They are not committed automatically.
+</details>
 
-## Current Project Status
+<details>
+<summary><strong>Completed Milestones</strong></summary>
 
-### Completed
+### Foundation and Test Design
 
-#### Foundation and Test Design
-
-- [x] Professional repository structure and documentation
 - [x] Requirements baseline and software test plan
 - [x] 25 detailed manual/API test cases
-- [x] Excel and GitHub-previewable CSV test assets
 - [x] Requirements Traceability Matrix
-- [x] Self-navigating folder README files
-- [x] Recruiter-focused root README optimization
+- [x] Professional folder documentation
 
-#### PostgreSQL Database Testing
+### PostgreSQL Validation
 
-- [x] Local PostgreSQL portfolio database
-- [x] Relational and staging tables
-- [x] Key, required-field and business-rule constraints
-- [x] Synthetic production-style records and controlled anomalies
+- [x] Local schema and synthetic data
 - [x] 19 SQL validation and analysis queries
 - [x] 13 automated validation-summary checks
 - [x] Six database-constraint negative tests
-- [x] Database execution report and screenshots
+- [x] Database execution report and evidence
 
-#### Postman REST API Testing
+### Postman API Testing
 
-- [x] 26-request complete validation collection
-- [x] Authentication-token and booking-ID workflows
-- [x] Booking CRUD execution
-- [x] Positive, negative, boundary, authorization and performance assertions
-- [x] Full Collection Runner execution
-- [x] Public-safe Postman exports
-- [x] Reproducibility instructions
+- [x] Complete 26-request validation collection
+- [x] 61 automated assertions
+- [x] 18 passed and seven failed test cases
+- [x] Three confirmed API defects
+- [x] Public-safe exports and evidence
 
-#### API Results and Defects
+### Newman and GitHub Actions
 
-- [x] All 25 manual/API test cases executed
-- [x] 18 test cases passed
-- [x] Seven test cases failed
-- [x] Three confirmed API defects documented
-- [x] Original defect-draft history preserved
-- [x] Two hypothetical defect drafts rejected
-- [x] Clickable defect evidence
-- [x] Day 5 API execution report
-
-#### Repository Quality and Security
-
-- [x] Public link verification
-- [x] Public repository security review
-- [x] Cross-document consistency review
-- [x] Organized screenshot evidence indexes
-
-#### Day 6 Test Automation
-
-- [x] Node.js, npm, Git and Newman verified
 - [x] Newman installed as a project dependency
-- [x] Complete validation collection executed through Newman
-- [x] Stable eight-request CI smoke collection created
-- [x] Smoke collection passed in Postman
-- [x] Smoke collection passed locally through Newman
+- [x] Complete collection executed through Newman
+- [x] Stable 19-request CI collection created
+- [x] 45 CI assertions passed
 - [x] GitHub repository secrets configured
-- [x] Initial GitHub Actions failure investigated
-- [x] Root cause and corrective action documented
-- [x] GitHub Actions smoke quality gate completed successfully
-- [x] Complete validation findings preserved in CI
+- [x] GitHub Actions workflow completed successfully
 - [x] JSON and JUnit reports generated
-- [x] Workflow artifacts preserved
-- [x] Day 6 evidence and execution reporting completed
+- [x] Two artifact groups preserved
+- [x] Pull request merged into `main`
+- [x] Final `main` workflow verified
+- [x] Documentation aligned to the actual CI result
 
-### Release Finalization
+</details>
 
-- [ ] Merge the Day 6 pull request into `main`
-- [ ] Verify the final `main` workflow
-- [ ] Verify public documentation links after merge
-- [ ] Publish the `v1.1.0` Day 6 release
+## Release Status
 
-## Day 4 Database Validation Summary
+The Day 6 work is merged and verified on `main`.
 
-| Metric | Result |
-|---|---:|
-| SQL validation and analysis queries | 19 |
-| Automated summary checks executed | 13 |
-| Automated summary checks passed | 13 |
-| Automated summary checks failed | 0 |
-| Constraint negative tests executed | 6 |
-| Constraint negative tests passed | 6 |
-| Constraint negative tests failed | 0 |
-| Production integrity failures identified | 0 |
+Current published release:
 
-The local database is a portfolio testing environment and is not the
-database used by the public demonstration booking API.
+[Day 5 — Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
 
-## Day 5 API Execution Summary
+Next release:
 
-| Metric | Result |
-|---|---:|
-| Requests executed | 26 |
-| Assertions executed | 61 |
-| Assertions passed | 51 |
-| Assertions failed | 10 |
-| Runtime errors | 0 |
-| Average response time | 36 ms |
-| Manual/API test cases executed | 25 |
-| Test cases passed | 18 |
-| Test cases failed | 7 |
-| Confirmed API defects | 3 |
+```text
+Tag: v1.1.0
+Title: Day 6 — Newman and GitHub Actions Automation
+Target: main
+```
 
-The failed assertions are intentionally retained as evidence of observed
-requirement mismatches. They are not hidden or changed to create an
-artificially passing collection.
-
-## Day 6 Automation Summary
-
-### CI Smoke Quality Gate
-
-| Metric | Result |
-|---|---:|
-| Requests executed | 8 |
-| Assertions executed | 22 |
-| Assertions passed | 22 |
-| Assertions failed | 0 |
-| Runtime errors | 0 |
-| Local Newman exit code | 0 |
-| GitHub Actions result | Pass |
-
-### Complete Validation Reporting
-
-| Metric | Result |
-|---|---:|
-| Requests executed | 26 |
-| Assertions executed | 61 |
-| Assertions passed | 51 |
-| Known assertion failures | 10 |
-| Runtime errors | 0 |
-| CI behavior | Findings retained; failure tolerated |
-
-### Automated Evidence
-
-| Item | Result |
-|---|---|
-| Report formats | JSON and JUnit |
-| Smoke artifact | Generated |
-| Full-validation artifact | Generated |
-| Artifact retention | 14 days |
-| Credentials | GitHub repository secrets |
-
-## Current Test Coverage
-
-| Test Area | Test Cases | Execution Result |
-|---|---:|---|
-| Authentication | 5 | 5 Pass |
-| Booking Creation and Validation | 8 | 3 Pass / 5 Fail |
-| Booking Retrieval | 3 | 3 Pass |
-| Booking Update | 5 | 4 Pass / 1 Fail |
-| Booking Deletion | 4 | 4 Pass |
-| **Total** | **25** | **18 Pass / 7 Fail** |
-
-The smoke suite reuses selected stable scenarios. It does not replace,
-renumber or change the complete 25-test-case baseline.
-
-## Confirmed API Defects
-
-| Defect | Summary | Related Test Cases | Severity |
-|---|---|---|---|
-| [DEF-API-001](defect-reports/DEF-API-001-invalid-booking-date-sequence.md) | Checkout before check-in accepted during creation and update | TC-BOOK-004; TC-UPD-005 | High |
-| [DEF-API-002](defect-reports/DEF-API-002-nonpositive-total-price.md) | Zero and negative total prices accepted | TC-BOOK-005; TC-VAL-002 | High |
-| [DEF-API-003](defect-reports/DEF-API-003-missing-required-fields-return-500.md) | Missing required fields return HTTP 500 | TC-BOOK-002; TC-BOOK-003; TC-BOOK-006 | Medium |
-
-## Requirements Traceability Summary
-
-| Metric | Result |
-|---|---:|
-| Requirements documented | 35 |
-| Covered | 30 |
-| Partially Covered | 3 |
-| Planned | 2 |
-| Execution Pass | 28 |
-| Execution Fail | 5 |
-| Not Run | 2 |
-
-`DATA-002` and `DATA-008` remain planned because the public API is not
-connected to the local PostgreSQL portfolio database.
-
-## Reproducing the API Tests
-
-The project provides two public-safe Postman collections:
-
-1. The complete collection preserves the full requirement, negative and
-   confirmed-defect baseline.
-2. The CI smoke collection validates the stable critical booking
-   workflow.
-
-The complete collection may report the ten known failed assertions.
-
-The smoke collection must complete with zero failed assertions and zero
-runtime errors.
-
-See:
-
-- [Postman Reproduction Instructions](postman/README.md)
-- [Automation Documentation](automation/README.md)
-- [GitHub Actions Workflow](.github/workflows/newman-api-tests.yml)
-- [Day 6 Execution Report](reports/day6-newman-and-github-actions-execution.md)
-
-## Data Security
-
-The public repository does not contain:
-
-- Real customer information
-- Real passwords
-- Active authentication tokens
-- Private API keys
-- Confidential employer information
-- Payment-card information
-- Production database records
-- Personal health information
-- Completed private environment files
-- Raw unsanitized execution output
-
-Sensitive values are blank, represented through variables, injected from
-repository secrets or replaced with `<REDACTED>` markers.
-
-## Project Limitations
-
-- Restful Booker is a public demonstration API.
-- Its records may reset periodically.
-- Dynamic booking IDs and response times may differ between runs.
-- The requirement baseline is assumed for portfolio testing.
-- The local PostgreSQL database is separate from the public API.
-- Direct API-to-database reconciliation was not performed.
-- The CI smoke suite proves the selected critical workflow, not every
-  negative requirement in the complete suite.
-- Workflow artifacts are execution evidence, not permanent production
-  monitoring.
+The remaining Day 6 step is to publish `v1.1.0` after this
+documentation-only alignment is merged.
 
 ## Project Development History
-
-The portfolio was completed through structured milestones:
 
 - **Day 1** — Repository foundation
 - **Day 2** — Requirements and test planning
 - **Day 3** — Test cases, RTM and defect drafts
-- **Day 4** — PostgreSQL database validation
+- **Day 4** — PostgreSQL validation
 - **Day 5** — Postman execution and confirmed defects
-- **Day 6** — Newman, smoke-test design and GitHub Actions automation
+- **Day 6** — Newman, CI collection design and GitHub Actions automation
 
 [View the complete project development journal](docs/project-development-journal.md)
-
-## Next Planned Activities
-
-1. Merge the Day 6 pull request after all required checks pass.
-2. Verify the final workflow and links on `main`.
-3. Publish the `v1.1.0` automation release.
-4. Add the project to the résumé and prepare the CI troubleshooting
-   interview story.
 
 ## Author
 
@@ -642,5 +385,4 @@ QA, REST API, Database and CI Test Automation Portfolio
 
 ## License
 
-This project is licensed under the MIT License. See the
-[LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

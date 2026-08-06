@@ -9,7 +9,7 @@
 | Milestone | Day 6 |
 | Prepared By | Dhruba Aryal |
 | Execution Period | August 4–5, 2026 |
-| Execution Status | Completed; pull request pending merge |
+| Execution Status | Completed; merged into `main`; release pending |
 | Automation Tools | Node.js, npm, Newman and GitHub Actions |
 
 ## Execution Summary
@@ -80,6 +80,7 @@ reports/README.md
 screenshots/day6-automation/
 screenshots/README.md
 docs/day6-ci-troubleshooting-case-study.md
+docs/day6-ci-coverage-mapping.md
 docs/project-development-journal.md
 README.md
 CHANGELOG.md
@@ -89,7 +90,7 @@ CHANGELOG.md
 
 | Suite | Purpose | Expected Result | CI Behavior |
 |---|---|---|---|
-| CI smoke suite | Validate the stable critical booking workflow | Zero failures | Strict quality gate |
+| CI smoke/regression suite | Validate the health check and 18 passing Day 5 scenarios selected for CI | 19 requests, 45 assertions, zero failures | Strict quality gate |
 | Complete validation suite | Preserve full requirement, negative and defect coverage | Known failures may remain | Failure tolerated; results published |
 
 The smoke collection does not replace the complete collection.
@@ -99,28 +100,51 @@ the workflow pass.
 
 ## CI Smoke Collection
 
-The smoke suite contains eight critical requests:
+The workflow step is named the CI smoke collection. The implemented
+collection is broader than a minimal smoke test and functions as a stable
+smoke/regression suite.
 
-1. Health check
-2. Valid authentication
-3. Valid booking creation
-4. Retrieve created booking
-5. Authorized full update
-6. Authorized partial update
-7. Authorized deletion
-8. Retrieve deleted booking
+It contains:
 
-### Smoke Results
+- One API health check
+- All 18 Day 5 scenarios that passed
+- 19 total requests
+- 45 total assertions
+
+It excludes the seven requests associated with confirmed Day 5
+requirement mismatches:
+
+```text
+TC-BOOK-002
+TC-BOOK-003
+TC-BOOK-004
+TC-BOOK-005
+TC-BOOK-006
+TC-VAL-002
+TC-UPD-005
+```
+
+### Smoke/Regression Results
 
 | Metric | Result |
 |---|---:|
-| Requests executed | 8 |
-| Assertions executed | 22 |
-| Assertions passed | 22 |
+| Requests executed | 19 |
+| Test scripts executed | 19 |
+| Pre-request scripts executed | 2 |
+| Assertions executed | 45 |
+| Assertions passed | 45 |
 | Assertions failed | 0 |
 | Runtime errors | 0 |
 | Local Newman exit code | 0 |
 | GitHub Actions result | Pass |
+| Recorded main-branch duration | 2.4 seconds |
+| Recorded average response time | 12 ms |
+
+The duration and response time are session-specific and may change in
+later runs.
+
+Newman uses `test-scripts` for post-response scripts. The 19 executed
+test scripts do not replace the separate 25-test-case project baseline.
 
 ## Complete Validation Execution
 
@@ -177,7 +201,8 @@ The solution was not to remove or weaken the failed assertions.
 Instead:
 
 1. The complete validation suite was preserved.
-2. A separate eight-request smoke suite was created.
+2. A separate 19-request stable CI smoke/regression suite was created
+   from the health check and 18 passing Day 5 scenarios selected for CI.
 3. The smoke suite was verified in Postman.
 4. The smoke suite was verified locally through Newman.
 5. The smoke suite became the strict GitHub Actions quality gate.
@@ -307,7 +332,7 @@ The corrected full run retained:
 | JUnit reports | Generated |
 | Artifact uploads | Completed |
 | Day 6 documentation | Completed |
-| Pull-request merge | Pending |
+| Pull-request merge | Completed |
 
 ## Limitations
 
@@ -355,8 +380,8 @@ The corrected full run retained:
 
 ## Next Steps
 
-1. Merge the pull request after all required checks pass.
-2. Verify the workflow on `main`.
-3. Verify all public documentation links.
-4. Publish the `v1.1.0` release.
-5. Add the project to the résumé and interview portfolio.
+1. Commit the documentation-only alignment to the actual 19-request,
+   45-assertion main-branch result.
+2. Verify all public documentation links and screenshot filenames.
+3. Publish the `v1.1.0` release.
+4. Add the project to the résumé and interview portfolio.

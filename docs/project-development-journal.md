@@ -232,8 +232,9 @@ Day 6 accomplishments included:
 - Installed Newman as a project dependency
 - Executed the complete Postman collection through Newman
 - Preserved the 61-assertion baseline and ten known failures
-- Created an eight-request stable CI smoke collection
-- Executed 22 passing smoke assertions
+- Created a stable 19-request CI smoke/regression collection from the
+  health check and 18 passing Day 5 scenarios selected for CI
+- Executed 45 passing CI assertions
 - Configured GitHub repository secrets
 - Created a GitHub Actions workflow
 - Investigated an initial exit-code-1 workflow result
@@ -248,10 +249,10 @@ Day 6 accomplishments included:
 
 | Metric | Result |
 |---|---:|
-| Smoke requests | 8 |
-| Smoke assertions | 22 |
-| Smoke assertions passed | 22 |
-| Smoke assertions failed | 0 |
+| CI requests | 19 |
+| CI assertions | 45 |
+| CI assertions passed | 45 |
+| CI assertions failed | 0 |
 | Smoke runtime errors | 0 |
 | Full Newman requests | 26 |
 | Full Newman assertions | 61 |
@@ -262,8 +263,9 @@ Day 6 accomplishments included:
 | Report formats | JSON and JUnit |
 | Artifact groups | 2 |
 
-The smoke suite does not replace the complete test baseline. It
-validates the stable critical workflow for CI.
+The CI suite does not replace the complete test baseline. It validates
+the health check and 18 passing Day 5 scenarios selected for CI while the complete
+suite retains the seven known-failure scenarios.
 
 ## Current Final Status
 
@@ -277,9 +279,9 @@ After Day 6:
 | Complete Postman/Newman requests | 26 |
 | Complete assertions | 61 |
 | Known complete-suite failures | 10 |
-| CI smoke requests | 8 |
-| CI smoke assertions passed | 22 |
-| CI smoke failures | 0 |
+| CI smoke/regression requests | 19 |
+| CI smoke/regression assertions passed | 45 |
+| CI smoke/regression failures | 0 |
 | Confirmed API defects | 3 |
 | GitHub Actions smoke gate | Pass |
 | Automated report formats | JSON and JUnit |
@@ -287,5 +289,5 @@ After Day 6:
 The Day 1 through Day 3 planning and draft history remains preserved for
 auditability and learning purposes.
 
-The Day 6 pull request must still be merged, verified on `main` and
-published as the `v1.1.0` milestone.
+The Day 6 pull request has been merged and verified on `main`. The
+remaining milestone is publication of the `v1.1.0` release.
