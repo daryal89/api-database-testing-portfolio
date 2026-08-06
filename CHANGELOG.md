@@ -2,58 +2,86 @@
 
 All notable portfolio milestones are documented in this file.
 
-## Unreleased — v1.1.0 Day 6 Automation
+## 1.1.0 — Day 6 Newman and GitHub Actions Automation — 2026-08-06
 
 ### Added
 
-- Newman as a project dependency
-- `package.json` and `package-lock.json`
-- Public-safe 19-request CI smoke/regression collection
-- GitHub Actions API workflow
+- Newman command-line execution as a project dependency
+- Stable 19-request CI smoke/regression collection
+- 45 passing CI assertions
+- GitHub Actions API-test automation
 - Repository-secret credential handling
-- Smoke JSON and JUnit reporting
+- Smoke-suite JSON and JUnit reporting
 - Complete-validation JSON and JUnit reporting
-- Separate workflow artifact groups
-- Automation documentation
-- Day 6 execution report
+- Separate smoke and complete-validation workflow artifact groups
+- Day 6 Newman and GitHub Actions execution report
 - API, database and automation executive summary
 - CI troubleshooting case study
+- CI coverage-mapping document
 - Day 6 screenshot evidence index
-- 45 passing CI assertions across 19 requests
+- Final pull-request validation evidence
+- Final successful `main` workflow evidence
+- Final informational-notice workflow evidence
 
 ### Changed
 
-- Expanded the root README with CI/CD results and skills
-- Expanded Postman documentation with Newman commands
+- Expanded the root README with verified CI/CD results, automation strategy and skills
+- Expanded Postman documentation with reproducible Newman commands
+- Expanded automation documentation with local and GitHub Actions execution instructions
 - Expanded the reports index with Day 6 deliverables
 - Expanded the project journal through Day 6
-- Expanded the screenshot index with automation evidence
-- Finalized workflow triggers for `main`, pull requests and manual runs
-- Merged the Day 6 pull request into `main`
-- Verified the final `main` run with 19 requests and 45 passing assertions
+- Expanded the screenshot index with automation and workflow evidence
+- Finalized workflow triggers for `main`, pull requests and manual execution
+- Used the 19-request CI smoke/regression suite as the strict passing quality gate
+- Preserved the complete validation suite for known-defect reporting
+- Replaced duplicate full-validation warning annotations with one informational notice
+- Merged the Day 6 automation pull request into `main`
+- Verified the final `main` workflow with 19 requests and 45 passing assertions
+- Aligned all Day 6 documentation with the verified CI execution results
+
+### Verified Automation Results
+
+| Metric | Result |
+|---|---:|
+| CI requests executed | 19 |
+| CI test scripts executed | 19 |
+| CI pre-request scripts executed | 2 |
+| CI assertions executed | 45 |
+| CI assertions passed | 45 |
+| CI assertions failed | 0 |
+| CI runtime errors | 0 |
+| Complete validation requests | 26 |
+| Complete validation test scripts | 26 |
+| Complete validation assertions | 61 |
+| Complete validation assertions passed | 51 |
+| Known complete-suite failures | 10 |
+| Complete-suite runtime errors | 0 |
+| GitHub Actions quality gate | Pass |
+| Workflow artifact groups | 2 |
+| Automated report formats | JSON and JUnit |
 
 ### Preserved
 
-- Original 25-test-case baseline
+- Original 25-test-case manual and API baseline
 - Day 5 collection expectations
-- Ten known failed assertions
-- Three confirmed defect reports
-- Day 4 database results
+- Complete 26-request validation collection
+- Complete 61-assertion validation baseline
+- Ten documented failed assertions
+- Three confirmed API defect reports
+- Day 4 PostgreSQL validation results
 - Public API and local database separation
+- All existing Postman requests, assertions and test-case logic
+- All existing SQL validation scripts and database evidence
 
 ### Security
 
 - Credentials use GitHub repository secrets in CI
-- Local environments remain ignored
+- Public environment credential values remain blank
+- Local Postman environments remain ignored
 - Generated Newman output remains ignored locally
-- Public assets remain sanitized
-
-After the documentation alignment is committed and the GitHub release
-is published, rename this section to:
-
-```text
-## 1.1.0 — Day 6 Newman and GitHub Actions Automation
-```
+- Active tokens and passwords are not committed
+- Public collections, reports and screenshots remain sanitized
+- Workflow permissions remain read-only for repository contents
 
 ## 1.0.0 — Day 5 Manual, API and Database Testing Baseline
 
