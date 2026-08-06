@@ -127,7 +127,7 @@ jobs:
             --reporter-junit-export "newman-results/full-validation-results.xml" \
             --color off
 
-            - name: Report full validation status
+      - name: Report full validation status
         if: always()
         run: |
           if [ "${{ steps.full_validation.outcome }}" = "failure" ]; then
