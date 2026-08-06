@@ -52,7 +52,7 @@ testing activities rather than as direct API-to-database reconciliation.
 | Runtime errors | 0 |
 | Confirmed API defects | 3 |
 
-### GitHub Actions CI Quality Gate
+### Day 6 — Newman and GitHub Actions
 
 | Metric | Result |
 |---|---:|
@@ -63,11 +63,18 @@ testing activities rather than as direct API-to-database reconciliation.
 | CI assertions passed | 45 |
 | CI assertions failed | 0 |
 | CI runtime errors | 0 |
-| GitHub Actions result | Pass |
+| GitHub Actions quality gate | Pass |
 | Automated report formats | JSON and JUnit |
 | Workflow artifact groups | 2 |
 
-The final `main` workflow completed successfully.
+The stable CI smoke/regression collection is the strict passing quality
+gate. The final workflow completed successfully on `main` with all 45 CI
+assertions passing.
+
+The complete 26-request validation suite remains separate for
+requirement and known-defect reporting. Its 10 documented failed
+assertions remain visible without overriding the successful CI quality
+gate.
 
 Newman uses `test-scripts` to describe post-response scripts. The
 project's documented manual/API baseline remains 25 test cases.
@@ -349,22 +356,20 @@ api-database-testing-portfolio/
 
 ## Release Status
 
-The Day 6 work is merged and verified on `main`.
+## Latest Release
 
-Current published release:
+[Day 6 — Newman and GitHub Actions Automation](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.1.0)
+
+The `v1.1.0` release adds Newman command-line execution, a stable
+19-request CI smoke/regression collection, 45 passing CI assertions,
+GitHub Actions automation, repository-secret credential handling,
+JSON and JUnit reports, workflow artifacts, CI coverage mapping and
+troubleshooting documentation.
+
+Previous release:
 
 [Day 5 — Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
 
-Next release:
-
-```text
-Tag: v1.1.0
-Title: Day 6 — Newman and GitHub Actions Automation
-Target: main
-```
-
-The remaining Day 6 step is to publish `v1.1.0` after this
-documentation-only alignment is merged.
 
 ## Project Development History
 

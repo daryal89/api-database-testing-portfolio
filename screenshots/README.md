@@ -139,6 +139,7 @@ by the public Restful Booker API.
 | [Workflow artifacts](day6-automation/day6-15-github-actions-artifacts.png) | Shows both JSON/JUnit artifact groups |
 | [Pull-request checks](day6-automation/day6-16-pull-request-checks-passed.png) | Confirms validation before merge |
 | [Final main-branch workflow](day6-automation/day6-17-main-branch-workflow-success.png) | Confirms the merged workflow passed on `main`, preserved complete-suite findings and generated both artifact groups |
+| [Final workflow notice summary](day6-automation/day6-18-main-workflow-notice-summary.png) | Confirms the final successful `main` workflow, one expected Newman exit-code annotation, one informational notice, and both Newman report artifact groups |
 
 The initial failed workflow is retained as troubleshooting evidence. It
 does not represent the final automation result.
