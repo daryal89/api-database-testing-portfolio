@@ -131,12 +131,11 @@ jobs:
         if: always()
         run: |
           if [ "${{ steps.full_validation.outcome }}" = "failure" ]; then
-            echo "::warning::The full validation suite detected documented Restful Booker API requirement mismatches."
-            echo "::warning::Review the full-validation-newman-results artifact for details."
+            echo "::notice title=Expected full-validation findings::The complete validation suite reproduced documented Restful Booker API requirement mismatches. Review the full-validation-newman-results artifact for details."
           elif [ "${{ steps.full_validation.outcome }}" = "success" ]; then
-            echo "The full validation suite completed without failed assertions."
+            echo "::notice title=Full validation passed::The complete validation suite completed without failed assertions. Review the results to determine whether the public API behavior changed."
           else
-            echo "::notice::The full validation suite did not run."
+            echo "::notice title=Full validation not executed::The complete validation suite did not run. Review the preceding workflow steps."
           fi
 
       - name: Write Newman workflow summary
