@@ -358,18 +358,16 @@ api-database-testing-portfolio/
 
 ## Latest Release
 
-[Day 6 — Newman and GitHub Actions Automation](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.1.0)
+[v1.1.1 — Portfolio Hardening and Metadata Alignment](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.1.1)
 
-The `v1.1.0` release adds Newman command-line execution, a stable
-19-request CI smoke/regression collection, 45 passing CI assertions,
-GitHub Actions automation, repository-secret credential handling,
-JSON and JUnit reports, workflow artifacts, CI coverage mapping and
-troubleshooting documentation.
+The `v1.1.1` patch release aligns project metadata and final
+post-release documentation while preserving the verified API,
+database and CI baselines.
 
-Previous release:
+Previous releases:
 
-[Day 5 — Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
-
+- [v1.1.0 — Day 6 Newman and GitHub Actions Automation](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.1.0)
+- [v1.0.0 — Day 5 Manual, API and Database Testing Baseline](https://github.com/daryal89/api-database-testing-portfolio/releases/tag/v1.0.0)
 
 ## Project Development History
 
