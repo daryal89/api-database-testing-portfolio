@@ -147,6 +147,20 @@ does not represent the final automation result.
 The final CI quality gate is the 19-request smoke/regression suite,
 which completed 45 assertions with zero failures and zero runtime errors.
 
+## Day 7 — v1.1.1 Portfolio Hardening Evidence
+
+| Screenshot | Purpose |
+|---|---|
+| [Post-change smoke validation](day7-v1.1.1-hardening/day7-01-v1.1.1-post-change-smoke-pass.png) | Confirms the hardened release candidate retained the strict CI baseline of 19 requests, 45 passing assertions and zero failures |
+| [Complete validation known findings](day7-v1.1.1-hardening/day7-02-v1.1.1-complete-suite-known-findings.png) | Confirms the complete suite retained 26 requests, 61 runtime assertions and 10 known assertion failures for documented defect reporting |
+| [Staged v1.1.1 release package](day7-v1.1.1-hardening/day7-03-v1.1.1-staged-release-package.png) | Confirms version 1.1.1, the four-file hardening scope, no unstaged changes and preservation of the v1.1.0 tag |
+| [Pull request and CI success](day7-v1.1.1-hardening/day7-04-v1.1.1-pr-ci-success.png) | Confirms PR #5 triggered the Newman GitHub Actions workflow and completed the strict CI quality gate successfully |
+| [Published v1.1.1 GitHub release](day7-v1.1.1-hardening/day7-05-v1.1.1-github-release.png) | Confirms v1.1.1 was published as the Latest release with the verified API, CI and database baselines |
+
+The Day 7 evidence demonstrates that the portfolio-hardening patch changed
+release metadata and documentation without weakening the verified QA,
+database or CI behavior.
+
 ## Screenshot Security Rules
 
 Public screenshots must not contain:
