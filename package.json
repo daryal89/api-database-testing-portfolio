@@ -1,13 +1,13 @@
 {
   "name": "api-database-testing-portfolio",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "private": true,
   "description": "API and database testing portfolio using Postman, Newman, SQL, and GitHub Actions.",
- "scripts": {
-  "newman:version": "newman --version",
-  "test:api:local": "newman run postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json -e postman/private/restful-booker-local.private.postman_environment.json",
-  "test:api:smoke": "newman run postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json -e postman/private/restful-booker-local.private.postman_environment.json"
-},
+  "scripts": {
+    "newman:version": "newman --version",
+    "test:api:local": "newman run postman/restful-booker-api-portfolio.public-sanitized.postman_collection.json -e postman/private/restful-booker-local.private.postman_environment.json",
+    "test:api:smoke": "newman run postman/restful-booker-ci-smoke.public-sanitized.postman_collection.json -e postman/private/restful-booker-local.private.postman_environment.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/darya189/api-database-testing-portfolio.git"

@@ -2,6 +2,21 @@
 
 All notable portfolio milestones are documented in this file.
 
+## 1.1.1 — Portfolio Hardening and Metadata Alignment — 2026-08-14
+
+### Changed
+
+- Aligned npm project metadata with the `v1.1.1` patch release.
+- Updated the Day 6 execution report to reflect the published `v1.1.0` release.
+- Removed obsolete release-pending language from final project documentation.
+- Preserved the verified complete-validation baseline of 26 requests, 61 runtime assertions and 10 known assertion failures.
+- Preserved the verified CI smoke/regression baseline of 19 requests, 45 passing runtime assertions and zero failures.
+- Preserved the verified database baseline of 19 SQL validation queries, 13 automated validation-summary checks and 6 database-constraint negative tests.
+
+### Scope
+
+This patch release contains portfolio-hardening and metadata-alignment changes only. It does not modify Postman test logic, SQL validation logic, confirmed defect results, requirements-traceability outcomes or CI quality-gate behavior.
+
 ## 1.1.0 — Day 6 Newman and GitHub Actions Automation — 2026-08-06
 
 ### Added
